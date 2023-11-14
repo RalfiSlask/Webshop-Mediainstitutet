@@ -1,0 +1,254 @@
+[
+    {
+        "id": 1,
+        "name": "Fox",
+        "price": 1000, 
+        "category": "Peculiar Profiles",
+        "rating": 3,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/fox.webp",
+            "tablet": "/src/assets/images/layout/desktop/fox.webp",
+            "desktop": "/src/assets/images/layout/desktop/fox.webp"
+        },
+        "alt": "A fox with an elongated body and a stretched tail",
+        "cart": "/src/assets/images/cart/fox.webp"
+    },
+    {
+        "id": 2,
+        "name": "Lepard",
+        "price": 850, 
+        "category": "Peculiar Profiles",
+        "rating": 1,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/lepard.webp",
+            "tablet": "/src/assets/images/layout/desktop/lepard.webp",
+            "desktop": "/src/assets/images/layout/desktop/lepard.webp"
+        },
+        "alt": "A rather elongated Lepard with an open jaw.",
+        "cart": "/src/assets/images/cart/lepard.webp"
+    },
+    {
+        "id": 3,
+        "name": "Baboon",
+        "price": 600, 
+        "category": "Happy Accidents",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/baboon.webp",
+            "tablet": "/src/assets/images/layout/desktop/baboon.webp",
+            "desktop": "/src/assets/images/layout/desktop/baboon.webp"
+        },
+        "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture",
+        "cart": "/src/assets/images/cart/baboon.webp"
+    },
+    {
+        "id": 4,
+        "name": "Beaver",
+        "price": 100, 
+        "category": "Happy Accidents",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/beaver.webp",
+            "tablet": "/src/assets/images/layout/desktop/beaver.webp",
+            "desktop": "/src/assets/images/layout/desktop/beaver.webp"
+        },
+        "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth",
+        "cart": "/src/assets/images/cart/beaver.webp"
+    },
+    {
+        "id": 5,
+        "name": "Bobcat",
+        "price": 22350, 
+        "category": "Not Quite Natural",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/bobcat.webp",
+            "tablet": "/src/assets/images/layout/desktop/bobcat.webp",
+            "desktop": "/src/assets/images/layout/desktop/bobcat.webp"
+        },
+        "alt": "A bobcat displayed in a crouched position, emphasizing its spotted coat and alert expression",
+        "cart": "/src/assets/images/cart/bobcat.webp"
+    },
+    {
+        "id": 6,
+        "name": "Not Quite Natural",
+        "price": 2100, 
+        "category": "Happy Accidents",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/coyote.webp",
+            "tablet": "/src/assets/images/layout/desktop/coyote.webp",
+            "desktop": "/src/assets/images/layout/desktop/coyote.webp"
+        },
+        "alt": "A coyote taxidermy, depicted mid-stride, showcasing its slender build and bushy tail.",
+        "cart": "/src/assets/images/cart/coyote.webp"
+    },
+    {
+        "id": 7,
+        "name": "Bewildered Beasts",
+        "price": 24, 
+        "category": "Happy Accidents",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/ferret.webp",
+            "tablet": "/src/assets/images/layout/desktop/ferret.webp",
+            "desktop": "/src/assets/images/layout/desktop/ferret.webp"
+        },
+        "alt": "A lifelike ferret in a playful pose, displaying its elongated body and curious eyes.",
+        "cart": "/src/assets/images/cart/bobcat.webp"
+    },
+    {
+        "id": 8,
+        "name": "Fox2",
+        "price": 3275, 
+        "category": "Not Quite Natural",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/fox2.webp",
+            "tablet": "/src/assets/images/layout/desktop/fox2.webp",
+            "desktop": "/src/assets/images/layout/desktop/fox2.webp"
+        },
+        "alt": "Calm fox sitting on a chair",
+        "cart": "/src/assets/images/cart/fox2.webp"
+    },
+    {
+        "id": 9,
+        "name": "Monkey",
+        "price": 14850, 
+        "category": "Happy Accidents",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/monkey.webp",
+            "tablet": "/src/assets/images/layout/desktop/monkey.webp",
+            "desktop": "/src/assets/images/layout/desktop/monkey.webp"
+        },
+        "alt": "A monkey holding a stick, displaying its dexterity and expressive face.",
+        "cart": "/src/assets/images/cart/monkey.webp"
+    },
+    {
+        "id": 10,
+        "name": "Hyena",
+        "price": 1125, 
+        "category": "Not Quite Natural",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/hyena.webp",
+            "tablet": "/src/assets/images/layout/desktop/hyeana.webp",
+            "desktop": "/src/assets/images/layout/desktop/hyeana.webp"
+        },
+        "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
+        "cart": "/src/assets/images/cart/hyena.webp"
+    },
+    {
+        "id": 11,
+        "name": "Otter",
+        "price": 1725, 
+        "category": "Bewildered Beasts",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/otter.webp",
+            "tablet": "/src/assets/images/layout/desktop/otter.webp",
+            "desktop": "/src/assets/images/layout/desktop/otter.webp"
+        },
+        "alt": "An Otter showcasing his sleek body. ",
+        "cart": "/src/assets/images/cart/otter.webp"
+    },
+    {
+        "id": 12,
+        "name": "Pig",
+        "price": 35, 
+        "category": "Not Quite Natural",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/pig.webp",
+            "tablet": "/src/assets/images/layout/desktop/pig.webp",
+            "desktop": "/src/assets/images/layout/desktop/pig.webp"
+        },
+        "alt": "A pig sporting purple glasses, adding a whimsical touch to its realistic features.",
+        "cart": "/src/assets/images/cart/bobcat.webp"
+    },
+    {
+        "id": 13,
+        "name": "Polar Bear",
+        "price": 125800, 
+        "category": "Gaping Gallery",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/polar.webp",
+            "tablet": "/src/assets/images/layout/desktop/polar.webp",
+            "desktop": "/src/assets/images/layout/desktop/polar.webp"
+        },
+        "alt": "A polar bear with its mouth open, showcasing its impressive size and sharp teeth",
+        "cart": "/src/assets/images/cart/polar.webp"
+    },
+    {
+        "id": 14,
+        "name": "Wolf 1",
+        "price": 44, 
+        "category": "Gaping Gallery",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/wolf.webp",
+            "tablet": "/src/assets/images/layout/desktop/wolf.webp",
+            "desktop": "/src/assets/images/layout/desktop/wolf.webp"
+        },
+        "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze",
+        "cart": "/src/assets/images/cart/wolf.webp"
+    },
+    {
+        "id": 15,
+        "name": "Wolf 2",
+        "price": 2800, 
+        "category": "Gaping Gallery",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/wolf2.webp",
+            "tablet": "/src/assets/images/layout/desktop/wolf2.webp",
+            "desktop": "/src/assets/images/layout/desktop/wolf2.webp"
+        },
+        "alt": "A scruffy looking wolf with its jaw wide open.",
+        "cart": "/src/assets/images/cart/wolf2.webp"
+    },
+    {
+        "id": 16,
+        "name": "Brown Bear",
+        "price": 14215, 
+        "category": "Gaping Gallery",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/bear.webp",
+            "tablet": "/src/assets/images/layout/desktop/bear.webp",
+            "desktop": "/src/assets/images/layout/desktop/bear.webp"
+        },
+        "alt": "A brown bear that seems to not have everything right with it.",
+        "cart": "/src/assets/images/cart/bear.webp"
+    },
+    {
+        "id": 17,
+        "name": "Owl",
+        "price": 5555, 
+        "category": "Bewildered Beasts",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/owl.webp",
+            "tablet": "/src/assets/images/layout/desktop/owl.webp",
+            "desktop": "/src/assets/images/layout/desktop/owl.webp"
+        },
+        "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture",
+        "cart": "/src/assets/images/cart/owl.webp"
+    },
+    {
+        "id": 18,
+        "name": "Squirrel",
+        "price": 1234, 
+        "category": "Not Quite Natural",
+        "rating": 5,
+        "image": {
+            "mobile": "/src/assets/images/layout/desktop/squirrel.webp",
+            "tablet": "/src/assets/images/layout/desktop/squirrel.webp",
+            "desktop": "/src/assets/images/layout/desktop/squirrel.webp"
+        },
+        "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers",
+        "cart": "/src/assets/images/cart/squirrel.webp"
+    }
+]
