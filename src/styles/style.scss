@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "vendor/reset";
+
 * {
     box-sizing: border-box;
 }
+
 

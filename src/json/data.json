@@ -11,7 +11,10 @@
             "desktop": "/src/assets/images/layout/desktop/fox.webp"
         },
         "alt": "A fox with an elongated body and a stretched tail",
-        "cart": "/src/assets/images/cart/fox.webp"
+        "cart": "/src/assets/images/cart/fox.webp",
+        "online": 2000,
+        "shop": 34,
+        "count": 0 
     },
     {
         "id": 2,
@@ -25,7 +28,10 @@
             "desktop": "/src/assets/images/layout/desktop/lepard.webp"
         },
         "alt": "A rather elongated Lepard with an open jaw.",
-        "cart": "/src/assets/images/cart/lepard.webp"
+        "cart": "/src/assets/images/cart/lepard.webp",
+        "online": 1450,
+        "shop": 125,
+        "count": 0 
     },
     {
         "id": 3,
@@ -39,7 +45,10 @@
             "desktop": "/src/assets/images/layout/desktop/baboon.webp"
         },
         "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture",
-        "cart": "/src/assets/images/cart/baboon.webp"
+        "cart": "/src/assets/images/cart/baboon.webp",
+        "online": 12000,
+        "shop": 2,
+        "count": 0 
     },
     {
         "id": 4,
@@ -53,7 +62,10 @@
             "desktop": "/src/assets/images/layout/desktop/beaver.webp"
         },
         "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth",
-        "cart": "/src/assets/images/cart/beaver.webp"
+        "cart": "/src/assets/images/cart/beaver.webp",
+        "online": 34000,
+        "shop": 12,
+        "count": 0 
     },
     {
         "id": 5,
@@ -67,7 +79,10 @@
             "desktop": "/src/assets/images/layout/desktop/bobcat.webp"
         },
         "alt": "A bobcat displayed in a crouched position, emphasizing its spotted coat and alert expression",
-        "cart": "/src/assets/images/cart/bobcat.webp"
+        "cart": "/src/assets/images/cart/bobcat.webp",
+        "online": 1500,
+        "shop": 2150,
+        "count": 0 
     },
     {
         "id": 6,
@@ -81,7 +96,10 @@
             "desktop": "/src/assets/images/layout/desktop/coyote.webp"
         },
         "alt": "A coyote taxidermy, depicted mid-stride, showcasing its slender build and bushy tail.",
-        "cart": "/src/assets/images/cart/coyote.webp"
+        "cart": "/src/assets/images/cart/coyote.webp",
+        "online": 500,
+        "shop": 100,
+        "count": 0 
     },
     {
         "id": 7,
@@ -95,7 +113,10 @@
             "desktop": "/src/assets/images/layout/desktop/ferret.webp"
         },
         "alt": "A lifelike ferret in a playful pose, displaying its elongated body and curious eyes.",
-        "cart": "/src/assets/images/cart/bobcat.webp"
+        "cart": "/src/assets/images/cart/bobcat.webp",
+        "online": 1200,
+        "shop": 45,
+        "count": 0 
     },
     {
         "id": 8,
@@ -109,7 +130,10 @@
             "desktop": "/src/assets/images/layout/desktop/fox2.webp"
         },
         "alt": "Calm fox sitting on a chair",
-        "cart": "/src/assets/images/cart/fox2.webp"
+        "cart": "/src/assets/images/cart/fox2.webp",
+        "online": 1200,
+        "shop": 85,
+        "count": 0 
     },
     {
         "id": 9,
@@ -123,7 +147,10 @@
             "desktop": "/src/assets/images/layout/desktop/monkey.webp"
         },
         "alt": "A monkey holding a stick, displaying its dexterity and expressive face.",
-        "cart": "/src/assets/images/cart/monkey.webp"
+        "cart": "/src/assets/images/cart/monkey.webp",
+        "online": 1100,
+        "shop": 215,
+        "count": 0 
     },
     {
         "id": 10,
@@ -137,7 +164,10 @@
             "desktop": "/src/assets/images/layout/desktop/hyeana.webp"
         },
         "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
-        "cart": "/src/assets/images/cart/hyena.webp"
+        "cart": "/src/assets/images/cart/hyena.webp",
+        "online": 3000,
+        "shop": 12,
+        "count": 0 
     },
     {
         "id": 11,
@@ -151,7 +181,10 @@
             "desktop": "/src/assets/images/layout/desktop/otter.webp"
         },
         "alt": "An Otter showcasing his sleek body. ",
-        "cart": "/src/assets/images/cart/otter.webp"
+        "cart": "/src/assets/images/cart/otter.webp",
+        "online": 40,
+        "shop": 120,
+        "count": 0 
     },
     {
         "id": 12,
@@ -165,7 +198,10 @@
             "desktop": "/src/assets/images/layout/desktop/pig.webp"
         },
         "alt": "A pig sporting purple glasses, adding a whimsical touch to its realistic features.",
-        "cart": "/src/assets/images/cart/bobcat.webp"
+        "cart": "/src/assets/images/cart/bobcat.webp",
+        "online": 5000,
+        "shop": 4,
+        "count": 0 
     },
     {
         "id": 13,
@@ -179,7 +215,10 @@
             "desktop": "/src/assets/images/layout/desktop/polar.webp"
         },
         "alt": "A polar bear with its mouth open, showcasing its impressive size and sharp teeth",
-        "cart": "/src/assets/images/cart/polar.webp"
+        "cart": "/src/assets/images/cart/polar.webp",
+        "online": 4000,
+        "shop": 8,
+        "count": 0 
     },
     {
         "id": 14,
@@ -193,7 +232,10 @@
             "desktop": "/src/assets/images/layout/desktop/wolf.webp"
         },
         "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze",
-        "cart": "/src/assets/images/cart/wolf.webp"
+        "cart": "/src/assets/images/cart/wolf.webp",
+        "online": 3000,
+        "shop": 128,
+        "count": 0 
     },
     {
         "id": 15,
@@ -207,7 +249,10 @@
             "desktop": "/src/assets/images/layout/desktop/wolf2.webp"
         },
         "alt": "A scruffy looking wolf with its jaw wide open.",
-        "cart": "/src/assets/images/cart/wolf2.webp"
+        "cart": "/src/assets/images/cart/wolf2.webp",
+        "online": 100,
+        "shop": 64,
+        "count": 0 
     },
     {
         "id": 16,
@@ -221,7 +266,10 @@
             "desktop": "/src/assets/images/layout/desktop/bear.webp"
         },
         "alt": "A brown bear that seems to not have everything right with it.",
-        "cart": "/src/assets/images/cart/bear.webp"
+        "cart": "/src/assets/images/cart/bear.webp",
+        "online": 8000,
+        "shop": 2,
+        "count": 0 
     },
     {
         "id": 17,
@@ -235,7 +283,10 @@
             "desktop": "/src/assets/images/layout/desktop/owl.webp"
         },
         "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture",
-        "cart": "/src/assets/images/cart/owl.webp"
+        "cart": "/src/assets/images/cart/owl.webp",
+        "online": 3200,
+        "shop": 54,
+        "count": 4 
     },
     {
         "id": 18,
@@ -249,6 +300,9 @@
             "desktop": "/src/assets/images/layout/desktop/squirrel.webp"
         },
         "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers",
-        "cart": "/src/assets/images/cart/squirrel.webp"
+        "cart": "/src/assets/images/cart/squirrel.webp",
+        "online": 7000,
+        "shop": 12,
+        "count": 0 
     }
 ]
