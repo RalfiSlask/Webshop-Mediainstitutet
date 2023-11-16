@@ -1,10 +1,12 @@
 [
     {
         "id": 1,
-        "name": "Fox",
+        "name": "Foxy Loxy",
         "price": 1000, 
         "category": "Peculiar Profiles",
         "rating": 3,
+        "reviews": 17,
+        "species": "European Fox (Vulpes vulpes)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/fox.webp",
             "tablet": "/src/assets/images/layout/desktop/fox.webp",
@@ -18,10 +20,12 @@
     },
     {
         "id": 2,
-        "name": "Lepard",
+        "name": "Spotty McSpotface",
         "price": 850, 
         "category": "Peculiar Profiles",
         "rating": 1,
+        "reviews": 23756,
+        "species": "Leopard (Panthera Pardus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/lepard.webp",
             "tablet": "/src/assets/images/layout/desktop/lepard.webp",
@@ -35,10 +39,12 @@
     },
     {
         "id": 3,
-        "name": "Baboon",
+        "name": "Butt-iful Baboon",
         "price": 600, 
         "category": "Happy Accidents",
-        "rating": 5,
+        "rating": 0,
+        "reviews": 3421,
+        "species": "Olive Baboon (Papio anubis)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/baboon.webp",
             "tablet": "/src/assets/images/layout/desktop/baboon.webp",
@@ -52,10 +58,12 @@
     },
     {
         "id": 4,
-        "name": "Beaver",
+        "name": "Chewy McDam",
         "price": 100, 
         "category": "Happy Accidents",
         "rating": 5,
+        "reviews": 7456,
+        "species": "North American Beaver (Castor canadensis)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/beaver.webp",
             "tablet": "/src/assets/images/layout/desktop/beaver.webp",
@@ -69,10 +77,12 @@
     },
     {
         "id": 5,
-        "name": "Bobcat",
+        "name": "Bob the Cat",
         "price": 22350, 
         "category": "Not Quite Natural",
         "rating": 5,
+        "reviews": 2,
+        "species": "Bobcat (Lynx rufus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/bobcat.webp",
             "tablet": "/src/assets/images/layout/desktop/bobcat.webp",
@@ -86,10 +96,12 @@
     },
     {
         "id": 6,
-        "name": "Not Quite Natural",
+        "name": "Howlin’ Hyena Impersonator",
         "price": 2100, 
         "category": "Happy Accidents",
-        "rating": 5,
+        "rating": 3,
+        "reviews": 2345,
+        "species": "Coyote (Canis latrans)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/coyote.webp",
             "tablet": "/src/assets/images/layout/desktop/coyote.webp",
@@ -103,10 +115,12 @@
     },
     {
         "id": 7,
-        "name": "Bewildered Beasts",
+        "name": "Slinky the Sneak",
         "price": 24, 
         "category": "Happy Accidents",
         "rating": 5,
+        "reviews": 102555,
+        "species": "Domestic Ferret (Mustela putorius furo)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/ferret.webp",
             "tablet": "/src/assets/images/layout/desktop/ferret.webp",
@@ -120,10 +134,12 @@
     },
     {
         "id": 8,
-        "name": "Fox2",
+        "name": "Sir Red of Foxington",
         "price": 3275, 
         "category": "Not Quite Natural",
         "rating": 5,
+        "reviews": 14552,
+        "species": "European Fox (Vulpes vulpes)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/fox2.webp",
             "tablet": "/src/assets/images/layout/desktop/fox2.webp",
@@ -137,10 +153,12 @@
     },
     {
         "id": 9,
-        "name": "Monkey",
+        "name": "Banana Bandit",
         "price": 14850, 
         "category": "Happy Accidents",
         "rating": 5,
+        "reviews": 1234,
+        "species": "Monkey",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/monkey.webp",
             "tablet": "/src/assets/images/layout/desktop/monkey.webp",
@@ -154,14 +172,16 @@
     },
     {
         "id": 10,
-        "name": "Hyena",
+        "name": "Giggles the Spotted",
         "price": 1125, 
         "category": "Not Quite Natural",
-        "rating": 5,
+        "rating": 4,
+        "reviews": 2344,
+        "species": "Spotted Hyena (Crocuta crocuta)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/hyena.webp",
-            "tablet": "/src/assets/images/layout/desktop/hyeana.webp",
-            "desktop": "/src/assets/images/layout/desktop/hyeana.webp"
+            "tablet": "/src/assets/images/layout/desktop/hyena.webp",
+            "desktop": "/src/assets/images/layout/desktop/hyena.webp"
         },
         "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
         "cart": "/src/assets/images/cart/hyena.webp",
@@ -171,10 +191,12 @@
     },
     {
         "id": 11,
-        "name": "Otter",
+        "name": "Slinky Swimmy",
         "price": 1725, 
         "category": "Bewildered Beasts",
-        "rating": 5,
+        "rating": 1,
+        "reviews": 8004,
+        "species": "European Otter (Lutra lutra)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/otter.webp",
             "tablet": "/src/assets/images/layout/desktop/otter.webp",
@@ -188,10 +210,12 @@
     },
     {
         "id": 12,
-        "name": "Pig",
+        "name": "Sir Oinksalot",
         "price": 35, 
         "category": "Not Quite Natural",
-        "rating": 5,
+        "rating": 4,
+        "reviews": 2333,
+        "species": "Wild Boar (Sus scrofa)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/pig.webp",
             "tablet": "/src/assets/images/layout/desktop/pig.webp",
@@ -205,10 +229,12 @@
     },
     {
         "id": 13,
-        "name": "Polar Bear",
+        "name": "Frosty the Snow Bear",
         "price": 125800, 
         "category": "Gaping Gallery",
-        "rating": 5,
+        "rating": 3,
+        "reviews": 1200,
+        "species": "Polar Bear (Ursus maritimus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/polar.webp",
             "tablet": "/src/assets/images/layout/desktop/polar.webp",
@@ -222,10 +248,12 @@
     },
     {
         "id": 14,
-        "name": "Wolf 1",
+        "name": "Mr. Howl n' Growl",
         "price": 44, 
         "category": "Gaping Gallery",
         "rating": 5,
+        "reviews": 12234,
+        "species": "Gray Wolf (Canis lupus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/wolf.webp",
             "tablet": "/src/assets/images/layout/desktop/wolf.webp",
@@ -239,10 +267,12 @@
     },
     {
         "id": 15,
-        "name": "Wolf 2",
+        "name": "Scruffy the Wolfster",
         "price": 2800, 
         "category": "Gaping Gallery",
-        "rating": 5,
+        "rating": 2,
+        "reviews": 444,
+        "species": "Gray Wolf (Canis lupus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/wolf2.webp",
             "tablet": "/src/assets/images/layout/desktop/wolf2.webp",
@@ -256,10 +286,12 @@
     },
     {
         "id": 16,
-        "name": "Brown Bear",
+        "name": "Honey Hoarder",
         "price": 14215, 
         "category": "Gaping Gallery",
-        "rating": 5,
+        "rating": 2,
+        "reviews": 23777,
+        "species": "Brown Bear (Ursus arctos)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/bear.webp",
             "tablet": "/src/assets/images/layout/desktop/bear.webp",
@@ -273,10 +305,12 @@
     },
     {
         "id": 17,
-        "name": "Owl",
+        "name": "Hootie McOwlface",
         "price": 5555, 
         "category": "Bewildered Beasts",
-        "rating": 5,
+        "rating": 4,
+        "reviews": 1111,
+        "species": "Great Horned Owl (Bubo virginianus)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/owl.webp",
             "tablet": "/src/assets/images/layout/desktop/owl.webp",
@@ -290,10 +324,12 @@
     },
     {
         "id": 18,
-        "name": "Squirrel",
+        "name": "Nutty McNibbles",
         "price": 1234, 
         "category": "Not Quite Natural",
-        "rating": 5,
+        "rating": 3,
+        "reviews": 1234,
+        "species": "Eastern Squirrel (Sciurus carolinensis)",
         "image": {
             "mobile": "/src/assets/images/layout/desktop/squirrel.webp",
             "tablet": "/src/assets/images/layout/desktop/squirrel.webp",

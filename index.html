@@ -3,25 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles/style.css">
+    <link rel="stylesheet" href="/src/styles/style.css" />
     <title>Stuff & Fluff Taxidermy</title>
-    <meta 
-    name="description" 
-    content="Welcome to Stuff & Fluff Taxidermy where every animal gets a second life! At our company, founded in 1551 in Helsinki, we specilize in
+    <meta
+      name="description"
+      content="Welcome to Stuff & Fluff Taxidermy where every animal gets a second life! At our company, founded in 1551 in Helsinki, we specilize in
     turning wildlife to shelf-life. Our critters range all from that angry moose with one eye to that funny little squirrel falling from a tree trying to catch that nut.
     So whether your a seasoned collector or a newcomer to the fantastic world of taxidermy, Stuff & Fluff is here to make all your wishes come true!"
-  >
-  <meta property="og:title" content="Fluff and Stuff Taxidermy">
-  <meta property="og:type" content="product">
-  <meta property="og:url" content="https://www.fluffandstuff.com/">
-  <!-- Change picture -->
-  <meta property="og:image" content="">
+    />
+    <meta property="og:title" content="Fluff and Stuff Taxidermy" />
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="https://www.fluffandstuff.com/" />
+    <!-- Change picture -->
+    <meta property="og:image" content="" />
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <meta name="theme-color" content="#fafafa">
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="theme-color" content="#fafafa" />
     <!-- Change picture in image -->
     <script type="application/ld+json">
       {
@@ -43,26 +52,42 @@
         "priceRange": "85$ - 35000$",
         "image": "https://fluffandstuff.com/images/image.jpg"
       }
-  </script>
+    </script>
   </head>
-  <body>
-    <header class="">
-      <div class="upper_header">
-        <h2>Fluff & Stuff</h2>
-        <div>
-          <img src="/src/assets/icons/cart.svg" width="30" height="30" alt="cart logo">
-          <p>Login</p>
-          <img src="/src/assets/icons/user.svg" width="30" height="30" alt="user logo">
+  <body class="flex flex-col items-center font-roboto text-light-text-L dark:text-dark-text-D bg-light-Landing-L dark:bg-dark-Landing-D">
+    <header class="fixed z-50 w-full md:px-[5vw] flex flex-col bg-light-Landing-L dark:bg-dark-Landing-D">
+      <div class="h-16 upper_header flex justify-between px-3 items-center">
+        <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">Fluff & Stuff</h2>
+        <div class="flex gap-4 items-center">
+          <img
+            src="/src/assets/icons/cart.svg"
+            width="30"
+            height="30"
+            alt="cart logo"
+            class="cursor-pointer text-gray-400 fill-slate-700"
+          />
+          <img
+            src="/src/assets/icons/user.svg"
+            width="30"
+            height="30"
+            alt="user logo"
+            class="cursor-pointer"
+          />
         </div>
       </div>
-      <div class="lower_header">
-        <div class="search_container">
-          <img src="/src/assets/icons/search.svg" width="30" height="30" alt="search logo">
-          <input type="text" placeholder="Search Site">
+      <div class="lower_header flex justify-between px-3 items-center h-20">
+        <div class="search_container bg-white flex h-6 gap-2 px-1">
+          <img
+            src="/src/assets/icons/search.svg"
+            width="30"
+            height="30"
+            alt="search logo"
+          />
+          <input type="text" placeholder="Search Site" />
         </div>
-        <div>
-          <nav>
-            <ul>
+        <div class="flex gap-6 items-center">
+          <nav class="header_navigation">
+            <ul class="flex gap-4 cursor-pointer">
               <li>Home</li>
               <li>About</li>
               <li>Services</li>
@@ -70,83 +95,182 @@
               <li>Contact</li>
             </ul>
           </nav>
-          <img src="/src/assets/icons/dark.svg" width="30" height="30" alt="darkmode logo">
+          <img
+            src="/src/assets/icons/dark.svg"
+            width="30"
+            height="30"
+            alt="darkmode logo"
+            class="cursor-pointer"
+            id="darkmode"
+          />
         </div>
       </div>
     </header>
-    <main>
-      <section class="landing">
-        <div>
-          <div>
-            <p>EST</p>
-            <img src="/src/assets/images/T-Logo.png" width="50" height="50" alt="company logo as a fox">
-            <p>1551</p>
+    <main class=".custom-grid">
+      <div></div>
+      <section
+        class="bg-light-Landing-L dark:bg-dark-Landing-D span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-solid border-black"
+      >
+        <div class="landing_image w-full md:w-[90vw] relative z-0">
+          <div class="flex flex-col items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full">
+            <div class="flex gap-2 items-center">
+              <p class="w-12 text-center text-[1.25rem]">EST</p>
+              <img
+                src="/src/assets/images/T-Logo.png"
+                width="50"
+                height="50"
+                alt="company logo as a fox"
+              />
+              <p class="w-12 text-center text-[1.25rem]">1551</p>
+            </div>
+            <h1
+              class="company text-6xl md:text-7xl xl:text-8xl uppercase font-garamond theme-heading"
+            >
+              Fluff & Stuff
+            </h1>
+            <h4 class="text-xl uppercase">Taxidermy for sale</h4>
           </div>
-          <h1>Fluff & Stuff</h1>
-          <p>Taxidermy for sale</p>
         </div>
       </section>
-      <section class="about">
-        <div>
-          <h2>About us</h2>
-          <p>We serve only the finest creatures to our customers 
-            and stay true to the fine art of taxidermy. Join us on
-            a quest for finding each animals inner soul. </p>
-          <cite>“because animals are just too cute to only enjoy once.”</cite>
+      <section class="about custom-grid py-8 gap-y-5">
+        <div
+          class="flex flex-col items-center justify-center gap-8 col-span-4 xl:col-span-6 text-center"
+        >
+          <h2 class="uppercase text-[2rem] tracking-widest theme-heading">About us</h2>
+          <p class="max-w-[400px]">
+            We serve only the finest creatures to our customers and stay true to
+            the fine art of taxidermy. Join us on a quest for finding each
+            animals inner soul.
+          </p>
+          <cite class="font-garamond text-[1.25rem]"
+            >“because animals are just too cute to only enjoy once.”</cite
+          >
         </div>
-        <div class="image_container">
+        <div class="image_container grid grid-cols-4 col-span-4 xl:col-span-6">
           <!-- Göra detta till srcset -->
-          <img src="/src/assets/images/about/suprised-owl-large.webp" width="500" height="500" alt="standing owl looking surprised">
-          <img src="/src/assets/images/about/fox-sitting-large.webp" width="500" height="500" alt="fox sitting in a red basket looking surprised">
+
+          <img
+            src="/src/assets/images/about/suprised-owl-large.webp"
+            width="500"
+            height="500"
+            alt="standing owl looking surprised"
+            class="h-full object-cover w-full col-span-2"
+          />
+          <img
+            src="/src/assets/images/about/fox-sitting-large.webp"
+            width="500"
+            height="500"
+            alt="fox sitting in a red basket looking surprised"
+            class="h-full object-cover w-full col-span-2"
+          />
         </div>
       </section>
-      <section class="products">
-        <h2>Latest Products For Sale</h2>
-
-        <!-- Filter section -->
-
-        <div>
-          <div>
-            <img src="/src/assets/icons/filter.svg" width="30" height="30" alt="filter icon">
-            <p>Filter</p>
+      <section class="products py-7 flex flex-col gap-6 bg-light-Projects-L dark:bg-dark-Projects-D">
+        <h2 class="uppercase text-[2rem] text-center theme-heading">
+          Latest Products For Sale
+        </h2>
+        <div class="categories">
+          <button>Peculiar Profiles</button>
+          <button>Happy Accidents</button>
+        </div>
+        <div class="flex justify-between px-4">
+          <div
+            class="flex gap-2 cursor-pointer items-center bg-green-500 rounded-[3rem] px-6"
+          >
+            <img
+              src="/src/assets/icons/filter.svg"
+              width="30"
+              height="30"
+              alt="filter icon"
+            />
+            <p class="font-bold">Filter</p>
           </div>
-          <div>
-            <div class="categories">
-              <div>
+          <div class="flex flex-col items-end cursor-pointer">
+            <p class="uppercase">Sort by</p>
+            <div class="flex gap-2">
+              <p class="font-bold">Most relevant</p>
+              <img
+                src="/src/assets/icons/arrow.svg"
+                width="20"
+                height="20"
+                alt="arrow icon"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="grid custom-grid gap-4" id="list_container">
+          <!-- Filter section -->
+
+          <div class="hidden">
+            <div
+              class="categories flex flex-col border-b border-solid border-black bg-slate-300 w-80 gap-y-4"
+            >
+              <div class="flex gap-2 items-center">
                 <h3>Category</h3>
-                <img src="/src/assets/icons/arrow.svg" width="30" height="30" alt="arrow icon">
+                <img
+                  src="/src/assets/icons/arrow.svg"
+                  width="30"
+                  height="30"
+                  alt="arrow icon"
+                />
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>Bewildered Beasts</p>
                 <p>3</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>Gaping Gallery</p>
                 <p>4</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>not Quite Natural</p>
                 <p>6</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>Happy Accidents</p>
                 <p>5</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>Peculiar Profiles</p>
                 <p>2</p>
@@ -155,115 +279,228 @@
             <div class="price_intervals">
               <div>
                 <h3>Price Interval</h3>
-                <img src="/src/assets/icons/arrow.svg" width="30" height="30" alt="arrow icon">
+                <img
+                  src="/src/assets/icons/arrow.svg"
+                  width="30"
+                  height="30"
+                  alt="arrow icon"
+                />
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>25-100</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>100-500</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>500-2000</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>2000-10000</p>
               </div>
-              <div>
+              <div class="flex justify-between items-center">
                 <div>
-                  <img src="/src/assets/icons/check.svg" width="30" height="30" alt="check icon">
+                  <img
+                    src="/src/assets/icons/check.svg"
+                    width="30"
+                    height="30"
+                    alt="check icon"
+                  />
                 </div>
                 <p>10000-100000</p>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Product Item Containers -->
+          <!-- Product Item Containers -->
 
-        <div>
-          <div>
-            <img src="/src/assets/images/layout/desktop/baboon.webp" width="300" height="300" alt="taxidermy of a baboon">
-            <p>Fox</p>
-            <div>
-              <div>
-                <img src="/src/assets/icons/star-checked.svg" width="30" height="30" alt="star icon">
-                <img src="/src/assets/icons/star-checked.svg" width="30" height="30" alt="star icon">
-                <img src="/src/assets/icons/star-checked.svg" width="30" height="30" alt="star icon">
-                <img src="/src/assets/icons/star-checked.svg" width="30" height="30" alt="star icon">
-                <img src="/src/assets/icons/star-checked.svg" width="30" height="30" alt="star icon">
+          <div class="grid grid-cols-4 gap-4 col-span-4 w-full">
+            <div class="col-span-4 grid grid-cols-4 gap-3">
+              <div class="col-span-2 p-2 border border-black h-[300px]">
+                <img
+                  src="/src/assets/images/layout/desktop/baboon.webp"
+                  width="300"
+                  height="300"
+                  alt="taxidermy of a baboon"
+                  class="w-full h-full object-cover rounded-md"
+                />
               </div>
-              <p>(35000 reviews)</p>
-            </div>
-            <div>
-              <p>Species: Fox</p>
-              <p>Category: Not Quite Natural</p>
-            </div>
-            <div>
-              <p>In store online (2000+)</p>
-              <p>In store in 34 shops</p>
-            </div>
-          </div>
-          <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia temporibus modi cupiditate voluptatum voluptate vero, aliquid animi autem optio nemo necessitatibus in nesciunt, 
-              saepe pariatur! Provident tempore aliquam impedit eaque?
-            </p>
-            <p>$3250</p>
-            <div>
-              <div>
-                <p>-</p>
-                <p>0</p>
-                <p>+</p>
+              <div
+                class="col-span-2 border-b border-black pb-1 flex flex-col justify-between"
+              >
+                <p>Baboon</p>
+              
+                <div class="flex flex-col gap-2 w-full">
+                  <p class="font-bold">$3250</p>
+                  <div class="flex gap-2">
+                    <div
+                      class="flex gap-2 bg-orange-500 rounded-md py-1 w-24 justify-center"
+                    >
+                      <span>-</span>
+                      <span>0</span>
+                      <span>+</span>
+                    </div>
+                    <button class="bg-lime-300 py-1 w-28 rounded-md">
+                      Add to Cart
+                    </button>
+                  </div>
+                  <p class="uppercase font-bold">Description</p>
+                </div>
               </div>
-              <div>Add to Cart</div>
+            </div>
+            <div class="grid grid-cols-4 col-span-4 gap-3">
+              <div class="col-span-2 flex flex-col gap-4 px-2">
+                <div class="flex items-center gap-2">
+                  <div class="flex items-center">
+                    <img
+                      src="/src/assets/icons/star-checked.svg"
+                      width="20"
+                      height="20"
+                      alt="star icon"
+                    />
+                    <img
+                      src="/src/assets/icons/star-checked.svg"
+                      width="20"
+                      height="20"
+                      alt="star icon"
+                    />
+                    <img
+                      src="/src/assets/icons/star-checked.svg"
+                      width="20"
+                      height="20"
+                      alt="star icon"
+                    />
+                    <img
+                      src="/src/assets/icons/star-checked.svg"
+                      width="20"
+                      height="20"
+                      alt="star icon"
+                    />
+                    <img
+                      src="/src/assets/icons/star-checked.svg"
+                      width="20"
+                      height="20"
+                      alt="star icon"
+                    />
+                  </div>
+                  <p>(35000 reviews)</p>
+                </div>
+                <div class="flex flex-col">
+                  <p>Species: Fox</p>
+                  <p>Category: Not Quite Natural</p>
+                </div>
+                <div class="flex gap-2">
+                  <p class="text-green-700">In store online (2000+)</p>
+                  <p>| In store in 34 shop(s)</p>
+                </div>
+              </div>
+              <p class="col-span-2">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. A,
+                nihil iusto molestias odit voluptat.
+              </p>
             </div>
           </div>
         </div>
       </section>
     </main>
-    <footer>
-      <div>
-        <h2>Our Store</h2>
-        <div>
+
+    <footer class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer-L dark:bg-dark-Footer-D">
+      <div
+        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+      >
+        <h2 class="uppercase text-[1.5rem] tracking-widest">Our Store</h2>
+        <div class="text-center">
           <p>Located in</p>
           <p>Helsinki, Finland</p>
           <p>123 Moose Mingle Lane, Quacky Cuarters</p>
         </div>
       </div>
-      <div>
-        <h2>Opening Hours</h2>
-        <div>
+      <div
+        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+      >
+        <h2 class="uppercase text-[1.5rem] tracking-widest">Opening Hours</h2>
+        <div class="text-center">
           <p>Telephone</p>
           <p>+(358) 9 12 34 88</p>
           <p>Mon - Fri 02:00 - 23:00</p>
         </div>
       </div>
-      <div>
-        <h2>Help</h2>
-        <div>
+      <div
+        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+      >
+        <h2 class="uppercase text-[1.5rem] tracking-widest">Help</h2>
+        <div class="text-center">
           <p>Purchasing & Shipping</p>
           <p>Returns & Refunds</p>
           <p>FuzzyDeals@fluffnstuff.com</p>
         </div>
       </div>
-      <nav>
-        <img src="/src/assets/icons/facebook.svg" width="30" height="30" alt="facebook icon" loading="lazy">
-        <img src="/src/assets/icons/instagram.svg" width="30" height="30" alt="instagram icon" loading="lazy">
-        <img src="/src/assets/icons/twitter.svg" width="30" height="30" alt="twitter icon" loading="lazy">
-      </nav>
+      <div
+        class="flex col-span-4 md:items-end xl:flex-col md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
+      >
+        <nav class="flex gap-2">
+          <img
+            src="/src/assets/icons/facebook.svg"
+            width="30"
+            height="30"
+            alt="facebook icon"
+            loading="lazy"
+            class="cursor-pointer"
+          />
+          <img
+            src="/src/assets/icons/instagram.svg"
+            width="30"
+            height="30"
+            alt="instagram icon"
+            loading="lazy"
+            class="cursor-pointer"
+          />
+          <img
+            src="/src/assets/icons/twitter.svg"
+            width="30"
+            height="30"
+            alt="twitter icon"
+            loading="lazy"
+            class="cursor-pointer"
+          />
+        </nav>
+        <p class="text-[0.8rem] font-light">
+          Copyright &copy; 2023 Stuff & Fluff. All Rights Reserved.
+        </p>
+      </div>
     </footer>
-    <script type="module" src="src/script.ts" defer></script>
+    <script type="module" src="src/script.ts"></script>
   </body>
 </html>

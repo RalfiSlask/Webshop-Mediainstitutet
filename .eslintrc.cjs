@@ -30,6 +30,11 @@ module.exports = {
     "rules": {
         "semi": "off",
         "@typescript-eslint/semi": "off",
-        "no-multiple-empty-lines": ["warn", { "max": 0 }]
+        "no-multiple-empty-lines": ["warn", { "max": 0 }],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-trailing-spaces": "off",
+        "eol-last": "off",
+        "@typescript-eslint/explicit-function-return-type": "off"
     }
 };

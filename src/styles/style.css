@@ -74,6 +74,28 @@ textarea:not([rows]) {
   scroll-margin-block: 5ex;
 }
 
-* {
-  box-sizing: border-box;
+/* Debuging */
+/* */
+.header_navigation ul li {
+  cursor: pointer;
+}
+
+.landing_image {
+  background-image: url("/src/assets/images/Landing.jpg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Custom Tailwind Settings */
+.custom-grid {
+  @apply grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12;
+}
+
+.span-whole-grid {
+  @apply col-span-4 md:col-span-8 xl:col-span-12;
+}
+
+.theme-heading {
+  @apply text-light-Headings-L dark:text-dark-Headings-D;
 }/*# sourceMappingURL=style.css.map */

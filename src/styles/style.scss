@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 @import "vendor/reset";
+@import "variables/variables";
+@import "layout/mobile";
 
-* {
-    box-sizing: border-box;
+@media screen and (min-width: 768px) {
+    @import "layout/tablet";
 }
 
-
+@media screen and (min-width: 1024px) {
+    @import "layout/desktop";
+}
