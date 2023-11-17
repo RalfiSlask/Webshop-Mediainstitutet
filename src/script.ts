@@ -1,79 +1,150 @@
 /**
- * Import productData
- * Setup Selectors
+ * Import productData x
+ * Setup Selectors x
  * Get darkmode button as selector x
  * Add Event Listener x
  * Create startTheme function and use localStorage and user preferences x
  * Create SwitchTheme function and toggle Theme based on if root contains dark, set LocalStorage x
  * Create a function for generating the products x
- * 
- * Click Event for opening Sort Modal
+ * Click Event for opening Sort Modal x 
+ * Click Event for Menu x
+ * Change Menu Button on Click x
  * Click Event for opening Filter Modal
  * Function/s for sorting the products
  * Function/s for filtering products based on price interval and category
+ * Animation for Menu
  */
 
-
 import productData from './json/data.json';
-
-
-type ProductType = {
-  id: number
-  name: string
-  price: number
-  category: string
-  rating: number
-  reviews: number
-  species: string
-  image: {
-    mobile: string
-    tablet: string
-    desktop: string
-  }
-  alt: string
-  cart: string
-  online: number
-  shop: number
-  count: number 
-}
-
-
-const categories = document.querySelectorAll('.categories button');
-categories.forEach(button => {
-  button.addEventListener('click', () => {
-    const category = button.textContent?.toLowerCase();
-    if (category !== undefined) {
-      filterByCategory(category)
-    }
-  })
-})
-
-
-const filterByCategory = (category: string) => {
-  const filteredProductData = productData.filter(object => { return object.category.toLowerCase() === category })
-  generateList(filteredProductData)
-};
+import type { ProductType } from './assets/utils/types';
 
 /* Selectors */
 
-const listContainer = document.querySelector('#list_container'); // list for products
-const darkmodeButton = document.querySelector('#darkmode');
-
+// Containers
 const root = document.documentElement; 
-const userDark = window.matchMedia('(prefers-color-scheme: dark').matches; // user theme preferences
+const listContainer = document.querySelector('#list_container'); // list for products
+// Buttons
+const darkmodeButton = document.querySelector('#darkmode');
+const sortButton = document.querySelector('#sort_button');
+const filterButtonOpen = document.querySelector('#filter_button');
+const filterButtonClose = document.querySelector('#filter_close');
+const menuButton = document.querySelector('#menu_button') as HTMLImageElement;
+const categoryButtons = document.querySelectorAll('#category_container .checkbox');
+const priceButtons = document.querySelectorAll('#price_container .checkbox');
+const addToCartButton = document.querySelector('#add_cart_button');
+// Modals
+const filterModal = document.querySelector('#filter_modal');
+const sortModal = document.querySelector('#sort_modal');
+const menu = document.querySelector('#menu');
+// Local Storage
 const storedTheme = localStorage.getItem('theme'); 
+// Other
+const productInfo = document.querySelector('#product_info');
+const userDark = window.matchMedia('(prefers-color-scheme: dark').matches; // user theme preferences
 
-/**
- * 
- */
+const hideAllCheckmarks = (buttons: NodeListOf<Element>, checkbox: Element | null) => {
+  buttons.forEach(button => {
+    if (button.firstElementChild !== checkbox?.firstElementChild) {
+      button.firstElementChild?.classList.add('hidden');
+    } 
+  });
+};
+
+const handleMouseEnterOnAddToCart = () => {
+  productInfo?.classList.add('open-product-info');
+};
+
+const handleMouseLeaveOnAddToCart = (e: Event) => {
+  productInfo?.classList.remove('open-product-info');
+};
+
+addToCartButton?.addEventListener('mouseenter', handleMouseEnterOnAddToCart);
+addToCartButton?.addEventListener('mouseleave', handleMouseLeaveOnAddToCart);
+
+// Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
+
+const clickOnCategoryButtons = (e: Event) => {
+  const checkbox = (e.target as HTMLElement).closest('.checkbox');
+  hideAllCheckmarks(categoryButtons, checkbox);
+  if (checkbox !== null) {
+    const image = checkbox.firstElementChild;
+
+    if (image !== null) {
+      image.classList.toggle('hidden')
+    } 
+    const noneChecked = Array.from(categoryButtons).every(button => button.firstElementChild?.classList.contains('hidden'));
+    if (noneChecked) {
+      generateList(productData)
+    } else {
+      const categoryName = checkbox.nextElementSibling?.textContent;
+      const filteredArray = productData.filter(object => object.category.toLowerCase() === categoryName?.toLowerCase());
+      generateList(filteredArray)
+    }
+  }
+}; 
+
+const clickOnPriceButtons = (e: Event) => {
+  const checkbox = (e.target as HTMLElement).closest('.checkbox');
+  hideAllCheckmarks(priceButtons, checkbox);
+  if (checkbox !== null) {
+    const image = checkbox.firstElementChild;
+
+    if (image !== null) {
+      image.classList.toggle('hidden')
+    }
+    const noneChecked = Array.from(priceButtons).every(button => button.firstElementChild?.classList.contains('hidden'));
+    if (noneChecked) {
+      generateList(productData);
+    } else {
+      const categoryName = checkbox.nextElementSibling?.textContent;
+      if (categoryName !== null && categoryName !== undefined) {
+        const numberArray = categoryName.split('-').map(string => Number(string));
+        const filteredArray = productData.filter(object => object.price > numberArray[0] && object.price < numberArray[1]);
+        generateList(filteredArray);
+      }
+    }
+  }
+};
+
+const lightbox = document.querySelector('#lightbox');
+
+categoryButtons.forEach(button => {
+  button.addEventListener('click', clickOnCategoryButtons);
+});
+priceButtons.forEach(button => {
+  button.addEventListener('click', clickOnPriceButtons);
+}); 
+
+const toggleMenu = (e: Event) => {
+  menu?.classList.toggle('hidden');
+  if (e.target === menuButton) {
+    const isIconHamburger = menuButton.src.includes('hamburger');
+    let source = menuButton.src;
+    source = isIconHamburger ? source.replace('hamburger', 'close') : source.replace('close', 'hamburger');
+    menuButton.src = source;
+  }
+};
+
+const openFilterModal = () => {
+  filterModal?.classList.remove('hidden');
+  filterModal?.classList.add('flex');
+  lightbox?.classList.remove('hidden');
+};
+
+const closeFilterModal = () => {
+  filterModal?.classList.add('hidden');
+  filterModal?.classList.remove('flex');
+  lightbox?.classList.add('hidden');
+};
+
+
+
 const startTheme = () => {
   userDark ? root.classList.add('dark') : root.classList.remove('dark');
   if (storedTheme !== null) {
     storedTheme === 'dark' ? root.classList.add('dark') : root.classList.remove('dark');
   }
-}
-
-startTheme();
+};
 
 const switchTheme = () => {
   const isDarkModeOn = document.documentElement.classList.contains('dark');
@@ -84,9 +155,18 @@ const switchTheme = () => {
   localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
 };
 
+const handleClickOnSortPanel = () => {
+  sortModal?.classList.toggle('hidden');
+};
+
 /* Event Listeners */
 
+menuButton?.addEventListener('click', toggleMenu);
+filterButtonOpen?.addEventListener('click', openFilterModal);
+filterButtonClose?.addEventListener('click', closeFilterModal);
 darkmodeButton?.addEventListener('click', switchTheme);
+sortButton?.addEventListener('click', handleClickOnSortPanel);
+
 
 const generateList = (productData: ProductType[]) => {
   if (listContainer !== null) {
@@ -98,6 +178,14 @@ const generateList = (productData: ProductType[]) => {
     const tailwindClasses: string[] = 'grid grid-cols-4 gap-4 col-span-4 w-full'.split(' ');
     tailwindClasses.forEach(className => { productContainer.classList.add(className) });
     const { id, name, price, category, species, rating, image, alt, reviews, online, shop, count } = product;
+/*   const stars = Array.from( {length: 5} , (_, index) => {
+    ´<img
+      src="/src/assets/icons/${rating > 0 ? 'star-checked' : 'star'}.svg"
+      width="20"
+      height="20"
+      alt="star icon"
+    />´}
+    ).join(''); */
     productContainer.innerHTML = `
     <div class="col-span-4 grid grid-cols-4 gap-3">
     <div class="col-span-4 xl:col-span-2 p-2 border border-black xl:h-[300px]">
@@ -128,13 +216,13 @@ const generateList = (productData: ProductType[]) => {
         <p class="font-bold">$${price}</p>
         <div class="flex gap-2">
           <div
-            class="flex gap-2 bg-orange-500 rounded-md py-1 w-24 justify-center"
+            class="flex gap-2 main-button rounded-md py-1 w-24 justify-center"
           >
             <span>-</span>
             <span>${count}</span>
             <span>+</span>
           </div>
-          <button id="addToCart" class="bg-lime-300 py-1 w-28 rounded-md">
+          <button id="addToCart" class="secondary-button py-1 w-28 rounded-md">
             Add to Cart
           </button>
         </div>
@@ -194,16 +282,7 @@ const generateList = (productData: ProductType[]) => {
   });
 };
 
+startTheme();
+/* generateList(productData); */
 
-generateList(productData)
 
-
-
-const addToCartButtons = document.querySelectorAll('#addToCart');
-addToCartButtons.forEach((button, index) => { 
-  button.addEventListener('click', () => {
-    console.log(index)
-  })
-  console.log(index)
- });
-console.log(addToCartButtons)

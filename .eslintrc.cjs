@@ -35,6 +35,9 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": "warn",
         "no-trailing-spaces": "off",
         "eol-last": "off",
-        "@typescript-eslint/explicit-function-return-type": "off"
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "no-multiple-empty-lines": "off",
+        "@typescript-eslint/member-delimiter-style": "off",
+        "no-empty": "warn"
     }
 };

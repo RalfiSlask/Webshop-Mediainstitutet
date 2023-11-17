@@ -54,65 +54,137 @@
       }
     </script>
   </head>
-  <body class="flex flex-col items-center font-roboto text-light-text-L dark:text-dark-text-D bg-light-Landing-L dark:bg-dark-Landing-D">
-    <header class="fixed z-50 w-full md:px-[5vw] flex flex-col bg-light-Landing-L dark:bg-dark-Landing-D">
-      <div class="h-16 upper_header flex justify-between px-3 items-center">
-        <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">Fluff & Stuff</h2>
+  <body
+    class="flex flex-col items-center font-roboto text-light-text dark:text-dark-text bg-light-Main dark:bg-dark-Landing-D"
+  >
+    <div
+      class="fixed min-h-screen z-40 w-full bg-black opacity-50 hidden"
+      id="lightbox"
+    ></div>
+    <header
+      class="px-3 fixed z-30 w-full md:px-[4vw] flex flex-col bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border"
+    >
+      <div class="h-16 upper_header flex justify-between items-center">
+        <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">
+          Fluff & Stuff
+        </h2>
         <div class="flex gap-4 items-center">
-          <img
-            src="/src/assets/icons/cart.svg"
-            width="30"
-            height="30"
-            alt="cart logo"
-            class="cursor-pointer text-gray-400 fill-slate-700"
-          />
-          <img
-            src="/src/assets/icons/user.svg"
-            width="30"
-            height="30"
-            alt="user logo"
-            class="cursor-pointer"
-          />
+          <div
+            class="relative w-[30px] h-[30px] cursor-pointer"
+            id="cart_button"
+          >
+            <svg
+              viewBox="0 0 576 512"
+              xmlns="http://www.w3.org/2000/svg"
+              class="cursor-pointer w-[30px] h-[30px] absolute"
+            >
+              <path
+                fill="currentColor"
+                d="M463.1 416c-26.51 0-47.1 21.49-47.1 48s21.49 48 47.1 48s47.1-21.49 47.1-48S490.5 416 463.1 416zM175.1 416c-26.51 0-47.1 21.49-47.1 48S149.5 512 175.1 512s47.1-21.49 47.1-48S202.5 416 175.1 416zM569.5 44.73c-6.109-8.094-15.42-12.73-25.56-12.73H121.1L119.6 19.51C117.4 8.19 107.5 0 96 0H23.1C10.75 0 0 10.75 0 23.1S10.75 48 23.1 48h52.14l60.28 316.5C138.6 375.8 148.5 384 160 384H488c13.25 0 24-10.75 24-23.1C512 346.7 501.3 336 488 336H179.9L170.7 288h318.4c14.29 0 26.84-9.47 30.77-23.21l54.86-191.1C577.5 63.05 575.6 52.83 569.5 44.73z"
+              />
+            </svg>
+            <div
+              class="bg-light-primary-button-bg border border-light-primary-button-border dark:bg-dark-primary-button-bg dark:border-dark-primary-button-border h-[20px] w-[20px] rounded-full absolute z-5 bottom-[-4px] right-[-4px] flex justify-center items-center"
+            >
+              0
+            </div>
+          </div>
+
+          <svg
+            style="enable-background: new 0 0 24 24"
+            version="1.1"
+            viewBox="0 0 24 24"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            class="cursor-pointer w-[30px] h-[30px]"
+          >
+            <g id="info" />
+            <g id="icons">
+              <path
+                d="M12,0C5.4,0,0,5.4,0,12c0,6.6,5.4,12,12,12s12-5.4,12-12C24,5.4,18.6,0,12,0z M12,4c2.2,0,4,2.2,4,5s-1.8,5-4,5   s-4-2.2-4-5S9.8,4,12,4z M18.6,19.5C16.9,21,14.5,22,12,22s-4.9-1-6.6-2.5c-0.4-0.4-0.5-1-0.1-1.4c1.1-1.3,2.6-2.2,4.2-2.7   c0.8,0.4,1.6,0.6,2.5,0.6s1.7-0.2,2.5-0.6c1.7,0.5,3.1,1.4,4.2,2.7C19.1,18.5,19.1,19.1,18.6,19.5z"
+                id="user2"
+                fill="currentColor"
+              />
+            </g>
+          </svg>
+          <svg
+            fill="none"
+            class="cursor-pointer transition-transform duration-300 hover:rotate-180"
+            id="darkmode"
+            height="35"
+            viewBox="0 0 24 24"
+            width="35"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12 20V4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20Z"
+              fill="currentColor"
+            />
+          </svg>
         </div>
       </div>
-      <div class="lower_header flex justify-between px-3 items-center h-20">
-        <div class="search_container bg-white flex h-6 gap-2 px-1">
+      <div class="lower_header flex justify-between items-center h-20">
+        <div
+          class="search_container bg-white dark:bg-dark-input flex h-6 gap-2 px-1"
+        >
           <img
             src="/src/assets/icons/search.svg"
             width="30"
             height="30"
             alt="search logo"
           />
-          <input type="text" placeholder="Search Site" />
-        </div>
-        <div class="flex gap-6 items-center">
-          <nav class="header_navigation">
-            <ul class="flex gap-4 cursor-pointer">
-              <li>Home</li>
-              <li>About</li>
-              <li>Services</li>
-              <li>FAQs</li>
-              <li>Contact</li>
-            </ul>
-          </nav>
-          <img
-            src="/src/assets/icons/dark.svg"
-            width="30"
-            height="30"
-            alt="darkmode logo"
-            class="cursor-pointer"
-            id="darkmode"
+          <input
+            type="text"
+            placeholder="Search Site"
+            class="outline-none dark:bg-dark-input"
           />
         </div>
+        <img
+          src="/src/assets/icons/hamburger.svg"
+          width="40"
+          height="40"
+          alt="icon that looks like a hamburger with three stripes after one another"
+          class="md:hidden cursor-pointer"
+          id="menu_button"
+        />
+        <nav class="header_navigation hidden md:flex">
+          <ul class="flex gap-4 cursor-pointer">
+            <li>Home</li>
+            <li>About</li>
+            <li>Services</li>
+            <li>FAQs</li>
+            <li>Contact</li>
+          </ul>
+        </nav>
       </div>
     </header>
     <main class=".custom-grid">
-      <div></div>
       <section
-        class="bg-light-Landing-L dark:bg-dark-Landing-D span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-solid border-black"
+        class="bg-light-Main dark:bg-dark-Main span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-light-border dark:border-dark-border"
       >
-        <div class="landing_image w-full md:w-[90vw] relative z-0">
-          <div class="flex flex-col items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full">
+        <div
+          class="bg-light-Secondary dark:bg-dark-Secondary w-full md:w-[90vw] relative z-0"
+        >
+          <div
+            class="w-full hidden min-h-screen md:hidden fixed z-30 pt-[200px]"
+            id="menu"
+          >
+            <nav class="md:flex">
+              <ul
+                class="flex flex-col gap-4 cursor-pointer text-[2rem] text-black"
+              >
+                <li>Home</li>
+                <li>About</li>
+                <li>Services</li>
+                <li>FAQs</li>
+                <li>Contact</li>
+              </ul>
+            </nav>
+          </div>
+          <div
+            class="flex flex-col items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full"
+          >
             <div class="flex gap-2 items-center">
               <p class="w-12 text-center text-[1.25rem]">EST</p>
               <img
@@ -130,13 +202,28 @@
             </h1>
             <h4 class="text-xl uppercase">Taxidermy for sale</h4>
           </div>
+          <div
+            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px]"
+          >
+            <img
+              src="/src/assets/images/Landing.png"
+              width="750"
+              height="600"
+              alt="taxidermy fox standing on a plate"
+              class="w-full h-auto object-cover"
+            />
+          </div>
         </div>
       </section>
-      <section class="about custom-grid py-8 gap-y-5">
+      <section
+        class="about custom-grid py-8 gap-y-5 border-b border-light-border dark:border-dark-border bg-light-Main dark:bg-dark-Main"
+      >
         <div
           class="flex flex-col items-center justify-center gap-8 col-span-4 xl:col-span-6 text-center"
         >
-          <h2 class="uppercase text-[2rem] tracking-widest theme-heading">About us</h2>
+          <h2 class="uppercase text-[2rem] tracking-widest theme-heading">
+            About us
+          </h2>
           <p class="max-w-[400px]">
             We serve only the finest creatures to our customers and stay true to
             the fine art of taxidermy. Join us on a quest for finding each
@@ -165,223 +252,283 @@
           />
         </div>
       </section>
-      <section class="products py-7 flex flex-col gap-6 bg-light-Projects-L dark:bg-dark-Projects-D">
-        <h2 class="uppercase text-[2rem] text-center theme-heading">
-          Latest Products For Sale
-        </h2>
-        <div class="categories">
-          <button>Peculiar Profiles</button>
-          <button>Happy Accidents</button>
-        </div>
-        <div class="flex justify-between px-4">
-          <div
-            class="flex gap-2 cursor-pointer items-center bg-green-500 rounded-[3rem] px-6"
-          >
-            <img
-              src="/src/assets/icons/filter.svg"
-              width="30"
-              height="30"
-              alt="filter icon"
-            />
-            <p class="font-bold">Filter</p>
-          </div>
-          <div class="flex flex-col items-end cursor-pointer">
-            <p class="uppercase">Sort by</p>
-            <div class="flex gap-2">
-              <p class="font-bold">Most relevant</p>
-              <img
-                src="/src/assets/icons/arrow.svg"
-                width="20"
-                height="20"
-                alt="arrow icon"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="grid custom-grid gap-4" id="list_container">
-          <!-- Filter section -->
-
-          <div class="hidden">
+      <section
+        class="products py-7 flex flex-col gap-6 bg-light-Main dark:bg-dark-Main items-center"
+      >
+        <div class="w-full max-w-[1430px] flex flex-col items-center gap-8">
+          <h2 class="uppercase text-[2rem] text-center theme-heading">
+            Latest Products For Sale
+          </h2>
+          <div class="flex justify-between relative w-full px-4">
             <div
-              class="categories flex flex-col border-b border-solid border-black bg-slate-300 w-80 gap-y-4"
+              class="flex gap-2 cursor-pointer items-center rounded-[3rem] px-6 main-button"
+              id="filter_button"
             >
-              <div class="flex gap-2 items-center">
-                <h3>Category</h3>
-                <img
-                  src="/src/assets/icons/arrow.svg"
-                  width="30"
-                  height="30"
-                  alt="arrow icon"
-                />
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>Bewildered Beasts</p>
-                <p>3</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>Gaping Gallery</p>
-                <p>4</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>not Quite Natural</p>
-                <p>6</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>Happy Accidents</p>
-                <p>5</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>Peculiar Profiles</p>
-                <p>2</p>
-              </div>
+              <img
+                src="/src/assets/icons/filter.svg"
+                width="30"
+                height="30"
+                alt="filter icon"
+              />
+              <p class="font-bold">Filter</p>
             </div>
-            <div class="price_intervals">
-              <div>
-                <h3>Price Interval</h3>
+            <div class="flex flex-col items-end">
+              <p class="uppercase">Sort by</p>
+              <div class="flex gap-2 cursor-pointer" id="sort_button">
+                <p class="font-bold">Best Rating</p>
                 <img
                   src="/src/assets/icons/arrow.svg"
-                  width="30"
-                  height="30"
+                  width="20"
+                  height="20"
                   alt="arrow icon"
                 />
               </div>
-              <div class="flex justify-between items-center">
-                <div>
+              <div
+                class="fixed hidden border-r border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-col top-[0] w-[400px] px-4 py-4 z-50"
+                id="filter_modal"
+              >
+                <div class="flex gap-2 items-center mb-16">
                   <img
-                    src="/src/assets/icons/check.svg"
+                    src="/src/assets/icons/filter.svg"
                     width="30"
                     height="30"
-                    alt="check icon"
+                    alt="filter icon"
                   />
+                  <h2 class="uppercase text-[1.5rem]">Filter</h2>
                 </div>
-                <p>25-100</p>
+
+                <div class="categoryPanel border-t" id="category_container">
+                  <div class="flex gap-2 items-center">
+                    <h3>Category</h3>
+                    <img
+                      src="/src/assets/icons/arrow.svg"
+                      width="30"
+                      height="30"
+                      alt="arrow icon"
+                    />
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>Bewildered Beasts</p>
+                    <p>3</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>Gaping Gallery</p>
+                    <p>4</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>not Quite Natural</p>
+                    <p>6</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>Happy Accidents</p>
+                    <p>5</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>Peculiar Profiles</p>
+                    <p>2</p>
+                  </div>
+                </div>
+
+                <div class="categoryPanel" id="price_container">
+                  <div class="flex items-center gap-2">
+                    <h3>Price Interval</h3>
+                    <img
+                      src="/src/assets/icons/arrow.svg"
+                      width="30"
+                      height="30"
+                      alt="arrow icon"
+                    />
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>25-100</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>100-500</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>500-2000</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>2000-10000</p>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <button class="checkbox">
+                      <img
+                        src="/src/assets/icons/check.svg"
+                        width="20"
+                        height="20s"
+                        alt="check icon"
+                        class="hidden"
+                      />
+                    </button>
+                    <p>10000-100000</p>
+                  </div>
+                </div>
+                <button
+                  class="main-button rounded-full px-4 py-1 mt-auto"
+                  id="filter_close"
+                >
+                  Close
+                </button>
               </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>100-500</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>500-2000</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>2000-10000</p>
-              </div>
-              <div class="flex justify-between items-center">
-                <div>
-                  <img
-                    src="/src/assets/icons/check.svg"
-                    width="30"
-                    height="30"
-                    alt="check icon"
-                  />
-                </div>
-                <p>10000-100000</p>
+              <div
+                class="hidden absolute bg-white top-[50px] rounded-lg py-6 pr-6 pl-12 right-0"
+                id="sort_modal"
+              >
+                <ul class="sort_list flex flex-col items-end gap-2">
+                  <li>Alpabet (High To Low)</li>
+                  <li>Alphabet (Low To High)</li>
+                  <li>Highest Rating</li>
+                  <li>Lowest Rating</li>
+                  <li>Category</li>
+                  <li>Price (High To Low)</li>
+                  <li>Price (Low To High)</li>
+                </ul>
               </div>
             </div>
           </div>
 
-          <!-- Product Item Containers -->
+          <div class="flex w-full flex-wrap justify-center max-w-[1430px] gap-x-6 gap-y-12" id="list_container">
+            <!-- Product Item Containers -->
 
-          <div class="grid grid-cols-4 gap-4 col-span-4 w-full">
-            <div class="col-span-4 grid grid-cols-4 gap-3">
-              <div class="col-span-2 p-2 border border-black h-[300px]">
+            <div
+              class="flex flex-col w-[400px] h-[550px] bg-light-Secondary dark:bg-dark-Secondary dark:border-dark-border rounded-sm"
+            >
+              <div class="flex flex-col gap-4 p-4">
+                <h2 class="text-[2rem]">Baboon</h2>
+                <p class="font-bold">$3250</p>
+              </div>
+
+              <div class="w-full h-full relative overflow-y-hidden">
                 <img
                   src="/src/assets/images/layout/desktop/baboon.webp"
                   width="300"
                   height="300"
                   alt="taxidermy of a baboon"
-                  class="w-full h-full object-cover rounded-md"
+                  class="w-full h-full object-cover absolute"
                 />
-              </div>
-              <div
-                class="col-span-2 border-b border-black pb-1 flex flex-col justify-between"
-              >
-                <p>Baboon</p>
-              
-                <div class="flex flex-col gap-2 w-full">
-                  <p class="font-bold">$3250</p>
-                  <div class="flex gap-2">
-                    <div
-                      class="flex gap-2 bg-orange-500 rounded-md py-1 w-24 justify-center"
-                    >
-                      <span>-</span>
-                      <span>0</span>
-                      <span>+</span>
+                <div
+                  class="w-full translate-y-[280px] transition-transform ease-in duration-300 bg-light-Main dark:bg-dark-Footer border-t border-light-border dark:border-dark-border opacity-90 absolute z-5 bottom-0"
+                  id="product_info"
+                >
+                  <div class="col-span-2 flex flex-col px-3">
+                    <div class="flex flex-col">
+                      <div
+                        class="border-b border-light-border dark:border-dark-border py-4 flex justify-between"
+                      >
+                        <h3 class="font-bold">Species</h3>
+                        <p>Fox</p>
+                      </div>
+                      <div
+                        class="border-b border-light-border dark:border-dark-border py-4 flex justify-between"
+                      >
+                        <h3 class="font-bold">Category</h3>
+                        <p>Not Quite Natural</p>
+                      </div>
+                      <div
+                        class="border-b border-light-border dark:border-dark-border py-4 flex flex-col gap-2 justify-between"
+                      >
+                        <h3 class="font-bold">Description</h3>
+                        <p>
+                          Lorem ipsum dolor sit amet consectetur, adipisicing
+                          elit. A, nihil iusto molestias odit voluptat.
+                        </p>
+                      </div>
+                      <p class="py-4"></p>
                     </div>
-                    <button class="bg-lime-300 py-1 w-28 rounded-md">
-                      Add to Cart
-                    </button>
                   </div>
-                  <p class="uppercase font-bold">Description</p>
+                  <p class="col-span-2"></p>
                 </div>
               </div>
-            </div>
-            <div class="grid grid-cols-4 col-span-4 gap-3">
-              <div class="col-span-2 flex flex-col gap-4 px-2">
+
+              <div
+                class="h-16 flex justify-center items-center main-button cursor-pointer"
+                id="add_cart_button"
+              >
+                <p class="text-[2rem]">Add to cart</p>
+              </div>
+              <div class="flex flex-col gap-2 px-3 py-6">
                 <div class="flex items-center gap-2">
                   <div class="flex items-center">
                     <img
@@ -417,26 +564,21 @@
                   </div>
                   <p>(35000 reviews)</p>
                 </div>
-                <div class="flex flex-col">
-                  <p>Species: Fox</p>
-                  <p>Category: Not Quite Natural</p>
-                </div>
-                <div class="flex gap-2">
+                <div class="flex gap-3">
                   <p class="text-green-700">In store online (2000+)</p>
-                  <p>| In store in 34 shop(s)</p>
+                  <p>|</p>
+                  <p class="">In store in 34 shop(s)</p>
                 </div>
               </div>
-              <p class="col-span-2">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. A,
-                nihil iusto molestias odit voluptat.
-              </p>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer-L dark:bg-dark-Footer-D">
+    <footer
+      class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer dark:bg-dark-Footer w-full"
+    >
       <div
         class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
       >
