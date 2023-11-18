@@ -55,16 +55,157 @@
     </script>
   </head>
   <body
-    class="flex flex-col items-center font-roboto text-light-text dark:text-dark-text bg-light-Main dark:bg-dark-Landing-D"
+    class="flex flex-col items-center font-roboto text-light-text dark:text-dark-text bg-light-Main dark:bg-dark-Main"
   >
     <div
       class="fixed min-h-screen z-40 w-full bg-black opacity-50 hidden"
       id="lightbox"
     ></div>
-    <header
-      class="px-3 fixed z-30 w-full md:px-[4vw] flex flex-col bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border"
+
+    <div
+      class="fixed border-l flex justify-between border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen right-0 flex-col top-0 w-[400px] transition-transform duration-300 ease-in translate-x-[0px] z-50 pt-4"
+      id="cart_modal"
     >
-      <div class="h-16 upper_header flex justify-between items-center">
+      <div class="flex justify-between items-center">
+        <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
+        <img
+          src="/src/assets/icons/close.svg"
+          width="30"
+          height="30"
+          alt="close icon like a rotated cross"
+          class="cursor-pointer"
+        />
+      </div>
+      <div class="bg-white dark:bg-dark-Main h-[950px] px-2 pt-4">
+        <form
+          action=""
+          class="checkout-form flex flex-col gap-4"
+          class="checkout_form px-4"
+        >
+          <label for="firstname">First name</label>
+          <input
+            name="firstname"
+            id="firstname"
+            type="text"
+            placeholder="e.g. First name"
+            required
+            aria-required
+          />
+          <label for="lastname" class="font-bold">Last name</label>
+          <input
+            name="lastname"
+            id="lastname"
+            type="text"
+            placeholder="e.g. Last name"
+            required
+            aria-required
+          />
+          <label for="address">Address</label>
+          <input
+            name="address"
+            id="address"
+            type="text"
+            placeholder="e.g. Address"
+            required
+            aria-required
+          />
+          <div class="flex gap-2">
+            <div class="flex flex-col gap-2">
+              <label for="postal">Postal Code</label>
+              <input
+                name="postal"
+                id="postal"
+                type="text"
+                placeholder="e.g. Postal Code"
+                required
+                aria-required
+              />
+            </div>
+            <div class="flex flex-col gap-2 w-[180px]">
+              <label for="city">City</label>
+              <input
+                name="city"
+                id="city"
+                type="text"
+                placeholder="e.g. City"
+                required
+                aria-required
+              />
+            </div>
+          </div>
+
+          <label for="tel">Telephone</label>
+          <input
+            name="tel"
+            id="tel"
+            type="telephone"
+            placeholder="e.g. Telephone"
+            required
+            aria-required
+          />
+          <label for="mail">Email</label>
+          <input
+            name="mail"
+            id="mail"
+            type="email"
+            placeholder="e.g. Email"
+            required
+            aria-required
+          />
+          <div class="flex flex-col gap-4">
+            <div class="flex gap-4 items-center">
+              <button
+                class="w-8 h-8 bg-gray-400 flex justify-center items-center"
+              >
+                <img
+                  src="src/assets/icons/check.svg"
+                  alt="checkbox"
+                  width="20"
+                  height="20"
+                />
+              </button>
+              <p>Approves the processing of personal data</p>
+            </div>
+            <div class="flex gap-4 items-center">
+              <button
+                class="w-8 h-8 bg-gray-400 flex justify-center items-center"
+              >
+                <img
+                  src="src/assets/icons/check.svg"
+                  alt="checkbox"
+                  width="20"
+                  height="20"
+                />
+              </button>
+              <p>I want newsletter</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <input
+              type="submit"
+              value="Order"
+              class="main-button text-[1.5rem] rounded-3xl px-8 flex justify-center items-center py-2 cursor-pointer"
+            />
+            <input
+              type="reset"
+              value="Reset"
+              class="secondary-button text-[1.5rem] rounded-3xl px-8 py-2 cursor-pointer"
+            />
+          </div>
+        </form>
+      </div>
+      <div
+        class="h-20 flex justify-center items-center main-button cursor-pointer absolute bottom-0 w-full"
+        id="checkout_button"
+      >
+        <h2 class="text-[1.5rem]">Checkout</h2>
+      </div>
+    </div>
+
+    <header
+      class="px-3 fixed z-30 w-full flex flex-col items-center bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border"
+    >
+      <div class="h-16 upper_header w-[90vw] flex justify-between items-center">
         <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">
           Fluff & Stuff
         </h2>
@@ -124,7 +265,7 @@
           </svg>
         </div>
       </div>
-      <div class="lower_header flex justify-between items-center h-20">
+      <div class="lower_header w-[90vw] flex justify-between items-center h-20">
         <div
           class="search_container bg-white dark:bg-dark-input flex h-6 gap-2 px-1"
         >
@@ -159,7 +300,7 @@
         </nav>
       </div>
     </header>
-    <main class=".custom-grid">
+    <main class=".custom-grid w-[90vw]">
       <section
         class="bg-light-Main dark:bg-dark-Main span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-light-border dark:border-dark-border"
       >
@@ -284,7 +425,7 @@
                 />
               </div>
               <div
-                class="fixed hidden border-r border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-col top-[0] w-[400px] px-4 py-4 z-50"
+                class="fixed border-r border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-col top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
                 id="filter_modal"
               >
                 <div class="flex gap-2 items-center mb-16">
@@ -298,151 +439,166 @@
                 </div>
 
                 <div class="categoryPanel border-t" id="category_container">
-                  <div class="flex gap-2 items-center">
+                  <div
+                    class="flex gap-2 items-center z-10"
+                    id="category_switcher"
+                  >
                     <h3>Category</h3>
                     <img
                       src="/src/assets/icons/arrow.svg"
                       width="30"
                       height="30"
                       alt="arrow icon"
+                      class="transition-transform duration-300 ease-in"
                     />
                   </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>Bewildered Beasts</p>
-                    <p>3</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>Gaping Gallery</p>
-                    <p>4</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>not Quite Natural</p>
-                    <p>6</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>Happy Accidents</p>
-                    <p>5</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>Peculiar Profiles</p>
-                    <p>2</p>
+                  <div
+                    class="flex flex-col overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    id="category_list"
+                  >
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>Bewildered Beasts</p>
+                      <p>3</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>Gaping Gallery</p>
+                      <p>4</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>not Quite Natural</p>
+                      <p>6</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>Happy Accidents</p>
+                      <p>5</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>Peculiar Profiles</p>
+                      <p>2</p>
+                    </div>
                   </div>
                 </div>
 
                 <div class="categoryPanel" id="price_container">
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2" id="category_switcher">
                     <h3>Price Interval</h3>
                     <img
                       src="/src/assets/icons/arrow.svg"
                       width="30"
                       height="30"
                       alt="arrow icon"
+                      class="transition-transform duration-300 ease-in"
                     />
                   </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>25-100</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>100-500</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>500-2000</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>2000-10000</p>
-                  </div>
-                  <div class="flex justify-between items-center">
-                    <button class="checkbox">
-                      <img
-                        src="/src/assets/icons/check.svg"
-                        width="20"
-                        height="20s"
-                        alt="check icon"
-                        class="hidden"
-                      />
-                    </button>
-                    <p>10000-100000</p>
+                  <div
+                    class="flex flex-col overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    id="price_list"
+                  >
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>25-100</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>100-500</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>500-2000</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>2000-10000</p>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <button class="checkbox">
+                        <img
+                          src="/src/assets/icons/check.svg"
+                          width="20"
+                          height="20"
+                          alt="check icon"
+                          class="hidden"
+                        />
+                      </button>
+                      <p>10000-100000</p>
+                    </div>
                   </div>
                 </div>
                 <button
@@ -469,109 +625,12 @@
             </div>
           </div>
 
-          <div class="flex w-full flex-wrap justify-center max-w-[1430px] gap-x-6 gap-y-12" id="list_container">
-            <!-- Product Item Containers -->
+          <!-- Product Item Container -->
 
-            <div
-              class="flex flex-col w-[400px] h-[550px] bg-light-Secondary dark:bg-dark-Secondary dark:border-dark-border rounded-sm"
-            >
-              <div class="flex flex-col gap-4 p-4">
-                <h2 class="text-[2rem]">Baboon</h2>
-                <p class="font-bold">$3250</p>
-              </div>
-
-              <div class="w-full h-full relative overflow-y-hidden">
-                <img
-                  src="/src/assets/images/layout/desktop/baboon.webp"
-                  width="300"
-                  height="300"
-                  alt="taxidermy of a baboon"
-                  class="w-full h-full object-cover absolute"
-                />
-                <div
-                  class="w-full translate-y-[280px] transition-transform ease-in duration-300 bg-light-Main dark:bg-dark-Footer border-t border-light-border dark:border-dark-border opacity-90 absolute z-5 bottom-0"
-                  id="product_info"
-                >
-                  <div class="col-span-2 flex flex-col px-3">
-                    <div class="flex flex-col">
-                      <div
-                        class="border-b border-light-border dark:border-dark-border py-4 flex justify-between"
-                      >
-                        <h3 class="font-bold">Species</h3>
-                        <p>Fox</p>
-                      </div>
-                      <div
-                        class="border-b border-light-border dark:border-dark-border py-4 flex justify-between"
-                      >
-                        <h3 class="font-bold">Category</h3>
-                        <p>Not Quite Natural</p>
-                      </div>
-                      <div
-                        class="border-b border-light-border dark:border-dark-border py-4 flex flex-col gap-2 justify-between"
-                      >
-                        <h3 class="font-bold">Description</h3>
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing
-                          elit. A, nihil iusto molestias odit voluptat.
-                        </p>
-                      </div>
-                      <p class="py-4"></p>
-                    </div>
-                  </div>
-                  <p class="col-span-2"></p>
-                </div>
-              </div>
-
-              <div
-                class="h-16 flex justify-center items-center main-button cursor-pointer"
-                id="add_cart_button"
-              >
-                <p class="text-[2rem]">Add to cart</p>
-              </div>
-              <div class="flex flex-col gap-2 px-3 py-6">
-                <div class="flex items-center gap-2">
-                  <div class="flex items-center">
-                    <img
-                      src="/src/assets/icons/star-checked.svg"
-                      width="20"
-                      height="20"
-                      alt="star icon"
-                    />
-                    <img
-                      src="/src/assets/icons/star-checked.svg"
-                      width="20"
-                      height="20"
-                      alt="star icon"
-                    />
-                    <img
-                      src="/src/assets/icons/star-checked.svg"
-                      width="20"
-                      height="20"
-                      alt="star icon"
-                    />
-                    <img
-                      src="/src/assets/icons/star-checked.svg"
-                      width="20"
-                      height="20"
-                      alt="star icon"
-                    />
-                    <img
-                      src="/src/assets/icons/star-checked.svg"
-                      width="20"
-                      height="20"
-                      alt="star icon"
-                    />
-                  </div>
-                  <p>(35000 reviews)</p>
-                </div>
-                <div class="flex gap-3">
-                  <p class="text-green-700">In store online (2000+)</p>
-                  <p>|</p>
-                  <p class="">In store in 34 shop(s)</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div
+            class="grid grid-cols-4 md:grid-cols-6 xl:grid-cols-12 px-4 w-full max-w-[1430px] gap-x-6 gap-y-12"
+            id="list_container"
+          ></div>
         </div>
       </section>
     </main>

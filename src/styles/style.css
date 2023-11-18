@@ -76,13 +76,47 @@ textarea:not([rows]) {
 
 /* Debuging */
 /* */
+* {
+  box-sizing: border-box;
+}
+
 .header_navigation ul li {
   cursor: pointer;
 }
 
 .open-product-info {
-  transform: translateY(20px);
-  transition: transform 300ms ease-out;
+  transform: translateY(-64px);
+  transition: transform 500ms ease-out;
+}
+
+.open-sidebar {
+  transform: translateX(0);
+  transition: transform 500ms ease-out;
+}
+
+.close-categories {
+  transform: translateY(-150%);
+  transition: transform 0.1s ease-out;
+}
+
+.rotate {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-out;
+}
+
+.checkout-form label {
+  font-weight: bold;
+}
+.checkout-form input {
+  border: 1px solid black;
+  outline: none;
+  padding-left: 10px;
+}
+.checkout-form input::-moz-placeholder {
+  opacity: 70%;
+}
+.checkout-form input::placeholder {
+  opacity: 70%;
 }
 
 /* Custom Tailwind Settings */
@@ -99,7 +133,7 @@ textarea:not([rows]) {
 }
 
 .categoryPanel {
-  @apply flex flex-col border-b border-light-border dark:border-dark-border gap-y-4 py-4;
+  @apply h-[300px] overflow-hidden transition-transform flex flex-col border-b border-light-border dark:border-dark-border gap-y-4 pb-4;
 }
 
 .checkbox {
@@ -116,4 +150,10 @@ textarea:not([rows]) {
   @apply bg-light-secondary-button-bg text-light-secondary-button-text dark:bg-dark-secondary-button-bg dark:text-dark-secondary-button-text
     border border-light-secondary-button-border dark:border-dark-secondary-button-border hover:bg-light-secondary-button-hover-bg hover:border-light-secondary-button-hover-border
     dark:hover:bg-dark-secondary-button-hover-bg dark:hover:border-dark-secondary-button-hover-border;
+}
+
+.closed {
+  height: auto;
+  padding: 0;
+  transition: height 0.3s ease-out;
 }/*# sourceMappingURL=style.css.map */
