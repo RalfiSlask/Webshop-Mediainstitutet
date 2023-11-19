@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 
 export default( {
-    base: 'test'
+    base: '/fed23d-js-grundkurs-webshop-RalfiSlask/'
 }
 )
