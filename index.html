@@ -292,17 +292,12 @@
         </div>
       </div>
       <div class="lower_header w-[90vw] flex justify-between items-center h-20">
-        <div class="search_container input cursor-pointer flex h-6 gap-2 px-1">
-          <img
-            src="/src/assets/icons/search.svg"
-            width="30"
-            height="30"
-            alt="search logo"
-          />
+        <div class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1">
+          <svg height="20px" weight="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="currentColor" d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"/></svg>
           <input
             type="text"
             placeholder="Search Site"
-            class="outline-none input pl-2 cursor-pointer"
+            class="outline-none pl-2 cursor-pointer input"
           />
         </div>
         <img
@@ -315,11 +310,11 @@
         />
         <nav class="header_navigation hidden md:flex">
           <ul class="flex gap-4 cursor-pointer">
-            <li>Home</li>
-            <li>About</li>
-            <li>Services</li>
-            <li>FAQs</li>
-            <li>Contact</li>
+            <li class="navtext">Home</li>
+            <li class="navtext">About</li>
+            <li class="navtext">Services</li>
+            <li class="navtext">FAQs</li>
+            <li class="navtext">Contact</li>
           </ul>
         </nav>
       </div>
@@ -332,18 +327,18 @@
           class="bg-light-Secondary dark:bg-dark-Secondary w-full md:w-[90vw] relative z-0"
         >
           <div
-            class="w-full hidden min-h-screen md:hidden fixed z-30 pt-[200px]"
+            class="w-full left-0 hidden min-h-screen md:hidden fixed z-30 pt-[200px] bg-light-Secondary dark:bg-dark-Secondary"
             id="menu"
           >
-            <nav class="md:flex">
+            <nav class="md:flex absolute left-1/2 -translate-x-1/2">
               <ul
-                class="flex flex-col gap-4 cursor-pointer text-[2rem] text-black"
+                class="flex flex-col gap-4 cursor-pointer text-[2rem] text-light-Headings dark:text-dark-Headings"
               >
-                <li>Home</li>
-                <li>About</li>
-                <li>Services</li>
-                <li>FAQs</li>
-                <li>Contact</li>
+                <li class="navtext">Home</li>
+                <li class="navtext">About</li>
+                <li class="navtext">Services</li>
+                <li class="navtext">FAQs</li>
+                <li class="navtext">Contact</li>
               </ul>
             </nav>
           </div>
@@ -440,25 +435,16 @@
             <div class="flex flex-col items-end">
               <p class="uppercase">Sort by</p>
               <div class="flex gap-2 cursor-pointer" id="sort_button">
-                <p class="font-bold">Best Rating</p>
-                <img
-                  src="/src/assets/icons/arrow.svg"
-                  width="20"
-                  height="20"
-                  alt="arrow icon"
-                />
+                <p class="font-bold navtext">Best Rating</p>
+                <svg height="20px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon fill="currentColor" points="396.6,160 416,180.7 256,352 96,180.7 115.3,160 256,310.5 "/></svg>
               </div>
               <div
                 class="fixed border-r border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-col top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
                 id="filter_modal"
               >
                 <div class="flex gap-2 items-center mb-16">
-                  <img
-                    src="/src/assets/icons/filter.svg"
-                    width="30"
-                    height="30"
-                    alt="filter icon"
-                  />
+                  <svg enable-background="new 0 0 32 32" id="filter_icon" width="30px" height="30px" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc/><g><circle cx="5" cy="8" fill="currentColor" r="2" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/><line fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="7" x2="32" y1="8" y2="8"/><circle cx="5" cy="24" fill="currentColor" r="2" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/><line fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="7" x2="32" y1="24" y2="24"/><circle cx="27" cy="16" fill="currentColor" r="2" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="25" x2="0" y1="16" y2="16"/><line fill="none" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="3" x2="0" y1="8" y2="8"/><line fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="29" x2="32" y1="16" y2="16"/><line fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="3" x2="0" y1="24" y2="24"/></g></svg>
+
                   <h2 class="uppercase text-[1.5rem]">Filter</h2>
                 </div>
 
@@ -632,17 +618,17 @@
                 </button>
               </div>
               <div
-                class="hidden absolute bg-white top-[50px] rounded-lg py-6 pr-6 pl-12 right-0"
+                class="sort_modal hidden absolute z-10 bg-light-Secondary border-light-border dark:bg-dark-Secondary dark:border-light-border top-[50px] rounded-lg py-6 px-6 right-0"
                 id="sort_modal"
               >
                 <ul class="sort_list flex flex-col items-end gap-2">
-                  <li>Alpabet (High To Low)</li>
-                  <li>Alphabet (Low To High)</li>
-                  <li>Highest Rating</li>
-                  <li>Lowest Rating</li>
-                  <li>Category</li>
-                  <li>Price (High To Low)</li>
-                  <li>Price (Low To High)</li>
+                  <li class="sort-item">Alpabet (High To Low)</li>
+                  <li class="sort-item">Alphabet (Low To High)</li>
+                  <li class="sort-item">Highest Rating</li>
+                  <li class="sort-item">Lowest Rating</li>
+                  <li class="sort-item">Category</li>
+                  <li class="sort-item">Price (High To Low)</li>
+                  <li class="sort-item">Price (Low To High)</li>
                 </ul>
               </div>
             </div>

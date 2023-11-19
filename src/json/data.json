@@ -8,8 +8,8 @@
         "reviews": 17,
         "species": "European Fox (Vulpes vulpes)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/fox.webp",
-            "tablet": "/src/assets/images/layout/desktop/fox.webp",
+            "mobile": "/src/assets/images/layout/mobile/fox.webp",
+            "tablet": "/src/assets/images/layout/tablet/fox.webp",
             "desktop": "/src/assets/images/layout/desktop/fox.webp"
         },
         "alt": "A fox with an elongated body and a stretched tail",
@@ -27,8 +27,8 @@
         "reviews": 23756,
         "species": "Leopard (Panthera Pardus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/lepard.webp",
-            "tablet": "/src/assets/images/layout/desktop/lepard.webp",
+            "mobile": "/src/assets/images/layout/mobile/lepard.webp",
+            "tablet": "/src/assets/images/layout/tablet/lepard.webp",
             "desktop": "/src/assets/images/layout/desktop/lepard.webp"
         },
         "alt": "A rather elongated Lepard with an open jaw.",
@@ -46,8 +46,8 @@
         "reviews": 3421,
         "species": "Olive Baboon (Papio anubis)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/baboon.webp",
-            "tablet": "/src/assets/images/layout/desktop/baboon.webp",
+            "mobile": "/src/assets/images/layout/mobile/baboon.webp",
+            "tablet": "/src/assets/images/layout/tablet/baboon.webp",
             "desktop": "/src/assets/images/layout/desktop/baboon.webp"
         },
         "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture",
@@ -61,12 +61,12 @@
         "name": "Chewy McDam",
         "price": 100, 
         "category": "Happy Accidents",
-        "rating": 5,
+        "rating": 2,
         "reviews": 7456,
         "species": "North American Beaver (Castor canadensis)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/beaver.webp",
-            "tablet": "/src/assets/images/layout/desktop/beaver.webp",
+            "mobile": "/src/assets/images/layout/mobile/beaver.webp",
+            "tablet": "/src/assets/images/layout/tablet/beaver.webp",
             "desktop": "/src/assets/images/layout/desktop/beaver.webp"
         },
         "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth",
@@ -80,12 +80,12 @@
         "name": "Bob the Cat",
         "price": 22350, 
         "category": "Not Quite Natural",
-        "rating": 5,
+        "rating": 0,
         "reviews": 2,
         "species": "Bobcat (Lynx rufus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/bobcat.webp",
-            "tablet": "/src/assets/images/layout/desktop/bobcat.webp",
+            "mobile": "/src/assets/images/layout/mobile/bobcat.webp",
+            "tablet": "/src/assets/images/layout/tablet/bobcat.webp",
             "desktop": "/src/assets/images/layout/desktop/bobcat.webp"
         },
         "alt": "A bobcat displayed in a crouched position, emphasizing its spotted coat and alert expression",
@@ -103,8 +103,8 @@
         "reviews": 2345,
         "species": "Coyote (Canis latrans)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/coyote.webp",
-            "tablet": "/src/assets/images/layout/desktop/coyote.webp",
+            "mobile": "/src/assets/images/layout/mobile/coyote.webp",
+            "tablet": "/src/assets/images/layout/tablet/coyote.webp",
             "desktop": "/src/assets/images/layout/desktop/coyote.webp"
         },
         "alt": "A coyote taxidermy, depicted mid-stride, showcasing its slender build and bushy tail.",
@@ -122,8 +122,8 @@
         "reviews": 102555,
         "species": "Domestic Ferret (Mustela putorius furo)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/ferret.webp",
-            "tablet": "/src/assets/images/layout/desktop/ferret.webp",
+            "mobile": "/src/assets/images/layout/mobile/ferret.webp",
+            "tablet": "/src/assets/images/layout/tablet/ferret.webp",
             "desktop": "/src/assets/images/layout/desktop/ferret.webp"
         },
         "alt": "A lifelike ferret in a playful pose, displaying its elongated body and curious eyes.",
@@ -141,8 +141,8 @@
         "reviews": 14552,
         "species": "European Fox (Vulpes vulpes)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/fox2.webp",
-            "tablet": "/src/assets/images/layout/desktop/fox2.webp",
+            "mobile": "/src/assets/images/layout/mobile/fox2.webp",
+            "tablet": "/src/assets/images/layout/tablet/fox2.webp",
             "desktop": "/src/assets/images/layout/desktop/fox2.webp"
         },
         "alt": "Calm fox sitting on a chair",
@@ -160,8 +160,8 @@
         "reviews": 1234,
         "species": "Monkey",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/monkey.webp",
-            "tablet": "/src/assets/images/layout/desktop/monkey.webp",
+            "mobile": "/src/assets/images/layout/mobile/monkey.webp",
+            "tablet": "/src/assets/images/layout/tablet/monkey.webp",
             "desktop": "/src/assets/images/layout/desktop/monkey.webp"
         },
         "alt": "A monkey holding a stick, displaying its dexterity and expressive face.",
@@ -179,8 +179,8 @@
         "reviews": 2344,
         "species": "Spotted Hyena (Crocuta crocuta)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/hyena.webp",
-            "tablet": "/src/assets/images/layout/desktop/hyena.webp",
+            "mobile": "/src/assets/images/layout/mobile/hyena.webp",
+            "tablet": "/src/assets/images/layout/tablet/hyena.webp",
             "desktop": "/src/assets/images/layout/desktop/hyena.webp"
         },
         "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
@@ -198,8 +198,8 @@
         "reviews": 8004,
         "species": "European Otter (Lutra lutra)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/otter.webp",
-            "tablet": "/src/assets/images/layout/desktop/otter.webp",
+            "mobile": "/src/assets/images/layout/mobile/otter.webp",
+            "tablet": "/src/assets/images/layout/tablet/otter.webp",
             "desktop": "/src/assets/images/layout/desktop/otter.webp"
         },
         "alt": "An Otter showcasing his sleek body. ",
@@ -217,8 +217,8 @@
         "reviews": 2333,
         "species": "Wild Boar (Sus scrofa)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/pig.webp",
-            "tablet": "/src/assets/images/layout/desktop/pig.webp",
+            "mobile": "/src/assets/images/layout/mobile/pig.webp",
+            "tablet": "/src/assets/images/layout/tablet/pig.webp",
             "desktop": "/src/assets/images/layout/desktop/pig.webp"
         },
         "alt": "A pig sporting purple glasses, adding a whimsical touch to its realistic features.",
@@ -236,8 +236,8 @@
         "reviews": 1200,
         "species": "Polar Bear (Ursus maritimus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/polar.webp",
-            "tablet": "/src/assets/images/layout/desktop/polar.webp",
+            "mobile": "/src/assets/images/layout/mobile/polar.webp",
+            "tablet": "/src/assets/images/layout/tablet/polar.webp",
             "desktop": "/src/assets/images/layout/desktop/polar.webp"
         },
         "alt": "A polar bear with its mouth open, showcasing its impressive size and sharp teeth",
@@ -255,8 +255,8 @@
         "reviews": 12234,
         "species": "Gray Wolf (Canis lupus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/wolf.webp",
-            "tablet": "/src/assets/images/layout/desktop/wolf.webp",
+            "mobile": "/src/assets/images/layout/mobile/wolf.webp",
+            "tablet": "/src/assets/images/layout/tablet/wolf.webp",
             "desktop": "/src/assets/images/layout/desktop/wolf.webp"
         },
         "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze",
@@ -274,8 +274,8 @@
         "reviews": 444,
         "species": "Gray Wolf (Canis lupus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/wolf2.webp",
-            "tablet": "/src/assets/images/layout/desktop/wolf2.webp",
+            "mobile": "/src/assets/images/layout/mobile/wolf2.webp",
+            "tablet": "/src/assets/images/layout/tablet/wolf2.webp",
             "desktop": "/src/assets/images/layout/desktop/wolf2.webp"
         },
         "alt": "A scruffy looking wolf with its jaw wide open.",
@@ -293,8 +293,8 @@
         "reviews": 23777,
         "species": "Brown Bear (Ursus arctos)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/bear.webp",
-            "tablet": "/src/assets/images/layout/desktop/bear.webp",
+            "mobile": "/src/assets/images/layout/mobile/bear.webp",
+            "tablet": "/src/assets/images/layout/tablet/bear.webp",
             "desktop": "/src/assets/images/layout/desktop/bear.webp"
         },
         "alt": "A brown bear that seems to not have everything right with it.",
@@ -312,8 +312,8 @@
         "reviews": 1111,
         "species": "Great Horned Owl (Bubo virginianus)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/owl.webp",
-            "tablet": "/src/assets/images/layout/desktop/owl.webp",
+            "mobile": "/src/assets/images/layout/mobile/owl.webp",
+            "tablet": "/src/assets/images/layout/tablet/owl.webp",
             "desktop": "/src/assets/images/layout/desktop/owl.webp"
         },
         "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture",
@@ -331,8 +331,8 @@
         "reviews": 1234,
         "species": "Eastern Squirrel (Sciurus carolinensis)",
         "image": {
-            "mobile": "/src/assets/images/layout/desktop/squirrel.webp",
-            "tablet": "/src/assets/images/layout/desktop/squirrel.webp",
+            "mobile": "/src/assets/images/layout/mobile/squirrel.webp",
+            "tablet": "/src/assets/images/layout/tablet/squirrel.webp",
             "desktop": "/src/assets/images/layout/desktop/squirrel.webp"
         },
         "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers",

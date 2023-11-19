@@ -11,16 +11,16 @@
  * Change Menu Button on Click x
  * Click Event for opening Filter Modal x
  * Add to Cart functionality x
- * Calculate Total Price xs
+ * Calculate Total Price x
  * Handle Remove and Plus Minus functionality in cart x
- * Function/s for sorting the products
- * Function/s for filtering products based on price interval and category
+ * Function/s for sorting the products x
+ * Function/s for filtering products based on price interval and category 
  * Animation for Menu
  */
 
 import productData from './json/data.json';
 import type { ProductType, CartObjectType } from './assets/utils/types';
-import { hideAllCheckmarks, toggleMenu } from './assets/utils/helperfunctions';
+import { hideAllCheckmarks, toggleMenu, sortByProperty } from './assets/utils/helperfunctions';
 
 /* Selectors */
 
@@ -55,58 +55,6 @@ const lightbox = document.querySelector('#lightbox');
 const userDark = window.matchMedia('(prefers-color-scheme: dark').matches; // user theme preferences
 
 let cartArrayOfObjects: CartObjectType[] = [];
-
-// Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
-
-const clickOnCategoryButtons = (e: Event) => {
-  const checkbox = (e.target as HTMLElement).closest('.checkbox');
-  hideAllCheckmarks(categoryButtons, checkbox);
-  if (checkbox === null) return;
-  const image = checkbox.firstElementChild;
-  if (image === null) return;
-  image.classList.toggle('hidden');
-  const noneChecked = Array.from(categoryButtons).every(
-    (button) => button.firstElementChild?.classList.contains('hidden')
-  );
-  if (noneChecked) {
-    // if no category is checked generate original full list
-    generateList(productData);
-  } else {
-    const categoryName = checkbox.nextElementSibling?.textContent;
-    // filter and generate list depending on if the category name coresponds to the object.category name
-    const filteredArray = productData.filter(
-      (object) => object.category.toLowerCase() === categoryName?.toLowerCase()
-    );
-    generateList(filteredArray);
-  }
-};
-
-const clickOnPriceButtons = (e: Event) => {
-  const checkbox = (e.target as HTMLElement).closest('.checkbox');
-  hideAllCheckmarks(priceButtons, checkbox);
-  if (checkbox === null) return;
-  const image = checkbox.firstElementChild;
-  if (image === null) return;
-  image.classList.toggle('hidden');
-  const noneChecked = Array.from(priceButtons).every(
-    (button) => button.firstElementChild?.classList.contains('hidden')
-  );
-  if (noneChecked) {
-    generateList(productData);
-  } else {
-    const categoryName = checkbox.nextElementSibling?.textContent;
-    if (categoryName !== null && categoryName !== undefined) {
-      const numberArray = categoryName
-        .split('-')
-        .map((string) => Number(string));
-      const filteredArray = productData.filter(
-        (object) =>
-          object.price > numberArray[0] && object.price < numberArray[1]
-      );
-      generateList(filteredArray);
-    }
-  }
-};
 
 const openSidebar = (animationClass: string, modal: Element | null) => {
   modal?.classList.add(animationClass);
@@ -149,7 +97,6 @@ const createListItemAsHTML = (
   product: ProductType,
   productContainer: HTMLElement
 ) => {
-  // Creating an Array for the stars icons using map and join methods, also checking which star icon i should have based on rating score
   const {
     id,
     name,
@@ -163,10 +110,13 @@ const createListItemAsHTML = (
     online,
     shop
   } = product;
-  const starsHtml = Array.from({ length: 5 }, (_) => {
+  // generates how the stars will look like from the rating property for each product, using the map and join method
+  const starsHtml = Array.from({ length: 5 }, (_, index) => {
     return `
         <img
-          src="/src/assets/icons/${rating > 0 ? 'star-checked' : 'star'}.svg"
+          src="/src/assets/icons/${
+            index < rating ? 'star-checked' : 'star'
+          }.svg"
           width="20"
           height="20"
           alt="star icon"
@@ -179,12 +129,22 @@ const createListItemAsHTML = (
       <p class="font-bold">$${price}</p>
     </div>
 
-  <div class="w-full h-[400px] relative overflow-y-hidden">
+  <div class="w-full h-[700px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
     <img
+      srcset="
+      ${image.tablet} 640w,
+      ${image.desktop} 768w,
+      ${image.mobile} 1024w
+      "
+      sizes="
+      (max-width: 640px) 640px,
+      (max-width: 768px) 768px,
+      1024px
+      "
       src=${image.desktop}
       width="300"
       height="300"
-      alt=${alt}
+      alt="${alt}"
       class="w-full h-full object-cover absolute"
     />
     
@@ -253,7 +213,7 @@ const generateList = (productData: ProductType[]) => {
     productContainer.id = 'product';
     // Making the tailwind classes into an array so i can add these to the product container
     const tailwindClasses: string[] =
-      'col-span-4 md:col-span-3 xl:col-span-3 flex flex-col w-full h-[600px] bg-light-Secondary dark:bg-dark-Secondary dark:border-dark-border rounded-sm'.split(
+      'col-span-4 md:col-span-3 xl:col-span-3 flex flex-col w-full h-[900px] md:h-[700px] xl:h-[600px] bg-light-Secondary dark:bg-dark-Secondary dark:border-dark-border rounded-sm'.split(
         ' '
       );
     tailwindClasses.forEach((className) => {
@@ -283,11 +243,6 @@ const handleMouseLeaveOnProductContainer = (e: Event) => {
     }
   }
 };
-
-/* Function Calls */
-
-startTheme();
-generateList(productData);
 
 const toggleCategoryContainer = (e: Event) => {
   const target = e.target as HTMLElement;
@@ -460,6 +415,73 @@ const handleClickableItemsOnProducts = (e: Event) => {
   }
 };
 
+// CONTINUE HERE STILL NOT DONE!!!
+
+// Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
+
+const clickOnCategoryButtons = (e: Event) => {
+  const checkbox = (e.target as HTMLElement).closest('.checkbox');
+  hideAllCheckmarks(categoryButtons, checkbox);
+  if (checkbox === null) return;
+  const image = checkbox.firstElementChild;
+  if (image === null) return;
+  image.classList.toggle('hidden');
+  const noneChecked = Array.from(categoryButtons).every(
+    (button) => button.firstElementChild?.classList.contains('hidden')
+  );
+  if (noneChecked) {
+    // if no category is checked generate original full list
+    generateList(productData);
+  } else {
+    const categoryName = checkbox.nextElementSibling?.textContent;
+    // filter and generate list depending on if the category name coresponds to the object.category name
+    const filteredArray = productData.filter(
+      (object) => object.category.toLowerCase() === categoryName?.toLowerCase()
+    );
+    generateList(filteredArray);
+  }
+};
+
+const clickOnPriceButtons = (e: Event) => {
+  const checkbox = (e.target as HTMLElement).closest('.checkbox');
+  hideAllCheckmarks(priceButtons, checkbox);
+  if (checkbox === null) return;
+  const image = checkbox.firstElementChild;
+  if (image === null) return;
+  image.classList.toggle('hidden');
+  const noneChecked = Array.from(priceButtons).every(
+    (button) => button.firstElementChild?.classList.contains('hidden')
+  );
+  if (noneChecked) {
+    generateList(productData);
+  } else {
+    const categoryName = checkbox.nextElementSibling?.textContent;
+    if (categoryName !== null && categoryName !== undefined) {
+      const numberArray = categoryName
+        .split('-')
+        .map((string) => Number(string));
+      const filteredArray = productData.filter(
+        (object) =>
+          object.price > numberArray[0] && object.price < numberArray[1]
+      );
+      generateList(filteredArray);
+    }
+  }
+};
+
+const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
+  const target = e.target as HTMLElement;
+  if (target.tagName !== 'LI') return;
+  console.log(target.textContent)
+  const sortedArray = sortByProperty('name', true, [...arrayOfObjects]);
+  generateList(sortedArray);
+};
+
+/* Function Calls */
+
+startTheme();
+generateList(productData);
+
 /* Event Listeners */
 
 listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // event delegation for mouse over cart button
@@ -467,6 +489,8 @@ listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer);
 listContainer?.addEventListener('click', handleClickOnAddToCartButton); // event delegation for clicking on cart button
 cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // event delegation for pressing remove, plus and minus
 filterModal?.addEventListener('click', toggleCategoryContainer); // event delegation
+sortModal?.addEventListener('click', (e) => { handleClickOnSortButtons(e, productData) });
+
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
