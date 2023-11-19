@@ -16,7 +16,7 @@
         "cart": "/src/assets/images/cart/fox.webp",
         "online": 2000,
         "shop": 34,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 2,
@@ -35,7 +35,7 @@
         "cart": "/src/assets/images/cart/lepard.webp",
         "online": 1450,
         "shop": 125,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 3,
@@ -54,7 +54,7 @@
         "cart": "/src/assets/images/cart/baboon.webp",
         "online": 12000,
         "shop": 2,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 4,
@@ -73,7 +73,7 @@
         "cart": "/src/assets/images/cart/beaver.webp",
         "online": 34000,
         "shop": 12,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 5,
@@ -92,7 +92,7 @@
         "cart": "/src/assets/images/cart/bobcat.webp",
         "online": 1500,
         "shop": 2150,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 6,
@@ -111,7 +111,7 @@
         "cart": "/src/assets/images/cart/coyote.webp",
         "online": 500,
         "shop": 100,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 7,
@@ -127,10 +127,10 @@
             "desktop": "/src/assets/images/layout/desktop/ferret.webp"
         },
         "alt": "A lifelike ferret in a playful pose, displaying its elongated body and curious eyes.",
-        "cart": "/src/assets/images/cart/bobcat.webp",
+        "cart": "/src/assets/images/cart/ferret.webp",
         "online": 1200,
         "shop": 45,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 8,
@@ -149,7 +149,7 @@
         "cart": "/src/assets/images/cart/fox2.webp",
         "online": 1200,
         "shop": 85,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 9,
@@ -168,7 +168,7 @@
         "cart": "/src/assets/images/cart/monkey.webp",
         "online": 1100,
         "shop": 215,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 10,
@@ -187,7 +187,7 @@
         "cart": "/src/assets/images/cart/hyena.webp",
         "online": 3000,
         "shop": 12,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 11,
@@ -206,7 +206,7 @@
         "cart": "/src/assets/images/cart/otter.webp",
         "online": 40,
         "shop": 120,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 12,
@@ -222,10 +222,10 @@
             "desktop": "/src/assets/images/layout/desktop/pig.webp"
         },
         "alt": "A pig sporting purple glasses, adding a whimsical touch to its realistic features.",
-        "cart": "/src/assets/images/cart/bobcat.webp",
+        "cart": "/src/assets/images/cart/pig.webp",
         "online": 5000,
         "shop": 4,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 13,
@@ -244,7 +244,7 @@
         "cart": "/src/assets/images/cart/polar.webp",
         "online": 4000,
         "shop": 8,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 14,
@@ -263,7 +263,7 @@
         "cart": "/src/assets/images/cart/wolf.webp",
         "online": 3000,
         "shop": 128,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 15,
@@ -282,7 +282,7 @@
         "cart": "/src/assets/images/cart/wolf2.webp",
         "online": 100,
         "shop": 64,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 16,
@@ -301,7 +301,7 @@
         "cart": "/src/assets/images/cart/bear.webp",
         "online": 8000,
         "shop": 2,
-        "count": 0 
+        "count": 1 
     },
     {
         "id": 17,
@@ -320,7 +320,7 @@
         "cart": "/src/assets/images/cart/owl.webp",
         "online": 3200,
         "shop": 54,
-        "count": 4 
+        "count": 1
     },
     {
         "id": 18,
@@ -339,6 +339,6 @@
         "cart": "/src/assets/images/cart/squirrel.webp",
         "online": 7000,
         "shop": 12,
-        "count": 0 
+        "count": 1 
     }
 ]

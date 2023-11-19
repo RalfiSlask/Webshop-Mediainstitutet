@@ -12,6 +12,14 @@
     }
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
+.scroll {
+    overflow-y: auto;
+}
+
 .open-product-info {
     transform: translateY(-64px);
     transition: transform 500ms ease-out;
@@ -48,6 +56,10 @@
 
 /* Custom Tailwind Settings */
 
+.input {
+    @apply bg-light-input hover:bg-light-input-hover dark:hover:bg-dark-input-hover dark:bg-dark-input;
+}
+
 .custom-grid {
     @apply grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12;
 }
@@ -65,7 +77,12 @@
 }
 
 .checkbox {
-    @apply bg-white w-[24px] h-[24px] flex justify-center items-center rounded-[3px] cursor-pointer;   
+    @apply w-[24px] h-[24px] flex justify-center items-center rounded-[3px] cursor-pointer bg-light-input hover:bg-light-input-hover dark:hover:bg-dark-input-hover dark:bg-dark-input;   
+}
+
+.cart-button {
+    @apply bg-light-primary-button-bg text-light-primary-button-text dark:bg-dark-primary-button-bg dark:text-dark-primary-button-text 
+    border border-light-primary-button-border dark:border-dark-primary-button-border
 }
 
 .main-button {

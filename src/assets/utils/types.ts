@@ -16,4 +16,13 @@ export interface ProductType {
   online: number;
   shop: number;
   count: number;
-}
+};
+
+export interface CartObjectType {
+  id: number;
+  name: string;
+  price: number;
+  cart: string;
+  count: number;
+  alt: string;
+};

@@ -30,6 +30,9 @@ export default {
           "secondary-button-border": "#8DA897",
           "secondary-button-hover-bg": "#B9D3BA",
           "secondary-button-hover-border": "#9DB7A4",
+          "input": "#FEFEFE",
+          "input-hover": "#E2E2E2",
+          "navtext-hover": "#767676"
         },
         dark: {
           "Main": "#20212C",
@@ -49,6 +52,8 @@ export default {
           "secondary-button-hover-bg": "#7F7985",
           "secondary-button-hover-border": "#918AA2",
           "input": "#565F69",
+          "input-hover": "#4A4A4A",
+          "navtext-hover": "#A3A3A3"
         }
       }
     },
