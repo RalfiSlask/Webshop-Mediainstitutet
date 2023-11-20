@@ -19,7 +19,7 @@ export default {
           "Footer": "#D0E8D0",
           "Headings": "#403D39",
           "text": "#33393B",
-          "border": "#E4EBFA",
+          "border": "#CCAE7B",
           "primary-button-bg": "#FAD2E1",
           "primary-button-text": "#403D39",
           "primary-button-border": "#E7B8C2",

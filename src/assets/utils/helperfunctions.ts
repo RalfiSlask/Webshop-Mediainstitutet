@@ -5,7 +5,9 @@ export const hideAllCheckmarks = (
   checkbox: Element | null
 ) => {
   buttons.forEach((button) => {
-    if (button.firstElementChild !== checkbox?.firstElementChild) {
+    console.log(button)
+    if (button !== checkbox) {
+      button.classList.remove('checked');
       button.firstElementChild?.classList.add('hidden');
     }
   });
@@ -22,6 +24,8 @@ export const toggleMenu = (e: Event, menuButton: HTMLImageElement, menu: Element
     menuButton.src = source;
   }
 };
+
+// maybe should refactor
 
 export const sortByProperty = (property: keyof ProductType, isDescending: boolean, items: ProductType[]) => {
   return items.sort((a, b) => {

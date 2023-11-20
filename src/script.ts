@@ -14,13 +14,19 @@
  * Calculate Total Price x
  * Handle Remove and Plus Minus functionality in cart x
  * Function/s for sorting the products x
- * Function/s for filtering products based on price interval and category 
+ * Function/s for filtering products based on price interval and category
  * Animation for Menu
  */
 
 import productData from './json/data.json';
 import type { ProductType, CartObjectType } from './assets/utils/types';
-import { hideAllCheckmarks, toggleMenu, sortByProperty } from './assets/utils/helperfunctions';
+import {
+  hideAllCheckmarks,
+  toggleMenu,
+  sortByProperty
+} from './assets/utils/helperfunctions';
+
+let productArrayOfObjects = productData;
 
 /* Selectors */
 
@@ -41,7 +47,7 @@ const menuButton = document.querySelector('#menu_button') as HTMLImageElement;
 const categoryButtons = document.querySelectorAll(
   '#category_container .checkbox'
 );
-const priceButtons = document.querySelectorAll('#price_container .checkbox');
+const priceButtons = document.querySelectorAll('#price_list .checkbox');
 const addToCartButton = document.querySelector('#cart_button');
 // Modals
 const filterModal = document.querySelector('#filter_modal');
@@ -114,7 +120,7 @@ const createListItemAsHTML = (
   const starsHtml = Array.from({ length: 5 }, (_, index) => {
     return `
         <img
-          src="/src/assets/icons/${
+          src="./src/assets/icons/${
             index < rating ? 'star-checked' : 'star'
           }.svg"
           width="20"
@@ -419,61 +425,75 @@ const handleClickableItemsOnProducts = (e: Event) => {
 
 // Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
 
-const clickOnCategoryButtons = (e: Event) => {
-  const checkbox = (e.target as HTMLElement).closest('.checkbox');
-  hideAllCheckmarks(categoryButtons, checkbox);
+const filterByCategories = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const checkbox = target.closest('.checkbox');
   if (checkbox === null) return;
-  const image = checkbox.firstElementChild;
-  if (image === null) return;
-  image.classList.toggle('hidden');
-  const noneChecked = Array.from(categoryButtons).every(
-    (button) => button.firstElementChild?.classList.contains('hidden')
-  );
-  if (noneChecked) {
-    // if no category is checked generate original full list
-    generateList(productData);
-  } else {
-    const categoryName = checkbox.nextElementSibling?.textContent;
-    // filter and generate list depending on if the category name coresponds to the object.category name
-    const filteredArray = productData.filter(
-      (object) => object.category.toLowerCase() === categoryName?.toLowerCase()
-    );
-    generateList(filteredArray);
-  }
-};
+  // which of the filter list is the clicked checkbox in
+  const doesCategoryContainCheckbox = Array.from(categoryButtons).includes(checkbox);
+  const doesPriceContainCheckbox = Array.from(priceButtons).includes(checkbox);
+  // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
+  const buttons = doesCategoryContainCheckbox
+    ? categoryButtons
+    : priceButtons;
+  hideAllCheckmarks(buttons, checkbox);
 
-const clickOnPriceButtons = (e: Event) => {
-  const checkbox = (e.target as HTMLElement).closest('.checkbox');
-  hideAllCheckmarks(priceButtons, checkbox);
-  if (checkbox === null) return;
+  // toggling the visiblity of the checkbox and adding check class to the box clicked
   const image = checkbox.firstElementChild;
   if (image === null) return;
   image.classList.toggle('hidden');
-  const noneChecked = Array.from(priceButtons).every(
-    (button) => button.firstElementChild?.classList.contains('hidden')
-  );
+  checkbox.classList.toggle('checked');
+
+  const isAnyCategoryChecked = Array.from(categoryButtons).some(button => button.classList.contains('checked'));
+  const isAnyPriceChecked = Array.from(priceButtons).some(button => button.classList.contains('checked'));
+  const noneChecked = !isAnyCategoryChecked && !isAnyPriceChecked; // if both are empty
   if (noneChecked) {
+    productArrayOfObjects = productData;
     generateList(productData);
-  } else {
-    const categoryName = checkbox.nextElementSibling?.textContent;
-    if (categoryName !== null && categoryName !== undefined) {
-      const numberArray = categoryName
-        .split('-')
-        .map((string) => Number(string));
-      const filteredArray = productData.filter(
-        (object) =>
-          object.price > numberArray[0] && object.price < numberArray[1]
-      );
-      generateList(filteredArray);
-    }
-  }
+    // exiting the function with the original list of products when both lists are empty
+    return;
+  };
+
+  const selectedCheckboxInCategories = Array.from(categoryButtons).find(button => button.classList.contains('checked'));
+  const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(button => button.classList.contains('checked'));
+
+  const categoryText = selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
+  const priceText = selectedCheckboxInPriceInterval?.nextElementSibling?.textContent ?? '';
+  // eslint wanted to explicitly check for not empty string
+  const category: string | null = categoryText !== '' ? categoryText.toLowerCase() : null;
+  console.log(category)
+  // converting to an array of numbers for checking against the price of the products
+  const price: number[] | null = priceText !== '' ? priceText.split('-').map(Number) : null;
+
+  productArrayOfObjects = productData.filter((product) => {
+    const doesProductMatchCategory = !category || product.category.toLowerCase() === category;
+    const doesProductMatchPriceInterval = !price || (product.price >= price[0] && product.price <= price[1]);
+    return doesProductMatchCategory && doesProductMatchPriceInterval;
+  })
+
+  generateList(productArrayOfObjects);
 };
 
 const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   const target = e.target as HTMLElement;
+  const clickedText = target.textContent?.toLowerCase();
   if (target.tagName !== 'LI') return;
-  console.log(target.textContent)
-  const sortedArray = sortByProperty('name', true, [...arrayOfObjects]);
+  if (clickedText === undefined) return;
+  let isDescending: boolean = false;
+  let value: keyof ProductType = 'name';
+  if (clickedText.includes('high to low')) {
+    isDescending = true;
+    if (clickedText.includes('alphabet')) {
+      value = 'name';
+    } else if (clickedText.includes('rating')) {
+      value = 'rating';
+    } else if (clickedText.includes('price')) {
+      value = 'price';
+    }
+  } else {
+    value = 'category';
+  }
+  const sortedArray = sortByProperty(value, isDescending, [...arrayOfObjects]);
   generateList(sortedArray);
 };
 
@@ -489,7 +509,9 @@ listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer);
 listContainer?.addEventListener('click', handleClickOnAddToCartButton); // event delegation for clicking on cart button
 cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // event delegation for pressing remove, plus and minus
 filterModal?.addEventListener('click', toggleCategoryContainer); // event delegation
-sortModal?.addEventListener('click', (e) => { handleClickOnSortButtons(e, productData) });
+sortModal?.addEventListener('click', (e) => {
+  handleClickOnSortButtons(e, productArrayOfObjects);
+});
 
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
@@ -508,9 +530,4 @@ closeCartButton?.addEventListener('click', () => {
 });
 darkmodeButton?.addEventListener('click', switchTheme);
 sortButton?.addEventListener('click', handleClickOnSortPanel);
-categoryButtons.forEach((button) => {
-  button.addEventListener('click', clickOnCategoryButtons);
-});
-priceButtons.forEach((button) => {
-  button.addEventListener('click', clickOnPriceButtons);
-});
+filterModal?.addEventListener('click', filterByCategories);
