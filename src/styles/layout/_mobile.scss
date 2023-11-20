@@ -64,8 +64,12 @@
     @apply hover:text-light-navtext-hover hover:dark:text-dark-navtext-hover
 }
 
+.icon-hover {
+    @apply hover:text-light-icon-hover hover:dark:text-dark-icon-hover
+}
+
 .input {
-    @apply bg-light-input hover:bg-light-input-hover dark:hover:bg-dark-input-hover dark:bg-dark-input;
+    @apply bg-light-input hover:bg-light-input-hover dark:hover:bg-dark-input-hover dark:bg-dark-input transition-colors duration-300;
 }
 
 .custom-grid {

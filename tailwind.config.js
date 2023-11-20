@@ -32,7 +32,8 @@ export default {
           "secondary-button-hover-border": "#9DB7A4",
           "input": "#FEFEFE",
           "input-hover": "#E2E2E2",
-          "navtext-hover": "#767676"
+          "navtext-hover": "#656565",
+          "icon-hover": "#C76B95"
         },
         dark: {
           "Main": "#20212C",
@@ -53,7 +54,8 @@ export default {
           "secondary-button-hover-border": "#918AA2",
           "input": "#565F69",
           "input-hover": "#4A4A4A",
-          "navtext-hover": "#A3A3A3"
+          "navtext-hover": "#A3A3A3",
+          "icon-hover": "#4D7298"
         }
       }
     },

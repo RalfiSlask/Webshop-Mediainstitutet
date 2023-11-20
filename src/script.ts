@@ -120,7 +120,7 @@ const createListItemAsHTML = (
   const starsHtml = Array.from({ length: 5 }, (_, index) => {
     return `
         <img
-          src="./src/assets/icons/${
+          src="/assets/icons/${
             index < rating ? 'star-checked' : 'star'
           }.svg"
           width="20"
@@ -134,7 +134,6 @@ const createListItemAsHTML = (
       <h2 class="text-[1.5rem]">${name}</h2>
       <p class="font-bold">$${price}</p>
     </div>
-
   <div class="w-full h-[700px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
     <img
       srcset="
@@ -153,7 +152,6 @@ const createListItemAsHTML = (
       alt="${alt}"
       class="w-full h-full object-cover absolute"
     />
-    
     <div
       class="w-full translate-y-[250px] h-[250px] transition-transform ease-in duration-300 bg-light-Main dark:bg-dark-Footer border-t border-light-border dark:border-dark-border opacity-90 absolute z-5 bottom-0"
       id="product_info"
@@ -191,12 +189,9 @@ const createListItemAsHTML = (
     <p class="text-[2rem]">Add to cart</p>
   </div>
   </div>
-
-
   <div class="flex flex-col gap-2 px-3 py-6">
     <div class="flex items-center gap-2">
       <div class="flex items-center">
-
         ${starsHtml}
       </div>
       <p>(${reviews} reviews)</p>
@@ -430,12 +425,11 @@ const filterByCategories = (e: Event) => {
   const checkbox = target.closest('.checkbox');
   if (checkbox === null) return;
   // which of the filter list is the clicked checkbox in
-  const doesCategoryContainCheckbox = Array.from(categoryButtons).includes(checkbox);
+  const doesCategoryContainCheckbox =
+    Array.from(categoryButtons).includes(checkbox);
   /* const doesPriceContainCheckbox = Array.from(priceButtons).includes(checkbox); */
   // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
-  const buttons = doesCategoryContainCheckbox
-    ? categoryButtons
-    : priceButtons;
+  const buttons = doesCategoryContainCheckbox ? categoryButtons : priceButtons;
   hideAllCheckmarks(buttons, checkbox);
 
   // toggling the visiblity of the checkbox and adding check class to the box clicked
@@ -444,32 +438,44 @@ const filterByCategories = (e: Event) => {
   image.classList.toggle('hidden');
   checkbox.classList.toggle('checked');
 
-  const isAnyCategoryChecked = Array.from(categoryButtons).some(button => button.classList.contains('checked'));
-  const isAnyPriceChecked = Array.from(priceButtons).some(button => button.classList.contains('checked'));
+  const isAnyCategoryChecked = Array.from(categoryButtons).some((button) =>
+    button.classList.contains('checked')
+  );
+  const isAnyPriceChecked = Array.from(priceButtons).some((button) =>
+    button.classList.contains('checked')
+  );
   const noneChecked = !isAnyCategoryChecked && !isAnyPriceChecked; // if both are empty
   if (noneChecked) {
     productArrayOfObjects = productData;
     generateList(productData);
     // exiting the function with the original list of products when both lists are empty
     return;
-  };
+  }
 
-  const selectedCheckboxInCategories = Array.from(categoryButtons).find(button => button.classList.contains('checked'));
-  const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(button => button.classList.contains('checked'));
+  const selectedCheckboxInCategories = Array.from(categoryButtons).find(
+    (button) => button.classList.contains('checked')
+  );
+  const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(
+    (button) => button.classList.contains('checked')
+  );
 
-  const categoryText = selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
-  const priceText = selectedCheckboxInPriceInterval?.nextElementSibling?.textContent ?? '';
+  const categoryText =
+    selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
+  const priceText =
+    selectedCheckboxInPriceInterval?.nextElementSibling?.textContent ?? '';
   // eslint wanted to explicitly check for not empty string
-  const category: string | null = categoryText !== '' ? categoryText.toLowerCase() : null;
-  console.log(category)
+  const category: string | null =
+    categoryText !== '' ? categoryText.toLowerCase() : null;
   // converting to an array of numbers for checking against the price of the products
-  const price: number[] | null = priceText !== '' ? priceText.split('-').map(Number) : null;
-
+  const price: number[] | null =
+    priceText !== '' ? priceText.split('-').map(Number) : null;
   productArrayOfObjects = productData.filter((product) => {
-    const doesProductMatchCategory = !category || product.category.toLowerCase() === category;
-    const doesProductMatchPriceInterval = !price || (product.price >= price[0] && product.price <= price[1]);
+    const doesProductMatchCategory =
+      !category || product.category.toLowerCase() === category;
+    const doesProductMatchPriceInterval =
+      !price || (product.price >= price[0] && product.price <= price[1]);
     return doesProductMatchCategory && doesProductMatchPriceInterval;
-  })
+  });
 
   generateList(productArrayOfObjects);
 };
@@ -504,15 +510,20 @@ generateList(productData);
 
 /* Event Listeners */
 
-listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // event delegation for mouse over cart button
-listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // event delegation for mouse leaving product container
-listContainer?.addEventListener('click', handleClickOnAddToCartButton); // event delegation for clicking on cart button
-cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // event delegation for pressing remove, plus and minus
-filterModal?.addEventListener('click', toggleCategoryContainer); // event delegation
+// Event Delegations
+
+listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mouse over cart button
+listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
+listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
+cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pressing remove, plus and minus buttons
+filterModal?.addEventListener('click', toggleCategoryContainer); 
 filterModal?.addEventListener('click', filterByCategories);
 sortModal?.addEventListener('click', (e) => {
   handleClickOnSortButtons(e, productArrayOfObjects);
 });
+
+// Direct Events
+
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
@@ -530,4 +541,3 @@ closeCartButton?.addEventListener('click', () => {
 });
 darkmodeButton?.addEventListener('click', switchTheme);
 sortButton?.addEventListener('click', handleClickOnSortPanel);
-

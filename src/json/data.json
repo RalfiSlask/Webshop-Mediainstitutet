@@ -8,12 +8,12 @@
         "reviews": 17,
         "species": "European Fox (Vulpes vulpes)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/fox.webp",
-            "tablet": "./src/assets/images/layout/tablet/fox.webp",
-            "desktop": "./src/assets/images/layout/desktop/fox.webp"
+            "mobile": "/assets/images/layout/mobile/fox.webp",
+            "tablet": "/assets/images/layout/tablet/fox.webp",
+            "desktop": "/assets/images/layout/desktop/fox.webp"
         },
         "alt": "A fox with an elongated body and a stretched tail",
-        "cart": "./src/assets/images/cart/fox.webp",
+        "cart": "/assets/images/cart/fox.webp",
         "online": 2000,
         "shop": 34,
         "count": 1 
@@ -27,12 +27,12 @@
         "reviews": 23756,
         "species": "Leopard (Panthera Pardus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/lepard.webp",
-            "tablet": "./src/assets/images/layout/tablet/lepard.webp",
-            "desktop": "./src/assets/images/layout/desktop/lepard.webp"
+            "mobile": "/assets/images/layout/mobile/lepard.webp",
+            "tablet": "/assets/images/layout/tablet/lepard.webp",
+            "desktop": "/assets/images/layout/desktop/lepard.webp"
         },
         "alt": "A rather elongated Lepard with an open jaw.",
-        "cart": "./src/assets/images/cart/lepard.webp",
+        "cart": "/assets/images/cart/lepard.webp",
         "online": 1450,
         "shop": 125,
         "count": 1 
@@ -46,12 +46,12 @@
         "reviews": 3421,
         "species": "Olive Baboon (Papio anubis)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/baboon.webp",
-            "tablet": "./src/assets/images/layout/tablet/baboon.webp",
-            "desktop": "./src/assets/images/layout/desktop/baboon.webp"
+            "mobile": "/assets/images/layout/mobile/baboon.webp",
+            "tablet": "/assets/images/layout/tablet/baboon.webp",
+            "desktop": "/assets/images/layout/desktop/baboon.webp"
         },
         "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture",
-        "cart": "./src/assets/images/cart/baboon.webp",
+        "cart": "/assets/images/cart/baboon.webp",
         "online": 12000,
         "shop": 2,
         "count": 1 
@@ -65,12 +65,12 @@
         "reviews": 7456,
         "species": "North American Beaver (Castor canadensis)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/beaver.webp",
-            "tablet": "./src/assets/images/layout/tablet/beaver.webp",
-            "desktop": "./src/assets/images/layout/desktop/beaver.webp"
+            "mobile": "/assets/images/layout/mobile/beaver.webp",
+            "tablet": "/assets/images/layout/tablet/beaver.webp",
+            "desktop": "/assets/images/layout/desktop/beaver.webp"
         },
         "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth",
-        "cart": "./src/assets/images/cart/beaver.webp",
+        "cart": "/assets/images/cart/beaver.webp",
         "online": 34000,
         "shop": 12,
         "count": 1 
@@ -84,12 +84,12 @@
         "reviews": 2,
         "species": "Bobcat (Lynx rufus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/bobcat.webp",
-            "tablet": "./src/assets/images/layout/tablet/bobcat.webp",
-            "desktop": "./src/assets/images/layout/desktop/bobcat.webp"
+            "mobile": "/assets/images/layout/mobile/bobcat.webp",
+            "tablet": "/assets/images/layout/tablet/bobcat.webp",
+            "desktop": "/assets/images/layout/desktop/bobcat.webp"
         },
         "alt": "A bobcat displayed in a crouched position, emphasizing its spotted coat and alert expression",
-        "cart": "./src/assets/images/cart/bobcat.webp",
+        "cart": "/assets/images/cart/bobcat.webp",
         "online": 1500,
         "shop": 2150,
         "count": 1 
@@ -103,12 +103,12 @@
         "reviews": 2345,
         "species": "Coyote (Canis latrans)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/coyote.webp",
-            "tablet": "./src/assets/images/layout/tablet/coyote.webp",
-            "desktop": "./src/assets/images/layout/desktop/coyote.webp"
+            "mobile": "/assets/images/layout/mobile/coyote.webp",
+            "tablet": "/assets/images/layout/tablet/coyote.webp",
+            "desktop": "/assets/images/layout/desktop/coyote.webp"
         },
         "alt": "A coyote taxidermy, depicted mid-stride, showcasing its slender build and bushy tail.",
-        "cart": "./src/assets/images/cart/coyote.webp",
+        "cart": "/assets/images/cart/coyote.webp",
         "online": 500,
         "shop": 100,
         "count": 1 
@@ -122,12 +122,12 @@
         "reviews": 102555,
         "species": "Domestic Ferret (Mustela putorius furo)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/ferret.webp",
-            "tablet": "./src/assets/images/layout/tablet/ferret.webp",
-            "desktop": "./src/assets/images/layout/desktop/ferret.webp"
+            "mobile": "/assets/images/layout/mobile/ferret.webp",
+            "tablet": "/assets/images/layout/tablet/ferret.webp",
+            "desktop": "/assets/images/layout/desktop/ferret.webp"
         },
         "alt": "A lifelike ferret in a playful pose, displaying its elongated body and curious eyes.",
-        "cart": "./src/assets/images/cart/ferret.webp",
+        "cart": "/assets/images/cart/ferret.webp",
         "online": 1200,
         "shop": 45,
         "count": 1 
@@ -141,12 +141,12 @@
         "reviews": 14552,
         "species": "European Fox (Vulpes vulpes)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/fox2.webp",
-            "tablet": "./src/assets/images/layout/tablet/fox2.webp",
-            "desktop": "./src/assets/images/layout/desktop/fox2.webp"
+            "mobile": "/assets/images/layout/mobile/fox2.webp",
+            "tablet": "/assets/images/layout/tablet/fox2.webp",
+            "desktop": "/assets/images/layout/desktop/fox2.webp"
         },
         "alt": "Calm fox sitting on a chair",
-        "cart": "./src/assets/images/cart/fox2.webp",
+        "cart": "/assets/images/cart/fox2.webp",
         "online": 1200,
         "shop": 85,
         "count": 1 
@@ -160,12 +160,12 @@
         "reviews": 1234,
         "species": "Monkey",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/monkey.webp",
-            "tablet": "./src/assets/images/layout/tablet/monkey.webp",
-            "desktop": "./src/assets/images/layout/desktop/monkey.webp"
+            "mobile": "/assets/images/layout/mobile/monkey.webp",
+            "tablet": "/assets/images/layout/tablet/monkey.webp",
+            "desktop": "/assets/images/layout/desktop/monkey.webp"
         },
         "alt": "A monkey holding a stick, displaying its dexterity and expressive face.",
-        "cart": "./src/assets/images/cart/monkey.webp",
+        "cart": "/assets/images/cart/monkey.webp",
         "online": 1100,
         "shop": 215,
         "count": 1 
@@ -179,12 +179,12 @@
         "reviews": 2344,
         "species": "Spotted Hyena (Crocuta crocuta)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/hyena.webp",
-            "tablet": "./src/assets/images/layout/tablet/hyena.webp",
-            "desktop": "./src/assets/images/layout/desktop/hyena.webp"
+            "mobile": "/assets/images/layout/mobile/hyena.webp",
+            "tablet": "/assets/images/layout/tablet/hyena.webp",
+            "desktop": "/assets/images/layout/desktop/hyena.webp"
         },
         "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
-        "cart": "./src/assets/images/cart/hyena.webp",
+        "cart": "/assets/images/cart/hyena.webp",
         "online": 3000,
         "shop": 12,
         "count": 1 
@@ -198,12 +198,12 @@
         "reviews": 8004,
         "species": "European Otter (Lutra lutra)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/otter.webp",
-            "tablet": "./src/assets/images/layout/tablet/otter.webp",
-            "desktop": "./src/assets/images/layout/desktop/otter.webp"
+            "mobile": "/assets/images/layout/mobile/otter.webp",
+            "tablet": "/assets/images/layout/tablet/otter.webp",
+            "desktop": "/assets/images/layout/desktop/otter.webp"
         },
         "alt": "An Otter showcasing his sleek body. ",
-        "cart": "./src/assets/images/cart/otter.webp",
+        "cart": "/assets/images/cart/otter.webp",
         "online": 40,
         "shop": 120,
         "count": 1 
@@ -217,12 +217,12 @@
         "reviews": 2333,
         "species": "Wild Boar (Sus scrofa)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/pig.webp",
-            "tablet": "./src/assets/images/layout/tablet/pig.webp",
-            "desktop": "./src/assets/images/layout/desktop/pig.webp"
+            "mobile": "/assets/images/layout/mobile/pig.webp",
+            "tablet": "/assets/images/layout/tablet/pig.webp",
+            "desktop": "/assets/images/layout/desktop/pig.webp"
         },
         "alt": "A pig sporting purple glasses, adding a whimsical touch to its realistic features.",
-        "cart": "./src/assets/images/cart/pig.webp",
+        "cart": "/assets/images/cart/pig.webp",
         "online": 5000,
         "shop": 4,
         "count": 1 
@@ -236,12 +236,12 @@
         "reviews": 1200,
         "species": "Polar Bear (Ursus maritimus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/polar.webp",
-            "tablet": "./src/assets/images/layout/tablet/polar.webp",
-            "desktop": "./src/assets/images/layout/desktop/polar.webp"
+            "mobile": "/assets/images/layout/mobile/polar.webp",
+            "tablet": "/assets/images/layout/tablet/polar.webp",
+            "desktop": "/assets/images/layout/desktop/polar.webp"
         },
         "alt": "A polar bear with its mouth open, showcasing its impressive size and sharp teeth",
-        "cart": "./src/assets/images/cart/polar.webp",
+        "cart": "/assets/images/cart/polar.webp",
         "online": 4000,
         "shop": 8,
         "count": 1 
@@ -255,12 +255,12 @@
         "reviews": 12234,
         "species": "Gray Wolf (Canis lupus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/wolf.webp",
-            "tablet": "./src/assets/images/layout/tablet/wolf.webp",
-            "desktop": "./src/assets/images/layout/desktop/wolf.webp"
+            "mobile": "/assets/images/layout/mobile/wolf.webp",
+            "tablet": "/assets/images/layout/tablet/wolf.webp",
+            "desktop": "/assets/images/layout/desktop/wolf.webp"
         },
         "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze",
-        "cart": "./src/assets/images/cart/wolf.webp",
+        "cart": "/assets/images/cart/wolf.webp",
         "online": 3000,
         "shop": 128,
         "count": 1 
@@ -274,12 +274,12 @@
         "reviews": 444,
         "species": "Gray Wolf (Canis lupus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/wolf2.webp",
-            "tablet": "./src/assets/images/layout/tablet/wolf2.webp",
-            "desktop": "./src/assets/images/layout/desktop/wolf2.webp"
+            "mobile": "/assets/images/layout/mobile/wolf2.webp",
+            "tablet": "/assets/images/layout/tablet/wolf2.webp",
+            "desktop": "/assets/images/layout/desktop/wolf2.webp"
         },
         "alt": "A scruffy looking wolf with its jaw wide open.",
-        "cart": "./src/assets/images/cart/wolf2.webp",
+        "cart": "/assets/images/cart/wolf2.webp",
         "online": 100,
         "shop": 64,
         "count": 1 
@@ -293,12 +293,12 @@
         "reviews": 23777,
         "species": "Brown Bear (Ursus arctos)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/bear.webp",
-            "tablet": "./src/assets/images/layout/tablet/bear.webp",
-            "desktop": "./src/assets/images/layout/desktop/bear.webp"
+            "mobile": "/assets/images/layout/mobile/bear.webp",
+            "tablet": "/assets/images/layout/tablet/bear.webp",
+            "desktop": "/assets/images/layout/desktop/bear.webp"
         },
         "alt": "A brown bear that seems to not have everything right with it.",
-        "cart": "./src/assets/images/cart/bear.webp",
+        "cart": "/assets/images/cart/bear.webp",
         "online": 8000,
         "shop": 2,
         "count": 1 
@@ -312,12 +312,12 @@
         "reviews": 1111,
         "species": "Great Horned Owl (Bubo virginianus)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/owl.webp",
-            "tablet": "./src/assets/images/layout/tablet/owl.webp",
-            "desktop": "./src/assets/images/layout/desktop/owl.webp"
+            "mobile": "/assets/images/layout/mobile/owl.webp",
+            "tablet": "/assets/images/layout/tablet/owl.webp",
+            "desktop": "/assets/images/layout/desktop/owl.webp"
         },
         "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture",
-        "cart": "./src/assets/images/cart/owl.webp",
+        "cart": "/assets/images/cart/owl.webp",
         "online": 3200,
         "shop": 54,
         "count": 1
@@ -331,12 +331,12 @@
         "reviews": 1234,
         "species": "Eastern Squirrel (Sciurus carolinensis)",
         "image": {
-            "mobile": "./src/assets/images/layout/mobile/squirrel.webp",
-            "tablet": "./src/assets/images/layout/tablet/squirrel.webp",
-            "desktop": "./src/assets/images/layout/desktop/squirrel.webp"
+            "mobile": "/assets/images/layout/mobile/squirrel.webp",
+            "tablet": "/assets/images/layout/tablet/squirrel.webp",
+            "desktop": "/assets/images/layout/desktop/squirrel.webp"
         },
         "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers",
-        "cart": "./src/assets/images/cart/squirrel.webp",
+        "cart": "/assets/images/cart/squirrel.webp",
         "online": 7000,
         "shop": 12,
         "count": 1 
