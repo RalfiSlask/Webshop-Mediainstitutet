@@ -431,7 +431,7 @@ const filterByCategories = (e: Event) => {
   if (checkbox === null) return;
   // which of the filter list is the clicked checkbox in
   const doesCategoryContainCheckbox = Array.from(categoryButtons).includes(checkbox);
-  const doesPriceContainCheckbox = Array.from(priceButtons).includes(checkbox);
+  /* const doesPriceContainCheckbox = Array.from(priceButtons).includes(checkbox); */
   // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
   const buttons = doesCategoryContainCheckbox
     ? categoryButtons
@@ -509,10 +509,10 @@ listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer);
 listContainer?.addEventListener('click', handleClickOnAddToCartButton); // event delegation for clicking on cart button
 cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // event delegation for pressing remove, plus and minus
 filterModal?.addEventListener('click', toggleCategoryContainer); // event delegation
+filterModal?.addEventListener('click', filterByCategories);
 sortModal?.addEventListener('click', (e) => {
   handleClickOnSortButtons(e, productArrayOfObjects);
 });
-
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
@@ -530,4 +530,4 @@ closeCartButton?.addEventListener('click', () => {
 });
 darkmodeButton?.addEventListener('click', switchTheme);
 sortButton?.addEventListener('click', handleClickOnSortPanel);
-filterModal?.addEventListener('click', filterByCategories);
+
