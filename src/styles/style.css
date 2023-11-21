@@ -76,12 +76,22 @@ textarea:not([rows]) {
 
 /* Debuging */
 /* */
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
 }
 
 .header_navigation ul li {
   cursor: pointer;
+}
+
+.hide {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
 }
 
 .no-scroll {

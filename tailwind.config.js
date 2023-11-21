@@ -32,7 +32,7 @@ export default {
           "secondary-button-hover-border": "#9DB7A4",
           "input": "#FEFEFE",
           "input-hover": "#E2E2E2",
-          "navtext-hover": "#656565",
+          "navtext-hover": "#6EA8A3",
           "icon-hover": "#C76B95"
         },
         dark: {

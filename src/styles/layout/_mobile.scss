@@ -1,5 +1,9 @@
 /* */
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -10,6 +14,12 @@
             cursor: pointer;
         }
     }
+}
+
+.hide {
+    visibility: hidden;
+    height: 0;
+    padding: 0;
 }
 
 .no-scroll {

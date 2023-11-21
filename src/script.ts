@@ -3,7 +3,7 @@
  * Setup Selectors x
  * Get darkmode button as selector x
  * Add Event Listener x
- * Create startTheme function and use localStorage and user preferences x
+ * Create initialTheme function and use localStorage and user preferences x
  * Create SwitchTheme function and toggle Theme based on if root contains dark, set LocalStorage x
  * Create a function for generating the products x
  * Click Event for opening Sort Modal x
@@ -23,7 +23,8 @@ import type { ProductType, CartObjectType } from './assets/utils/types';
 import {
   hideAllCheckmarks,
   toggleMenu,
-  sortByProperty
+  sortByProperty,
+  handleClickOnMenuLinks
 } from './assets/utils/helperfunctions';
 
 let productArrayOfObjects = productData;
@@ -36,7 +37,8 @@ const body = document.body;
 const listContainer = document.querySelector('#list_container'); // products container for holding the list of products
 const cartContainer = document.querySelector('#cart_container'); // cart container for holding the list of products
 const totalPriceContainer = document.querySelector('#total_price');
-// Buttons
+const emptyCartContainer = document.querySelector('#empty_cart');
+// Buttons / ListItems
 const cartDisplayButton = document.querySelector('#cart_display_button'); // button that shows how many items are in the cart
 const darkmodeButton = document.querySelector('#darkmode');
 const sortButton = document.querySelector('#sort_button');
@@ -58,7 +60,9 @@ const cartModal = document.querySelector('#cart_modal');
 const storedTheme = localStorage.getItem('theme');
 // Other
 const lightbox = document.querySelector('#lightbox');
-const userDark = window.matchMedia('(prefers-color-scheme: dark').matches; // user theme preferences
+const doesUserPreferDark = window.matchMedia(
+  '(prefers-color-scheme: dark'
+).matches; // user theme preferences
 
 let cartArrayOfObjects: CartObjectType[] = [];
 
@@ -79,23 +83,28 @@ const closeSidebar = (animationClass: string, modal: Element | null) => {
   lightbox?.classList.add('hidden');
 };
 
-const startTheme = () => {
-  userDark ? root.classList.add('dark') : root.classList.remove('dark');
+const initialTheme = (
+  doesUserPreferDark: boolean,
+  root: HTMLElement,
+  storedTheme: string | null
+) => {
+  doesUserPreferDark
+    ? root.classList.add('dark')
+    : root.classList.remove('dark');
   if (storedTheme === null) return;
   storedTheme === 'dark'
     ? root.classList.add('dark')
     : root.classList.remove('dark');
 };
 
-const switchTheme = () => {
+const switchTheme = (root: HTMLElement) => {
   const isDarkModeOn = document.documentElement.classList.contains('dark');
-  const root = document.documentElement;
   root.classList.toggle('dark', !isDarkModeOn);
   // setting the theme in the localStorage
   localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
 };
 
-const handleClickOnSortPanel = () => {
+const handleClickOnSortPanel = (sortModal: Element | null) => {
   sortModal?.classList.toggle('hidden');
 };
 
@@ -120,9 +129,7 @@ const createListItemAsHTML = (
   const starsHtml = Array.from({ length: 5 }, (_, index) => {
     return `
         <img
-          src="/assets/icons/${
-            index < rating ? 'star-checked' : 'star'
-          }.svg"
+          src="/assets/icons/${index < rating ? 'star-checked' : 'star'}.svg"
           width="20"
           height="20"
           alt="star icon"
@@ -282,7 +289,7 @@ const generateProductsInCartAsHTML = (
       const cartPanel = document.createElement('div');
       // Making the tailwind classes into an array so i can add these to the product container
       const tailwindClasses: string[] =
-        'flex justify-between items-center border-y border-light-border dark:border-dark-border gap-2 px-3 py-2 grid grid-cols-8'.split(
+        'flex justify-between items-center border-y border-light-border dark:border-dark-border gap-2 px-3 py-2 grid grid-cols-8 bg-light-Main dark:bg-dark-Main'.split(
           ' '
         );
       tailwindClasses.forEach((className) => {
@@ -312,6 +319,20 @@ const generateProductsInCartAsHTML = (
   } else {
     if (cartContainer === null) return;
     cartContainer.innerHTML = '';
+  }
+};
+
+const isCartEmpty = (
+  cartArrayOfObjects: CartObjectType[],
+  emptyCartContainer: Element | null
+) => {
+  const numberOfProductsInCart = cartArrayOfObjects.length;
+  console.log(emptyCartContainer);
+  if (emptyCartContainer === null) return;
+  if (numberOfProductsInCart === 0) {
+    emptyCartContainer.classList.remove('hide');
+  } else {
+    emptyCartContainer.classList.add('hide');
   }
 };
 
@@ -420,24 +441,18 @@ const handleClickableItemsOnProducts = (e: Event) => {
 
 // Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
 
-const filterByCategories = (e: Event) => {
-  const target = e.target as HTMLElement;
-  const checkbox = target.closest('.checkbox');
-  if (checkbox === null) return;
-  // which of the filter list is the clicked checkbox in
-  const doesCategoryContainCheckbox =
-    Array.from(categoryButtons).includes(checkbox);
-  /* const doesPriceContainCheckbox = Array.from(priceButtons).includes(checkbox); */
-  // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
-  const buttons = doesCategoryContainCheckbox ? categoryButtons : priceButtons;
-  hideAllCheckmarks(buttons, checkbox);
-
-  // toggling the visiblity of the checkbox and adding check class to the box clicked
+const toggleCheckboxVisibility = (checkbox: Element) => {
   const image = checkbox.firstElementChild;
   if (image === null) return;
   image.classList.toggle('hidden');
   checkbox.classList.toggle('checked');
+  checkbox.classList.toggle('main-button');
+};
 
+const isAnyCategoriesSelected = (
+  categoryButtons: NodeListOf<Element>,
+  priceButtons: NodeListOf<Element>
+) => {
   const isAnyCategoryChecked = Array.from(categoryButtons).some((button) =>
     button.classList.contains('checked')
   );
@@ -449,8 +464,28 @@ const filterByCategories = (e: Event) => {
     productArrayOfObjects = productData;
     generateList(productData);
     // exiting the function with the original list of products when both lists are empty
-    return;
+    return true;
   }
+  return false;
+};
+
+// Borde nog refaktorera
+
+const filterByCategories = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const checkbox = target.closest('.checkbox');
+  if (checkbox === null) return;
+  // which of the filter list is the clicked checkbox in
+  const doesCategoryContainCheckbox =
+    Array.from(categoryButtons).includes(checkbox);
+  // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
+  const buttons = doesCategoryContainCheckbox ? categoryButtons : priceButtons;
+  hideAllCheckmarks(buttons, checkbox);
+
+  // toggling the visiblity of the checkbox and adding check class to the box clicked
+  toggleCheckboxVisibility(checkbox);
+  // if an any category is selected exit the function
+  if (isAnyCategoriesSelected(categoryButtons, priceButtons)) return;
 
   const selectedCheckboxInCategories = Array.from(categoryButtons).find(
     (button) => button.classList.contains('checked')
@@ -458,7 +493,6 @@ const filterByCategories = (e: Event) => {
   const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(
     (button) => button.classList.contains('checked')
   );
-
   const categoryText =
     selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
   const priceText =
@@ -479,6 +513,8 @@ const filterByCategories = (e: Event) => {
 
   generateList(productArrayOfObjects);
 };
+
+// EJ klar än
 
 const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   const target = e.target as HTMLElement;
@@ -505,7 +541,7 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
 
 /* Function Calls */
 
-startTheme();
+initialTheme(doesUserPreferDark, root, storedTheme);
 generateList(productData);
 
 /* Event Listeners */
@@ -516,10 +552,13 @@ listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mo
 listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
 listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
 cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pressing remove, plus and minus buttons
-filterModal?.addEventListener('click', toggleCategoryContainer); 
+filterModal?.addEventListener('click', toggleCategoryContainer);
 filterModal?.addEventListener('click', filterByCategories);
 sortModal?.addEventListener('click', (e) => {
   handleClickOnSortButtons(e, productArrayOfObjects);
+});
+menu?.addEventListener('click', (e) => {
+  handleClickOnMenuLinks(e, menuButton, menu);
 });
 
 // Direct Events
@@ -535,9 +574,14 @@ filterButtonClose?.addEventListener('click', () => {
 });
 addToCartButton?.addEventListener('click', () => {
   openSidebar('open-sidebar', cartModal);
+  isCartEmpty(cartArrayOfObjects, emptyCartContainer);
 });
 closeCartButton?.addEventListener('click', () => {
   closeSidebar('open-sidebar', cartModal);
 });
-darkmodeButton?.addEventListener('click', switchTheme);
-sortButton?.addEventListener('click', handleClickOnSortPanel);
+darkmodeButton?.addEventListener('click', () => {
+  switchTheme(root);
+});
+sortButton?.addEventListener('click', () => {
+  handleClickOnSortPanel(sortModal);
+});
