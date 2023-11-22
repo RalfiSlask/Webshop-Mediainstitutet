@@ -2,6 +2,8 @@ JS:
 
 1. validera checkout
 2. remove all eventuellt
+3. Fixa andra färger och text vid discount code
+4. Checkout grå innan formulär klart
 
 HTML:
 

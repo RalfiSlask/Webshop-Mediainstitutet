@@ -1,4 +1,4 @@
-import type { ProductType } from './types';
+import type { ProductType, CartObjectType } from './types';
 
 export const hideAllCheckmarks = (
   buttons: NodeListOf<Element>,
@@ -29,6 +29,42 @@ export const handleClickOnMenuLinks = (
       : source.replace('close', 'hamburger');
     menuButton.src = source;
   }
+};
+
+export const toggleCartClassesBasedOnNumberOfProducts = (
+  cartArrayOfObjects: CartObjectType[],
+  emptyCartContainer: Element | null,
+  cartContainer: Element | null,
+  checkoutButton: Element | null
+) => {
+  const numberOfProductsInCart = cartArrayOfObjects.length;
+  if (emptyCartContainer === null) {
+    return;
+  }; 
+  if (numberOfProductsInCart === 0) {
+    emptyCartContainer.classList.remove('hide');
+    cartContainer?.classList.add('hide');
+    checkoutButton?.classList.add('hide');
+  } else {
+    emptyCartContainer.classList.add('hide');
+    cartContainer?.classList.remove('hide');
+    checkoutButton?.classList.remove('hide');
+  }
+};
+
+export const calculateAndDisplayTotalPrice = (
+  arrayOfObjects: CartObjectType[],
+  totalPriceContainer: Element | null
+) => {
+  let totalPrice: number = 0;
+  arrayOfObjects.forEach((object) => {
+    const productTotal: number = object.price * object.count;
+    totalPrice += productTotal;
+  });
+  if (totalPriceContainer === null) {
+    return;
+  }; 
+  totalPriceContainer.textContent = `$ ${totalPrice.toString()}`;
 };
 
 export const toggleMenu = (
@@ -80,3 +116,16 @@ export const sortByProperty = (
     return 0;
   });
 };
+
+export const resetForm = (form: HTMLFormElement | null) => {
+  if (form !== null) {
+    form.reset();
+  };
+};
+
+export const submitForm = (form: HTMLFormElement | null) => {
+  if (form !== null) {
+    form.submit();
+  };
+};
+

@@ -16,6 +16,8 @@ export default {
         light: {
           "Main": "#F3ECE0",
           "Secondary": "#D0E8D0",
+          "open": "#4DA8B0",
+          "open-hover": "#62BEC9",
           "Footer": "#D0E8D0",
           "Headings": "#403D39",
           "text": "#33393B",
@@ -39,6 +41,8 @@ export default {
           "Main": "#20212C",
           "Secondary": "#2B2C37",
           "Footer": "#565F69",
+          "open": "#9B5DE5",
+          "open-hover": "#B07CE8",
           "Headings": "#FEFEFE",
           "text": "#C0C2C9",
           "border": "#3E3F4E",

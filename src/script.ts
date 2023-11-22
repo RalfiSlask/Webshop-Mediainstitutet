@@ -24,7 +24,11 @@ import {
   hideAllCheckmarks,
   toggleMenu,
   sortByProperty,
-  handleClickOnMenuLinks
+  handleClickOnMenuLinks,
+  submitForm,
+  resetForm,
+  calculateAndDisplayTotalPrice,
+  toggleCartClassesBasedOnNumberOfProducts
 } from './assets/utils/helperfunctions';
 
 let productArrayOfObjects = productData;
@@ -32,13 +36,24 @@ let productArrayOfObjects = productData;
 /* Selectors */
 
 // Containers
+
 const root = document.documentElement;
 const body = document.body;
+const checkoutForm = document.querySelector(
+  '#checkout_form'
+) as HTMLFormElement;
 const listContainer = document.querySelector('#list_container'); // products container for holding the list of products
 const cartContainer = document.querySelector('#cart_container'); // cart container for holding the list of products
 const totalPriceContainer = document.querySelector('#total_price');
 const emptyCartContainer = document.querySelector('#empty_cart');
+const checkoutContainer = document.querySelector('#checkout_container');
+const paymentInputsContainer = document.querySelector('#payment_inputs');
+const invoiceInput = document.querySelector('#invoice_input');
+const cardInput = document.querySelector('#card_input');
 // Buttons / ListItems
+const validateButton = document.querySelector('#validate_button');
+const resetButton = document.querySelector('#reset_button');
+const submitButton = document.querySelector('#submit_button');
 const cartDisplayButton = document.querySelector('#cart_display_button'); // button that shows how many items are in the cart
 const darkmodeButton = document.querySelector('#darkmode');
 const sortButton = document.querySelector('#sort_button');
@@ -51,6 +66,7 @@ const categoryButtons = document.querySelectorAll(
 );
 const priceButtons = document.querySelectorAll('#price_list .checkbox');
 const addToCartButton = document.querySelector('#cart_button');
+const checkoutButton = document.querySelector('#checkout_button');
 // Modals
 const filterModal = document.querySelector('#filter_modal');
 const sortModal = document.querySelector('#sort_modal');
@@ -91,7 +107,9 @@ const initialTheme = (
   doesUserPreferDark
     ? root.classList.add('dark')
     : root.classList.remove('dark');
-  if (storedTheme === null) return;
+  if (storedTheme === null) {
+    return;
+  }
   storedTheme === 'dark'
     ? root.classList.add('dark')
     : root.classList.remove('dark');
@@ -214,7 +232,9 @@ const createListItemAsHTML = (
 };
 
 const generateList = (productData: ProductType[]) => {
-  if (listContainer === null) return;
+  if (listContainer === null) {
+    return;
+  }
   listContainer.innerHTML = '';
   productData.forEach((product) => {
     const productContainer = document.createElement('div');
@@ -234,6 +254,8 @@ const generateList = (productData: ProductType[]) => {
 const handleMouseEnterOnAddToCart = (e: Event) => {
   const target = e.target as HTMLElement;
   if (target.classList.contains('add_cart_button')) {
+    target.classList.remove('main-button');
+    target.classList.add('info-open');
     target.previousElementSibling?.classList.add('open-product-info');
   }
 };
@@ -246,6 +268,10 @@ const handleMouseLeaveOnProductContainer = (e: Event) => {
 
   if (productContainer !== null && !productContainer.contains(relatedTarget)) {
     const productInfo = productContainer.querySelector('.open-product-info');
+    const productButton = productContainer.querySelector('.add_cart_button');
+    productButton?.classList.remove('info-open');
+    productButton?.classList.add('main-button');
+
     if (productInfo !== null) {
       productInfo.classList.remove('open-product-info');
     }
@@ -255,7 +281,9 @@ const handleMouseLeaveOnProductContainer = (e: Event) => {
 const toggleCategoryContainer = (e: Event) => {
   const target = e.target as HTMLElement;
   const categorySwitcher = target.closest('.category_switcher');
-  if (categorySwitcher === null) return;
+  if (categorySwitcher === null) {
+    return;
+  }
   categorySwitcher.nextElementSibling?.classList.toggle('close-categories');
   // toggle rotation on arrow
   categorySwitcher.children[1].classList.toggle('rotate');
@@ -268,7 +296,9 @@ const displayNumberOfProductsOnCartLogo = (
   button: Element | null,
   numberOfProducts: number
 ) => {
-  if (button === null) return;
+  if (button === null) {
+    return;
+  }
   if (numberOfProducts > 0) {
     button.classList.remove('hidden');
     button.classList.add('flex');
@@ -322,20 +352,6 @@ const generateProductsInCartAsHTML = (
   }
 };
 
-const isCartEmpty = (
-  cartArrayOfObjects: CartObjectType[],
-  emptyCartContainer: Element | null
-) => {
-  const numberOfProductsInCart = cartArrayOfObjects.length;
-  console.log(emptyCartContainer);
-  if (emptyCartContainer === null) return;
-  if (numberOfProductsInCart === 0) {
-    emptyCartContainer.classList.remove('hide');
-  } else {
-    emptyCartContainer.classList.add('hide');
-  }
-};
-
 const getCartObject = (product: CartObjectType) => {
   const { id, name, price, cart, count, alt } = product;
   const cartObject = {
@@ -349,28 +365,21 @@ const getCartObject = (product: CartObjectType) => {
   return cartObject;
 };
 
-const calculateAndDisplayTotalPrice = (
-  arrayOfObjects: CartObjectType[],
-  totalPriceContainer: Element | null
-) => {
-  let totalPrice: number = 0;
-  arrayOfObjects.forEach((object) => {
-    const productTotal: number = object.price * object.count;
-    totalPrice += productTotal;
-  });
-  if (totalPriceContainer === null) return;
-  totalPriceContainer.textContent = `$ ${totalPrice.toString()}`;
-};
-
 const handleClickOnAddToCartButton = (e: Event) => {
   const target = e.target as HTMLElement;
-  if (target === null) return;
+  if (target === null) {
+    return;
+  }
   const cartButton = target.closest('.add_cart_button');
-  if (cartButton === null) return;
+  if (cartButton === null) {
+    return;
+  }
   const id = Number(cartButton.id[cartButton.id.length - 1]);
   // locates the product in the productData that matches the id of the product clicked
   const product = productData.find((product) => product.id === id);
-  if (product === undefined) return;
+  if (product === undefined) {
+    return;
+  }
   // creates new object with key-value pairs i want from the productData
   const cartProduct = getCartObject(product);
   // checking if product exist in the cart already
@@ -391,6 +400,12 @@ const handleClickOnAddToCartButton = (e: Event) => {
 const handleclickOnRemove = (clickedId: number) => {
   cartArrayOfObjects = cartArrayOfObjects.filter(
     (product) => product.id !== clickedId
+  );
+  toggleCartClassesBasedOnNumberOfProducts(
+    cartArrayOfObjects,
+    emptyCartContainer,
+    cartContainer,
+    checkoutButton
   );
   calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer);
   displayNumberOfProductsOnCartLogo(
@@ -418,9 +433,13 @@ const handleClickOnMinusSign = (product: CartObjectType) => {
 
 const handleClickableItemsOnProducts = (e: Event) => {
   const target = e.target as HTMLElement;
-  if (target === null) return;
+  if (target === null) {
+    return;
+  }
   const wrapper = target.closest('.cart_wrapper');
-  if (wrapper === null) return;
+  if (wrapper === null) {
+    return;
+  }
   const clickedId = Number(wrapper.id);
   if (target.tagName === 'BUTTON') {
     const product = cartArrayOfObjects.find(
@@ -437,13 +456,50 @@ const handleClickableItemsOnProducts = (e: Event) => {
   }
 };
 
+const handleClickOnCheckoutButton = (
+  e: Event,
+  checkoutContainer: Element | null,
+  cartModal: Element | null
+) => {
+  const checkoutButton = e.target as HTMLElement;
+  const orderButton = checkoutButton.nextElementSibling;
+  checkoutContainer?.classList.add('open-checkout');
+  const cartHeading = cartModal?.firstElementChild?.children[0];
+  const cartIcon = cartModal?.firstElementChild?.children[1];
+  if (cartHeading !== undefined && checkoutButton !== null) {
+    orderButton?.classList.remove('hide');
+    checkoutButton.classList.add('hide');
+    cartIcon?.classList.add('hide');
+    cartHeading.textContent = 'Checkout';
+  }
+};
+
+const handleClickOnValidateButton = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const discountContainer = target.closest('#discount_container');
+  const discountInput = discountContainer?.querySelector(
+    '#discount_input'
+  ) as HTMLInputElement;
+  const discountText = discountContainer?.querySelector(
+    '#discount_text'
+  ) as HTMLElement;
+  if (discountInput !== undefined && totalPriceContainer !== null) {
+    if (discountInput.value === 'a_damn_fine-cup_of-coffee') {
+      discountText.classList.remove('hide');
+      discountText.textContent = 'Congratulations!';
+      totalPriceContainer.textContent = '$ 0';
+    }
+  }
+};
 // CONTINUE HERE STILL NOT DONE!!!
 
 // Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
 
 const toggleCheckboxVisibility = (checkbox: Element) => {
   const image = checkbox.firstElementChild;
-  if (image === null) return;
+  if (image === null) {
+    return;
+  }
   image.classList.toggle('hidden');
   checkbox.classList.toggle('checked');
   checkbox.classList.toggle('main-button');
@@ -469,12 +525,46 @@ const isAnyCategoriesSelected = (
   return false;
 };
 
+const togglePaymentInputButtons = (
+  currentInput: Element,
+  otherInput: Element | null
+) => {
+  const button = currentInput.querySelector('.input-button');
+  if (button !== null && !button.classList.contains('main-button')) {
+    button.classList.toggle('main-button');
+    otherInput?.querySelector('.main-button')?.classList.toggle('main-button');
+  }
+};
+
+const togglePaymentMethod = (
+  e: Event,
+  invoiceInput: Element | null,
+  cardInput: Element | null
+) => {
+  const target = e.target as HTMLElement;
+  const invoiceInputClosest = target.closest('#invoice_input');
+  const cardInputClosest = target.closest('#card_input');
+  const cardInputContainer = document.querySelector('#card_container');
+  const socialSecurityInputContainer = document.querySelector('#social_container');
+  if (invoiceInputClosest !== null) {
+    togglePaymentInputButtons(invoiceInputClosest, cardInput);
+    cardInputContainer?.classList.add('hide');
+    socialSecurityInputContainer?.classList.remove('hide');
+  } else if (cardInputClosest !== null) {
+    togglePaymentInputButtons(cardInputClosest, invoiceInput);
+    cardInputContainer?.classList.remove('hide');
+    socialSecurityInputContainer?.classList.add('hide');
+  }
+};
+
 // Borde nog refaktorera
 
 const filterByCategories = (e: Event) => {
   const target = e.target as HTMLElement;
   const checkbox = target.closest('.checkbox');
-  if (checkbox === null) return;
+  if (checkbox === null) {
+    return;
+  }
   // which of the filter list is the clicked checkbox in
   const doesCategoryContainCheckbox =
     Array.from(categoryButtons).includes(checkbox);
@@ -485,8 +575,9 @@ const filterByCategories = (e: Event) => {
   // toggling the visiblity of the checkbox and adding check class to the box clicked
   toggleCheckboxVisibility(checkbox);
   // if an any category is selected exit the function
-  if (isAnyCategoriesSelected(categoryButtons, priceButtons)) return;
-
+  if (isAnyCategoriesSelected(categoryButtons, priceButtons)) {
+    return;
+  }
   const selectedCheckboxInCategories = Array.from(categoryButtons).find(
     (button) => button.classList.contains('checked')
   );
@@ -519,8 +610,12 @@ const filterByCategories = (e: Event) => {
 const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   const target = e.target as HTMLElement;
   const clickedText = target.textContent?.toLowerCase();
-  if (target.tagName !== 'LI') return;
-  if (clickedText === undefined) return;
+  if (target.tagName !== 'LI') {
+    return;
+  }
+  if (clickedText === undefined) {
+    return;
+  }
   let isDescending: boolean = false;
   let value: keyof ProductType = 'name';
   if (clickedText.includes('high to low')) {
@@ -539,7 +634,7 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   generateList(sortedArray);
 };
 
-/* Function Calls */
+/* Initial Function Calls */
 
 initialTheme(doesUserPreferDark, root, storedTheme);
 generateList(productData);
@@ -574,7 +669,12 @@ filterButtonClose?.addEventListener('click', () => {
 });
 addToCartButton?.addEventListener('click', () => {
   openSidebar('open-sidebar', cartModal);
-  isCartEmpty(cartArrayOfObjects, emptyCartContainer);
+  toggleCartClassesBasedOnNumberOfProducts(
+    cartArrayOfObjects,
+    emptyCartContainer,
+    cartContainer,
+    checkoutButton
+  );
 });
 closeCartButton?.addEventListener('click', () => {
   closeSidebar('open-sidebar', cartModal);
@@ -584,4 +684,17 @@ darkmodeButton?.addEventListener('click', () => {
 });
 sortButton?.addEventListener('click', () => {
   handleClickOnSortPanel(sortModal);
+});
+checkoutButton?.addEventListener('click', (e) => {
+  handleClickOnCheckoutButton(e, checkoutContainer, cartModal);
+});
+validateButton?.addEventListener('click', handleClickOnValidateButton);
+resetButton?.addEventListener('click', () => {
+  resetForm(checkoutForm);
+});
+submitButton?.addEventListener('click', () => {
+  submitForm(checkoutForm);
+});
+paymentInputsContainer?.addEventListener('click', (e) => {
+  togglePaymentMethod(e, invoiceInput, cardInput);
 });

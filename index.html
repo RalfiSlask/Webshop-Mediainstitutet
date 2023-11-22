@@ -82,10 +82,12 @@
     ></div>
 
     <div
-      class="fixed border-l flex border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen right-0 flex-col top-0 w-[500px] transition-transform duration-300 ease-in translate-x-[500px] z-50 pt-4"
+      class="open-sidebar fixed border-l flex border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-col top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
       id="cart_modal"
     >
-      <div class="flex justify-between items-center px-3 pb-3 border-b border-light-border dark:border-dark-border">
+      <div
+        class="flex justify-between items-center h-14 px-4 pb-3 border-b border-light-border dark:border-dark-border z-5 w-full"
+      >
         <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
         <svg
           id="close_button"
@@ -118,50 +120,70 @@
           </g>
         </svg>
       </div>
-      <div class="hide px-4 py-16 flex items-center flex-col gap-8 bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border" id="empty_cart">
+      <div
+        class="hide px-4 pt-16 flex z-0 items-center flex-col gap-8 bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border h-full"
+        id="empty_cart"
+      >
         <h2 class="text-[2rem] font-garamond">Your cart is empty</h2>
-        <img src="./src/assets/images/empty-cart.png" alt="sad empty cart">
-        <cite class="text-center font-garamond text-[1.25rem]">"Looks like the critters have scampered off! Your cart is as empty as a squirrel’s winter stash. Fill it up before they come back!"</cite>
-      </div>
-      <div id="cart_container" class="flex flex-col gap-4 mt-7 max-h-[800px]">
-        <div id="cart_empty" class="px-3">
-        </div>
+        <img src="./src/assets/images/empty-cart.png" alt="sad empty cart" />
+        <cite class="text-center font-garamond text-[1.25rem]"
+          >"Looks like the critters have scampered off! Your cart is as empty as
+          a squirrel’s winter stash. Fill it up before they come back!"</cite
+        >
       </div>
       <div
-        class="bg-white dark:bg-dark-Main h-[800px] absolute bottom-20 z-5 -translate-y-[-800px] w-full px-2 pt-4"
+        id="cart_container"
+        class="flex flex-col gap-4 mt-7 max-h-[800px]"
+      ></div>
+      <div
+        class="bg-light-Main flex flex-col gap-4 dark:bg-dark-Main h-full absolute top-20 z-5 max-h-[1000px] -translate-y-[0px] w-full px-2 pt-4"
+        id="checkout_container"
       >
         <form
           action=""
-          class="checkout-form flex flex-col gap-4 px-4 h-full w-full"
+          class="checkout-form flex flex-col gap-4 px-4 w-full"
+          id="checkout_form"
         >
-          <label for="firstname">First name</label>
-          <input
-            name="firstname"
-            id="firstname"
-            type="text"
-            placeholder="e.g. First name"
-            required
-            aria-required
-          />
-          <label for="lastname" class="font-bold">Last name</label>
-          <input
-            name="lastname"
-            id="lastname"
-            type="text"
-            placeholder="e.g. Last name"
-            required
-            aria-required
-          />
-          <label for="address">Address</label>
-          <input
-            name="address"
-            id="address"
-            type="text"
-            placeholder="e.g. Address"
-            required
-            aria-required
-          />
-          <div class="flex gap-2">
+          <div class="flex gap-2 w-full">
+            <div class="flex flex-col gap-1 w-full">
+              <label for="firstname">First name</label>
+              <input
+                name="firstname"
+                id="firstname"
+                type="text"
+                class="input"
+                placeholder="e.g. First name"
+                required
+                aria-required
+              />
+            </div>
+            <div class="flex flex-col gap-1 w-full">
+              <label for="lastname" class="font-bold">Last name</label>
+              <input
+                name="lastname"
+                id="lastname"
+                type="text"
+                placeholder="e.g. Last name"
+                class="input"
+                required
+                aria-required
+              />
+            </div>
+          </div>
+          <div class="flex flex-col gap-1 w-full">
+            <label for="address">Address</label>
+            <input
+              name="address"
+              id="address"
+              type="text"
+              placeholder="e.g. Address"
+              class="input"
+              required
+              aria-required
+            />
+          </div>
+
+          <div class="flex gap-2 font-medium">
             <div class="flex flex-col gap-2">
               <label for="postal">Postal Code</label>
               <input
@@ -169,6 +191,7 @@
                 id="postal"
                 type="text"
                 placeholder="e.g. Postal Code"
+                class="input"
                 required
                 aria-required
               />
@@ -180,79 +203,137 @@
                 id="city"
                 type="text"
                 placeholder="e.g. City"
+                class="input"
                 required
                 aria-required
               />
             </div>
           </div>
 
-          <label for="tel">Telephone</label>
-          <input
-            name="tel"
-            id="tel"
-            type="tel"
-            placeholder="e.g. Telephone"
-            required
-            aria-required
-          />
-          <label for="mail">Email</label>
-          <input
-            name="mail"
-            id="mail"
-            type="email"
-            placeholder="e.g. Email"
-            required
-            aria-required
-          />
+          <div class="flex gap-2 w-full">
+            <div class="flex flex-col gap-1 w-full">
+              <label for="tel">Telephone</label>
+              <input
+                name="tel"
+                id="tel"
+                type="tel"
+                placeholder="e.g. Telephone"
+                class="input"
+                required
+                aria-required
+              />
+            </div>
+            <div class="flex flex-col gap-1 w-full">
+              <label for="mail">Email</label>
+              <input
+                name="mail"
+                id="mail"
+                type="email"
+                placeholder="e.g. Email"
+                class="input"
+                required
+                aria-required
+              />
+            </div>
+          </div>
+          <div id="payment" class="flex flex-col gap-6 h-[200px] relative">
+            <div class="flex justify-between w-full">
+              <h2 class="w-[30%] font-medium">Payment Method</h2>
+              <div class="w-[70%] flex flex-col items-end gap-4" id="payment_inputs">
+                <div class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input" id="invoice_input">
+                  <div class="w-6 h-6 flex justify-center items-center border border-light-border dark:border-dark-border rounded-full">
+                    <button class="w-2 h-2 rounded-full input-button main-button"></button>
+                  </div>
+                  <p>Invoice</p>
+                </div>
+                <div class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input" id="card_input">
+                  <div class="w-6 h-6 flex justify-center items-center border border-light-border dark:border-dark-border rounded-full">
+                    <button class="w-2 h-2 input-button rounded-full"></button>
+                  </div>
+                  <p>Card</p>
+                </div>
+              </div>
+            </div>
+          
+            <div class="flex flex-col absolute bottom-0 gap-2 w-full" id="social_container"> 
+              <label for="social" class="font-medium">Social Security Number</label>
+              <input name="social" id="social" type="text" placeholder="e.g. SSN" required aria-required="true" class="input w-[50%]">
+            </div>
+
+            <div class="flex gap-2 absolute bottom-0 hide" id="card_container">
+              <div class="flex flex-col gap-2">
+                <label for="card_number" class="font-medium">Card Number</label>
+                <input type="text" name="card_number" id="card_number" maxlength="19" placeholder="0000 1111 2222 3333" class="input">
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="expiration" class="font-medium">Expiration Date</label>
+                <input type="text" name="expiration" id="expiration" maxlength="10" placeholder="MM/DD/YYYY" class="input">
+              </div>
+              <div class="flex flex-col gap-2 w-14">
+                <label for="cvc" class="font-medium">CVC</label>
+                <input type="text" name="cvc" id="cvc" maxlength="3" placeholder="123" class="input">
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="flex flex-col gap-8 px-4">
+         
           <div class="flex flex-col gap-4">
             <div class="flex gap-4 items-center">
-              <button
-                class="w-8 h-8 bg-gray-400 flex justify-center items-center"
-              >
+              <button class="checkbox">
                 <img
-                  src="src/assets/icons/check.svg"
-                  alt="checkbox"
+                  src="./src/assets/icons/check.svg"
                   width="20"
                   height="20"
+                  alt="check icon"
+                  class="hidden"
                 />
               </button>
               <p>Approves the processing of personal data</p>
             </div>
             <div class="flex gap-4 items-center">
-              <button
-                class="w-8 h-8 bg-gray-400 flex justify-center items-center"
-              >
+              <button class="checkbox main-button">
                 <img
-                  src="src/assets/icons/check.svg"
-                  alt="checkbox"
+                  src="./src/assets/icons/check.svg"
                   width="20"
                   height="20"
+                  alt="check icon"
                 />
               </button>
               <p>I want newsletter</p>
             </div>
           </div>
+          <div id="discount_container" class="flex gap-4 items-center">
+            <label for="discount_input" class="font-medium">Discount Code</label>
+            <input name="discount_input" id="discount_input" type="text" spellcheck="false" placeholder="e.g. Espresso" class="input">
+            <button class="secondary-button px-4 h-full" id="validate_button">Validate</button>
+            <p class="hide" id="discount_text">This is not a valid code</p>
+          </div>
           <div class="flex gap-4">
             <input
-              type="submit"
-              value="Order"
-              class="main-button text-[1.5rem] rounded-3xl px-8 flex justify-center items-center py-2 cursor-pointer"
-            />
-            <input
+              id="reset_button"
               type="reset"
               value="Reset"
-              class="secondary-button text-[1.5rem] rounded-3xl px-8 py-2 cursor-pointer"
+              class="secondary-button text-[1.5rem] rounded-sm px-4 py-1 cursor-pointer w-[144px]"
             />
           </div>
-        </form>
+        </div>
+
       </div>
       <div
-        class="h-20 flex justify-between px-3 items-center main-button cursor-pointer absolute bottom-0 w-full"
+        class="h-20 flex justify-between px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
         id="checkout_button"
       >
         <h2 class="text-[1.5rem]">Checkout</h2>
         <p id="total_price">$ 0</p>
       </div>
+      <div
+      class="hide h-20 flex justify-center px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
+      id="submit_button"
+    >
+      <h2 class="text-[1.5rem]">Continue And Pay</h2>
+    </div>
+      
     </div>
 
     <header
@@ -334,7 +415,7 @@
       </div>
       <div class="lower_header w-[90vw] flex justify-between items-center h-20">
         <div
-          class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1"
+          class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1 h-9"
         >
           <svg
             height="20px"
@@ -358,7 +439,7 @@
           <input
             type="text"
             placeholder="Search Site"
-            class="outline-none pl-2 cursor-pointer input"
+            class="outline-none pl-3 cursor-pointer bg-light-input dark:bg-dark-input "
           />
         </div>
         <img
@@ -470,120 +551,120 @@
               class="flex gap-2 cursor-pointer items-center rounded-[3rem] px-6 main-button"
               id="filter_button"
             >
-            <svg
-            enable-background="new 0 0 32 32"
-            id="filter_icon"
-            width="20px"
-            height="20px"
-            version="1.1"
-            viewBox="0 0 32 32"
-            role="button"
-            xml:space="preserve"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            aria-labelledby="title desc"
-          >
-            <title id="title">Filter Button</title>
-            <desc id="desc">Filter Button to open filter modal</desc>
-            <g>
-              <circle
-                cx="5"
-                cy="8"
-                fill="currentColor"
-                r="2"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              />
-              <line
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="7"
-                x2="32"
-                y1="8"
-                y2="8"
-              />
-              <circle
-                cx="5"
-                cy="24"
-                fill="currentColor"
-                r="2"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              />
-              <line
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="7"
-                x2="32"
-                y1="24"
-                y2="24"
-              />
-              <circle
-                cx="27"
-                cy="16"
-                fill="currentColor"
-                r="2"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-              />
-              <line
-                fill="none"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="25"
-                x2="0"
-                y1="16"
-                y2="16"
-              />
-              <line
-                fill="none"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="3"
-                x2="0"
-                y1="8"
-                y2="8"
-              />
-              <line
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="29"
-                x2="32"
-                y1="16"
-                y2="16"
-              />
-              <line
-                fill="currentColor"
-                stroke="currentColor"
-                stroke-linejoin="round"
-                stroke-miterlimit="10"
-                stroke-width="2"
-                x1="3"
-                x2="0"
-                y1="24"
-                y2="24"
-              />
-            </g>
-          </svg>
+              <svg
+                enable-background="new 0 0 32 32"
+                id="filter_icon"
+                width="20px"
+                height="20px"
+                version="1.1"
+                viewBox="0 0 32 32"
+                role="button"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                aria-labelledby="title desc"
+              >
+                <title id="title">Filter Button</title>
+                <desc id="desc">Filter Button to open filter modal</desc>
+                <g>
+                  <circle
+                    cx="5"
+                    cy="8"
+                    fill="currentColor"
+                    r="2"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                  />
+                  <line
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="7"
+                    x2="32"
+                    y1="8"
+                    y2="8"
+                  />
+                  <circle
+                    cx="5"
+                    cy="24"
+                    fill="currentColor"
+                    r="2"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                  />
+                  <line
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="7"
+                    x2="32"
+                    y1="24"
+                    y2="24"
+                  />
+                  <circle
+                    cx="27"
+                    cy="16"
+                    fill="currentColor"
+                    r="2"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                  />
+                  <line
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="25"
+                    x2="0"
+                    y1="16"
+                    y2="16"
+                  />
+                  <line
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="3"
+                    x2="0"
+                    y1="8"
+                    y2="8"
+                  />
+                  <line
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="29"
+                    x2="32"
+                    y1="16"
+                    y2="16"
+                  />
+                  <line
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-miterlimit="10"
+                    stroke-width="2"
+                    x1="3"
+                    x2="0"
+                    y1="24"
+                    y2="24"
+                  />
+                </g>
+              </svg>
               <p class="font-bold">Filter</p>
             </div>
             <div class="flex flex-col items-end">
@@ -733,7 +814,9 @@
                 </div>
 
                 <div class="categoryPanel border-t" id="category_container">
-                  <div class="flex gap-2 items-center z-10 category_switcher pt-4 cursor-pointer">
+                  <div
+                    class="flex gap-2 items-center z-10 category_switcher pt-4 cursor-pointer"
+                  >
                     <h3>Category</h3>
                     <svg
                       height="20px"
@@ -831,7 +914,9 @@
                 </div>
 
                 <div class="categoryPanel" id="price_container">
-                  <div class="category_switcher flex items-center gap-2 pt-4 cursor-pointer">
+                  <div
+                    class="category_switcher flex items-center gap-2 pt-4 cursor-pointer"
+                  >
                     <h3>Price Interval</h3>
                     <svg
                       height="20px"
