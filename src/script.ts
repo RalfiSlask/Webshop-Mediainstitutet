@@ -25,11 +25,20 @@ import {
   toggleMenu,
   sortByProperty,
   handleClickOnMenuLinks,
-  submitForm,
-  resetForm,
   calculateAndDisplayTotalPrice,
-  toggleCartClassesBasedOnNumberOfProducts
+  handleReset,
+  toggleCartClassesBasedOnNumberOfProducts,
+  switchVisibilityOfInputs,
+  setInputAttribute
 } from './assets/utils/helperfunctions';
+import {
+  emailRegex,
+  numberOnlyRegex,
+  telephoneRegex,
+  textOnlyRegx,
+  socialSecurityRegex,
+  addressRegex
+} from './assets/utils/regEx';
 
 let productArrayOfObjects = productData;
 
@@ -50,6 +59,7 @@ const checkoutContainer = document.querySelector('#checkout_container');
 const paymentInputsContainer = document.querySelector('#payment_inputs');
 const invoiceInput = document.querySelector('#invoice_input');
 const cardInput = document.querySelector('#card_input');
+const shippingContainer = document.querySelector('#shipping');
 // Buttons / ListItems
 const validateButton = document.querySelector('#validate_button');
 const resetButton = document.querySelector('#reset_button');
@@ -389,7 +399,7 @@ const handleClickOnAddToCartButton = (e: Event) => {
   if (!doesObjectExistInArray) {
     cartArrayOfObjects.push(cartProduct);
   }
-  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer);
+  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
   displayNumberOfProductsOnCartLogo(
     cartDisplayButton,
     cartArrayOfObjects.length
@@ -407,7 +417,7 @@ const handleclickOnRemove = (clickedId: number) => {
     cartContainer,
     checkoutButton
   );
-  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer);
+  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
   displayNumberOfProductsOnCartLogo(
     cartDisplayButton,
     cartArrayOfObjects.length
@@ -418,7 +428,7 @@ const handleclickOnRemove = (clickedId: number) => {
 const handleclickOnPlusSign = (product: CartObjectType) => {
   if (product.count > 0) {
     product.count += 1;
-    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer);
+    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
     generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
   }
 };
@@ -426,7 +436,7 @@ const handleclickOnPlusSign = (product: CartObjectType) => {
 const handleClickOnMinusSign = (product: CartObjectType) => {
   if (product.count > 1) {
     product.count -= 1;
-    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer);
+    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
     generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
   }
 };
@@ -459,8 +469,17 @@ const handleClickableItemsOnProducts = (e: Event) => {
 const handleClickOnCheckoutButton = (
   e: Event,
   checkoutContainer: Element | null,
-  cartModal: Element | null
+  cartModal: Element | null,
+  totalPriceContainer: Element | null,
+  invoiceInput: Element | null
 ) => {
+  const currentPrice = Number(
+    totalPriceContainer?.textContent?.replace('$ ', '')
+  );
+  // invoice option is unavailable if price is over 800
+  if (currentPrice > 800) {
+    invoiceInput?.classList.add('hide');
+  }
   const checkoutButton = e.target as HTMLElement;
   const orderButton = checkoutButton.nextElementSibling;
   checkoutContainer?.classList.add('open-checkout');
@@ -536,6 +555,8 @@ const togglePaymentInputButtons = (
   }
 };
 
+
+
 const togglePaymentMethod = (
   e: Event,
   invoiceInput: Element | null,
@@ -545,16 +566,82 @@ const togglePaymentMethod = (
   const invoiceInputClosest = target.closest('#invoice_input');
   const cardInputClosest = target.closest('#card_input');
   const cardInputContainer = document.querySelector('#card_container');
-  const socialSecurityInputContainer = document.querySelector('#social_container');
+  const socialSecurityInputContainer =
+    document.querySelector('#social_container');
+  const socialSecurityInput =
+    socialSecurityInputContainer?.querySelector('#social');
   if (invoiceInputClosest !== null) {
     togglePaymentInputButtons(invoiceInputClosest, cardInput);
-    cardInputContainer?.classList.add('hide');
-    socialSecurityInputContainer?.classList.remove('hide');
+    switchVisibilityOfInputs(
+      cardInputContainer,
+      socialSecurityInputContainer
+    );
+    setInputAttribute(socialSecurityInput, 'required', true);
   } else if (cardInputClosest !== null) {
     togglePaymentInputButtons(cardInputClosest, invoiceInput);
-    cardInputContainer?.classList.remove('hide');
-    socialSecurityInputContainer?.classList.add('hide');
+    switchVisibilityOfInputs(
+      socialSecurityInputContainer,
+      cardInputContainer
+    );
+    setInputAttribute(socialSecurityInput, 'required', false);
   }
+};
+
+let errorMessage = 'Can´t be empty';
+
+const validateInputWithRegex = (
+  input: HTMLInputElement,
+  regExp: RegExp,
+  errorMessage: string
+) => {
+  const errorText = input.parentElement?.querySelector('p');
+  if (errorText !== undefined && errorText !== null) {
+    if (!regExp.test(input.value)) {
+      errorText.classList.remove('hide');
+      errorText.textContent = errorMessage;
+      input.classList.remove('valid');
+    } else {
+      errorText.classList.add('hide');
+      // also removing the text for screen readers
+      errorText.textContent = '';
+      input.classList.add('valid');
+    }
+  }
+};
+
+const handleSubmit = (form: HTMLFormElement | null) => {
+  const allRequiredInputs = form?.querySelectorAll(
+    'input[required="true"]'
+  ) as NodeListOf<HTMLInputElement>;
+  allRequiredInputs?.forEach((input) => {
+    if (input.value.trim() === '') {
+      const errorText = input.parentElement?.querySelector('p[aria-live]');
+      if (errorText !== undefined && errorText !== null) {
+        errorText.textContent = 'Can´t be empty';
+        errorText.classList.remove('hide');
+      }
+    } else {
+      if (input.classList.contains('text')) {
+        errorMessage = 'Can´t contain numbers';
+        validateInputWithRegex(input, textOnlyRegx, errorMessage);
+      } else if (input.classList.contains('address')) {
+        errorMessage = 'Must be valid address';
+        validateInputWithRegex(input, addressRegex, errorMessage);
+      } else if (input.classList.contains('number')) {
+        errorMessage = 'Must consist of numbers';
+        validateInputWithRegex(input, numberOnlyRegex, errorMessage);
+      } else if (input.classList.contains('mail')) {
+        errorMessage = 'Must be a valid email';
+        validateInputWithRegex(input, emailRegex, errorMessage);
+      } else if (input.classList.contains('tel')) {
+        errorMessage = 'Must be a valid number';
+        validateInputWithRegex(input, telephoneRegex, errorMessage);
+      } else if (input.classList.contains('social')) {
+        errorMessage = 'Must be a valid SSN';
+        validateInputWithRegex(input, socialSecurityRegex, errorMessage);
+      }
+    }
+  });
 };
 
 // Borde nog refaktorera
@@ -686,14 +773,20 @@ sortButton?.addEventListener('click', () => {
   handleClickOnSortPanel(sortModal);
 });
 checkoutButton?.addEventListener('click', (e) => {
-  handleClickOnCheckoutButton(e, checkoutContainer, cartModal);
+  handleClickOnCheckoutButton(
+    e,
+    checkoutContainer,
+    cartModal,
+    totalPriceContainer,
+    invoiceInput
+  );
 });
 validateButton?.addEventListener('click', handleClickOnValidateButton);
 resetButton?.addEventListener('click', () => {
-  resetForm(checkoutForm);
+  handleReset(checkoutForm);
 });
 submitButton?.addEventListener('click', () => {
-  submitForm(checkoutForm);
+  handleSubmit(checkoutForm);
 });
 paymentInputsContainer?.addEventListener('click', (e) => {
   togglePaymentMethod(e, invoiceInput, cardInput);

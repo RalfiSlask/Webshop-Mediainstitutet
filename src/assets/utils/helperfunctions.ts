@@ -40,7 +40,7 @@ export const toggleCartClassesBasedOnNumberOfProducts = (
   const numberOfProductsInCart = cartArrayOfObjects.length;
   if (emptyCartContainer === null) {
     return;
-  }; 
+  }
   if (numberOfProductsInCart === 0) {
     emptyCartContainer.classList.remove('hide');
     cartContainer?.classList.add('hide');
@@ -52,19 +52,52 @@ export const toggleCartClassesBasedOnNumberOfProducts = (
   }
 };
 
+export const getTotalPriceWithMondayDiscount = (totalPrice: number) => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentHour = currentDate.getHours();
+  const isThereMondayDiscount = currentDay === 1 && currentHour < 10; 
+  // If it is Monday before 10 am return a 10% discount on the total price
+  return isThereMondayDiscount ? totalPrice * (90 / 100) : totalPrice;
+};
+
+export const getProductPriceDependingOnIfItIsWeekendOrNot = (productTotalPrice: number) => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentHour = currentDate.getHours();
+  const isItFridayAfterThreePM = currentDay >= 5 && currentHour > 15;
+  const isItWeekend = currentDay === 6 || currentDay === 0;
+  const isItBeforeMondayThreeAm = currentDay === 1 && currentHour < 3; 
+  const isThereWeekendSurcharge = isItFridayAfterThreePM || isItBeforeMondayThreeAm || isItWeekend;
+  // If it is Friday after 3 pm and before 3 am on Monday return product total price with a 15% surcharge
+  return isThereWeekendSurcharge ? productTotalPrice * 1.15 : productTotalPrice;
+};
+
 export const calculateAndDisplayTotalPrice = (
   arrayOfObjects: CartObjectType[],
-  totalPriceContainer: Element | null
+  totalPriceContainer: Element | null,
+  shippingContainer: Element | null
 ) => {
   let totalPrice: number = 0;
-  arrayOfObjects.forEach((object) => {
-    const productTotal: number = object.price * object.count;
-    totalPrice += productTotal;
+  let shipping: number = 25;
+  let totalAmountOfProductsInCart: number = 0;
+  arrayOfObjects.forEach(object => {
+    totalAmountOfProductsInCart += object.count;
   });
-  if (totalPriceContainer === null) {
+  arrayOfObjects.forEach((object) => {
+    let productTotal: number = getProductPriceDependingOnIfItIsWeekendOrNot(object.price * object.count);
+    if (object.count >= 10) {
+      productTotal *= (90 / 100);
+    };
+    // if the total amount of products in the cart is over 15 remove shipping cost, else add 10% of each products total
+    totalAmountOfProductsInCart > 15 ? shipping = 0 : shipping += productTotal / 10;
+    totalPrice += productTotal;
+  });  
+  if (totalPriceContainer === null || shippingContainer === null) {
     return;
-  }; 
-  totalPriceContainer.textContent = `$ ${totalPrice.toString()}`;
+  };
+  shippingContainer.textContent = `Shipping: ${shipping.toFixed(0)}`
+  totalPriceContainer.textContent = `$ ${getTotalPriceWithMondayDiscount(totalPrice).toFixed(0)}`;
 };
 
 export const toggleMenu = (
@@ -117,15 +150,24 @@ export const sortByProperty = (
   });
 };
 
-export const resetForm = (form: HTMLFormElement | null) => {
+export const handleReset = (form: HTMLFormElement | null) => {
   if (form !== null) {
     form.reset();
-  };
+  }
 };
 
-export const submitForm = (form: HTMLFormElement | null) => {
-  if (form !== null) {
-    form.submit();
-  };
+export const switchVisibilityOfInputs = (
+  inputContainerToHide: Element | null,
+  inputContainerToShow: Element | null
+) => {
+  inputContainerToHide?.classList.add('hide');
+  inputContainerToShow?.classList.remove('hide');
 };
 
+export const setInputAttribute = (
+  input: Element | null | undefined,
+  attribute: string,
+  state: boolean
+) => {
+  input?.setAttribute(attribute, `${state}`);
+};

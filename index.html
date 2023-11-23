@@ -56,7 +56,7 @@
   </head>
 
   <body
-    class="flex flex-col items-center font-roboto text-light-text dark:text-dark-text bg-light-Main dark:bg-dark-Main"
+    class="flex-column items-center font-roboto text-light-text dark:text-dark-text main-theme"
     id="Home"
   >
     <div
@@ -65,7 +65,7 @@
     >
       <nav class="md:flex absolute left-1/2 -translate-x-1/2">
         <ul
-          class="flex flex-col gap-4 cursor-pointer text-[2rem] text-light-Headings dark:text-dark-Headings"
+          class="flex-column gap-4 cursor-pointer text-[2rem] text-light-Headings dark:text-dark-Headings"
           id="nav-list"
         >
           <li class="navtext"><a href="#Home">Home</a></li>
@@ -82,11 +82,11 @@
     ></div>
 
     <div
-      class="open-sidebar fixed border-l flex border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-col top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
+      class="open-sidebar fixed border-l flex border-color bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-column top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
       id="cart_modal"
     >
       <div
-        class="flex justify-between items-center h-14 px-4 pb-3 border-b border-light-border dark:border-dark-border z-5 w-full"
+        class="flex-center h-14 px-4 pb-3 border-b border-color z-5 w-full"
       >
         <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
         <svg
@@ -95,7 +95,6 @@
           width="30"
           height="30"
           role="button"
-          title=""
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
           aria-labelledby="title desc"
@@ -121,7 +120,7 @@
         </svg>
       </div>
       <div
-        class="hide px-4 pt-16 flex z-0 items-center flex-col gap-8 bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border h-full"
+        class="hide px-4 pt-16 flex z-0 items-center flex-column gap-8 main-theme border-b border-color h-full"
         id="empty_cart"
       >
         <h2 class="text-[2rem] font-garamond">Your cart is empty</h2>
@@ -133,152 +132,225 @@
       </div>
       <div
         id="cart_container"
-        class="flex flex-col gap-4 mt-7 max-h-[800px]"
+        class="flex-column gap-4 mt-7 max-h-[800px]"
       ></div>
       <div
-        class="bg-light-Main flex flex-col gap-4 dark:bg-dark-Main h-full absolute top-20 z-5 max-h-[1000px] -translate-y-[0px] w-full px-2 pt-4"
+        class="bg-light-Main flex-column gap-4 dark:bg-dark-Main h-full absolute top-20 z-5 max-h-[1000px] -translate-y-[-1100px] w-full px-2 pt-4"
         id="checkout_container"
       >
         <form
-          action=""
-          class="checkout-form flex flex-col gap-4 px-4 w-full"
+          class="checkout-form flex-column gap-4 px-4 w-full"
           id="checkout_form"
         >
-          <div class="flex gap-2 w-full">
-            <div class="flex flex-col gap-1 w-full">
-              <label for="firstname">First name</label>
+          <div class="flex gap-4 w-full">
+            <div class="flex-column gap-1 w-full">
+              <div class="flex-center h-7">
+                <label for="firstname" class="font-medium">First name</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="firstname"
                 id="firstname"
                 type="text"
-                class="input"
+                class="input text firstname"
                 placeholder="e.g. First name"
-                required
-                aria-required
+                required="true"
+                aria-required="true"
               />
             </div>
-            <div class="flex flex-col gap-1 w-full">
-              <label for="lastname" class="font-bold">Last name</label>
+            <div class="flex-column gap-1 w-full">
+              <div class="flex-center h-7">
+                <label for="lastname" class="font-medium">Last name</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="lastname"
                 id="lastname"
                 type="text"
                 placeholder="e.g. Last name"
-                class="input"
-                required
-                aria-required
+                class="input text"
+                required="true"
+                aria-required="true"
               />
             </div>
           </div>
-          <div class="flex flex-col gap-1 w-full">
-            <label for="address">Address</label>
+          <div class="flex-column gap-1 w-full">
+            <div class="flex-center h-7">
+              <label for="address" class="font-medium">Address</label>
+              <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+            </div>
             <input
               name="address"
               id="address"
               type="text"
               placeholder="e.g. Address"
-              class="input"
-              required
-              aria-required
+              class="input address"
+              required="true"
+              aria-required="true"
             />
           </div>
 
-          <div class="flex gap-2 font-medium">
-            <div class="flex flex-col gap-2">
-              <label for="postal">Postal Code</label>
+          <div class="flex gap-4 w-full">
+            <div class="flex-column gap-2 w-[40%]">
+              <div class="flex-center h-7">
+                <label for="postal" class="font-medium">Postal Code</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="postal"
                 id="postal"
                 type="text"
                 placeholder="e.g. Postal Code"
-                class="input"
-                required
-                aria-required
+                class="input number"
+                required="true"
+             aria-required="true"
               />
             </div>
-            <div class="flex flex-col gap-2 w-[180px]">
-              <label for="city">City</label>
+            <div class="flex-column gap-2 w-[40%]">
+              <div class="flex-center h-7">
+                <label for="city" class="font-medium">City</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="city"
                 id="city"
                 type="text"
                 placeholder="e.g. City"
-                class="input"
-                required
-                aria-required
+                class="input text"
+                required="true"
+                aria-required="true"
               />
             </div>
           </div>
 
-          <div class="flex gap-2 w-full">
-            <div class="flex flex-col gap-1 w-full">
-              <label for="tel">Telephone</label>
+          <div class="flex gap-4 w-full">
+            <div class="flex-column gap-1 w-full">
+              <div class="flex-center h-7">
+                <label for="tel" class="font-medium">Telephone</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="tel"
                 id="tel"
                 type="tel"
                 placeholder="e.g. Telephone"
-                class="input"
-                required
-                aria-required
+                class="input tel"
+                required="true"
+                aria-required="true"
               />
             </div>
-            <div class="flex flex-col gap-1 w-full">
-              <label for="mail">Email</label>
+            <div class="flex-column gap-1 w-full">
+              <div class="flex-center h-7">
+                <label for="mail" class="font-medium">Email</label>
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
               <input
                 name="mail"
                 id="mail"
                 type="email"
                 placeholder="e.g. Email"
-                class="input"
-                required
-                aria-required
+                class="input mail"
+                required="true"
+                aria-required="true"
               />
             </div>
           </div>
-          <div id="payment" class="flex flex-col gap-6 h-[200px] relative">
+          <div id="payment" class="flex-column gap-6 h-[200px] relative">
             <div class="flex justify-between w-full">
               <h2 class="w-[30%] font-medium">Payment Method</h2>
-              <div class="w-[70%] flex flex-col items-end gap-4" id="payment_inputs">
-                <div class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input" id="invoice_input">
-                  <div class="w-6 h-6 flex justify-center items-center border border-light-border dark:border-dark-border rounded-full">
-                    <button class="w-2 h-2 rounded-full input-button main-button"></button>
+              <div
+                class="w-[70%] flex-column items-end gap-4"
+                id="payment_inputs"
+              >
+                <div
+                  class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input"
+                  id="invoice_input"
+                >
+                  <div
+                    class="w-6 h-6 flex justify-center items-center border border-color rounded-full"
+                  >
+                    <button
+                      class="w-2 h-2 rounded-full input-button"
+                    ></button>
                   </div>
                   <p>Invoice</p>
                 </div>
-                <div class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input" id="card_input">
-                  <div class="w-6 h-6 flex justify-center items-center border border-light-border dark:border-dark-border rounded-full">
-                    <button class="w-2 h-2 input-button rounded-full"></button>
+                <div
+                  class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input"
+                  id="card_input"
+                >
+                  <div
+                    class="w-6 h-6 flex justify-center items-center border border-color rounded-full"
+                  >
+                    <button class="w-2 h-2 input-button rounded-full main-button"></button>
                   </div>
                   <p>Card</p>
                 </div>
               </div>
             </div>
-          
-            <div class="flex flex-col absolute bottom-0 gap-2 w-full" id="social_container"> 
-              <label for="social" class="font-medium">Social Security Number</label>
-              <input name="social" id="social" type="text" placeholder="e.g. SSN" required aria-required="true" class="input w-[50%]">
+
+            <div
+              class="flex-column absolute bottom-0 gap-2 w-[50%] hide"
+              id="social_container"
+            >
+              <div class="flex-center h-7">
+                <label for="social" class="font-medium number"
+                  >Social Security Number</label
+                >
+                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+              </div>
+              <input
+                name="social"
+                id="social"
+                type="text"
+                placeholder="YYMMDD-1234"
+                required="false"
+             aria-required="true"
+                class="input social"
+              />
             </div>
 
-            <div class="flex gap-2 absolute bottom-0 hide" id="card_container">
-              <div class="flex flex-col gap-2">
-                <label for="card_number" class="font-medium">Card Number</label>
-                <input type="text" name="card_number" id="card_number" maxlength="19" placeholder="0000 1111 2222 3333" class="input">
+            <div class="flex gap-2 absolute bottom-0" id="card_container">
+              <div class="flex-column gap-2">
+                <label for="card_number" class="font-medium h-7">Card Number</label>
+                <input
+                  type="text"
+                  name="card_number"
+                  id="card_number"
+                  maxlength="19"
+                  placeholder="0000 1111 2222 3333"
+                  class="input"
+                />
               </div>
-              <div class="flex flex-col gap-2">
-                <label for="expiration" class="font-medium">Expiration Date</label>
-                <input type="text" name="expiration" id="expiration" maxlength="10" placeholder="MM/DD/YYYY" class="input">
+              <div class="flex-column gap-2">
+                <label for="expiration" class="font-medium h-7"
+                  >Expiration Date</label
+                >
+                <input
+                  type="text"
+                  name="expiration"
+                  id="expiration"
+                  maxlength="10"
+                  placeholder="MM/DD/YYYY"
+                  class="input"
+                />
               </div>
-              <div class="flex flex-col gap-2 w-14">
-                <label for="cvc" class="font-medium">CVC</label>
-                <input type="text" name="cvc" id="cvc" maxlength="3" placeholder="123" class="input">
+              <div class="flex-column gap-2 w-14">
+                <label for="cvc" class="font-medium h-7">CVC</label>
+                <input
+                  type="text"
+                  name="cvc"
+                  id="cvc"
+                  maxlength="3"
+                  placeholder="123"
+                  class="input"
+                />
               </div>
             </div>
           </div>
         </form>
-        <div class="flex flex-col gap-8 px-4">
-         
-          <div class="flex flex-col gap-4">
+        <div class="flex-column gap-8 px-4">
+          <div class="flex-column gap-4">
             <div class="flex gap-4 items-center">
               <button class="checkbox">
                 <img
@@ -304,9 +376,20 @@
             </div>
           </div>
           <div id="discount_container" class="flex gap-4 items-center">
-            <label for="discount_input" class="font-medium">Discount Code</label>
-            <input name="discount_input" id="discount_input" type="text" spellcheck="false" placeholder="e.g. Espresso" class="input">
-            <button class="secondary-button px-4 h-full" id="validate_button">Validate</button>
+            <label for="discount_input" class="font-medium"
+              >Discount Code</label
+            >
+            <input
+              name="discount_input"
+              id="discount_input"
+              type="text"
+              spellcheck="false"
+              placeholder="e.g. Espresso"
+              class="input"
+            />
+            <button class="secondary-button px-4 h-full" id="validate_button">
+              Validate
+            </button>
             <p class="hide" id="discount_text">This is not a valid code</p>
           </div>
           <div class="flex gap-4">
@@ -318,7 +401,6 @@
             />
           </div>
         </div>
-
       </div>
       <div
         class="h-20 flex justify-between px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
@@ -327,22 +409,23 @@
         <h2 class="text-[1.5rem]">Checkout</h2>
         <p id="total_price">$ 0</p>
       </div>
-      <div
-      class="hide h-20 flex justify-center px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
-      id="submit_button"
-    >
-      <h2 class="text-[1.5rem]">Continue And Pay</h2>
-    </div>
-      
+      <button
+        type="submit"
+        class="hide h-20 flex justify-center px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
+        id="submit_button"
+      >
+        <h2 class="text-[1.5rem]">Continue And Pay</h2>
+      </button>
     </div>
 
     <header
-      class="px-3 fixed z-30 w-full flex flex-col items-center bg-light-Main dark:bg-dark-Main border-b border-light-border dark:border-dark-border"
+      class="px-3 fixed z-30 w-full flex-column items-center main-theme border-b border-color"
     >
-      <div class="h-16 upper_header w-[90vw] flex justify-between items-center">
+      <div class="h-16 upper_header w-[90vw] flex-center">
         <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">
           Fluff & Stuff
         </h2>
+        <h2 id="shipping">Shipping</h2>
         <div class="flex gap-4 items-center">
           <div
             class="relative w-[30px] h-[30px] cursor-pointer"
@@ -352,10 +435,10 @@
               viewBox="0 0 576 512"
               xmlns="http://www.w3.org/2000/svg"
               class="cursor-pointer w-[30px] h-[30px] absolute icon-hover"
-              aria-labelledby="title desc"
+              aria-labelledby="cart_title cart_desc"
             >
-              <title id="title">Cart Button</title>
-              <desc id="desc">Button to open the cart</desc>
+              <title id="cart_title">Cart Button</title>
+              <desc id="cart_desc">Button to open the cart</desc>
 
               <path
                 fill="currentColor"
@@ -378,10 +461,10 @@
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
             class="cursor-pointer w-[30px] h-[30px] icon-hover"
-            aria-labelledby="title desc"
+            aria-labelledby="user_title user_desc"
           >
-            <title id="title">User Button</title>
-            <desc id="desc">Button resembling the user</desc>
+            <title id="user_title">User Button</title>
+            <desc id="user_desc">Button resembling the user</desc>
 
             <g id="info" />
             <g id="icons">
@@ -400,10 +483,10 @@
             viewBox="0 0 24 24"
             width="35"
             xmlns="http://www.w3.org/2000/svg"
-            aria-labelledby="title desc"
+            aria-labelledby="darkmode_title darkmode_desc"
           >
-            <title id="title">Darkmode Button</title>
-            <desc id="desc">
+            <title id="darkmode_title">Darkmode Button</title>
+            <desc id="darkmode_desc">
               Button to switch the themes between dark and light modes
             </desc>
             <path
@@ -413,13 +496,13 @@
           </svg>
         </div>
       </div>
-      <div class="lower_header w-[90vw] flex justify-between items-center h-20">
+      <div class="lower_header w-[90vw] flex-center h-20">
         <div
-          class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1 h-9"
+          class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1 "
         >
           <svg
             height="20px"
-            weight="20px"
+            width="20px"
             id="Layer_1"
             style="enable-background: new 0 0 512 512"
             version="1.1"
@@ -427,10 +510,12 @@
             xml:space="preserve"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            aria-labelledby="title desc"
+            aria-labelledby="search_title search_desc"
           >
-            <title id="title">Search</title>
-            <desc id="desc">Search glass to guide the user to the input</desc>
+            <title id="search_title">Search</title>
+            <desc id="search_desc">
+              Search glass to guide the user to the input
+            </desc>
             <path
               fill="currentColor"
               d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z"
@@ -439,7 +524,7 @@
           <input
             type="text"
             placeholder="Search Site"
-            class="outline-none pl-3 cursor-pointer bg-light-input dark:bg-dark-input "
+            class="outline-none pl-3 cursor-pointer bg-light-input dark:bg-dark-input"
           />
         </div>
         <img
@@ -463,13 +548,13 @@
     </header>
     <main class=".custom-grid w-[90vw]">
       <section
-        class="bg-light-Main dark:bg-dark-Main span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-light-border dark:border-dark-border"
+        class="main-theme span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-color"
       >
         <div
           class="bg-light-Secondary dark:bg-dark-Secondary w-full md:w-[90vw] relative z-0"
         >
           <div
-            class="flex flex-col items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full"
+            class="flex-column items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full"
           >
             <div class="flex gap-2 items-center">
               <p class="w-12 text-center text-[1.25rem]">EST</p>
@@ -502,11 +587,11 @@
         </div>
       </section>
       <section
-        class="about custom-grid py-8 gap-y-5 border-b border-light-border dark:border-dark-border bg-light-Main dark:bg-dark-Main"
+        class="about custom-grid py-8 gap-y-5 border-b border-color main-theme"
         id="About"
       >
         <div
-          class="flex flex-col items-center justify-center gap-8 col-span-4 xl:col-span-6 text-center"
+          class="flex-column items-center justify-center gap-8 col-span-4 xl:col-span-6 text-center"
         >
           <h2 class="uppercase text-[2rem] tracking-widest theme-heading">
             About us
@@ -540,9 +625,9 @@
         </div>
       </section>
       <section
-        class="products py-7 flex flex-col gap-6 bg-light-Main dark:bg-dark-Main items-center z-0"
+        class="products py-7 flex-column gap-6 main-theme items-center z-0"
       >
-        <div class="w-full max-w-[1430px] flex flex-col items-center gap-8">
+        <div class="w-full max-w-[1430px] flex-column items-center gap-8">
           <h2 class="uppercase text-[2rem] text-center theme-heading">
             Latest Products For Sale
           </h2>
@@ -562,10 +647,10 @@
                 xml:space="preserve"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                aria-labelledby="title desc"
+                aria-labelledby="filter_title filter_desc"
               >
-                <title id="title">Filter Button</title>
-                <desc id="desc">Filter Button to open filter modal</desc>
+                <title id="filter_title">Filter Button</title>
+                <desc id="filter_desc">Filter Button to open filter modal</desc>
                 <g>
                   <circle
                     cx="5"
@@ -667,13 +752,12 @@
               </svg>
               <p class="font-bold">Filter</p>
             </div>
-            <div class="flex flex-col items-end">
+            <div class="flex-column items-end">
               <p class="uppercase">Sort by</p>
               <div class="flex gap-2 cursor-pointer" id="sort_button">
                 <p class="font-bold navtext">Best Rating</p>
                 <svg
                   height="20px"
-                  id="Layer_1"
                   style="enable-background: new 0 0 512 512"
                   version="1.1"
                   viewBox="0 0 512 512"
@@ -681,10 +765,12 @@
                   xml:space="preserve"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  aria-labelledby="title desc"
+                  aria-labelledby="arrow_title arrow_desc"
                 >
-                  <title id="title">Arrow Button</title>
-                  <desc id="desc">Arrow Button that opens the sort modal</desc>
+                  <title id="arrow_title">Arrow Button</title>
+                  <desc id="arrow_desc">
+                    Arrow Button that opens the sort modal
+                  </desc>
                   <polygon
                     fill="currentColor"
                     points="396.6,160 416,180.7 256,352 96,180.7 115.3,160 256,310.5 "
@@ -692,13 +778,13 @@
                 </svg>
               </div>
               <div
-                class="fixed border-r border-light-border dark:border-dark-border bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-col top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
+                class="fixed border-r border-color bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
                 id="filter_modal"
               >
                 <div class="flex gap-2 items-center mb-16">
                   <svg
                     enable-background="new 0 0 32 32"
-                    id="filter_icon"
+                    id="filter2_icon"
                     width="30px"
                     height="30px"
                     version="1.1"
@@ -706,10 +792,10 @@
                     xml:space="preserve"
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                    aria-labelledby="title desc"
+                    aria-labelledby="filter2_title filter2_desc"
                   >
-                    <title id="title">Filter Button</title>
-                    <desc id="desc">Filter Button for ui</desc>
+                    <title id="filter2_title">Filter Button</title>
+                    <desc id="filter2_desc">Filter Button for ui</desc>
                     <g>
                       <circle
                         cx="5"
@@ -820,7 +906,7 @@
                     <h3>Category</h3>
                     <svg
                       height="20px"
-                      id="Layer_1"
+                      id="Layer2"
                       style="enable-background: new 0 0 512 512"
                       class="transition-transform duration-300 ease-in"
                       version="1.1"
@@ -829,10 +915,10 @@
                       xml:space="preserve"
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-labelledby="title desc"
+                      aria-labelledby="arrow2_title arrow2_desc"
                     >
-                      <title id="title">Arrow Button</title>
-                      <desc id="desc">
+                      <title id="arrow2_title">Arrow Button</title>
+                      <desc id="arrow2_desc">
                         Arrow Button that open and closes the category panel
                       </desc>
                       <polygon
@@ -842,10 +928,10 @@
                     </svg>
                   </div>
                   <div
-                    class="flex flex-col overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
                     id="category_list"
                   >
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -858,7 +944,7 @@
                       <p>Bewildered Beasts</p>
                       <p>3</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -871,7 +957,7 @@
                       <p>Gaping Gallery</p>
                       <p>4</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -884,7 +970,7 @@
                       <p>not Quite Natural</p>
                       <p>6</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -897,7 +983,7 @@
                       <p>Happy Accidents</p>
                       <p>5</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -920,7 +1006,7 @@
                     <h3>Price Interval</h3>
                     <svg
                       height="20px"
-                      id="Layer_1"
+                      id="Layer_3"
                       style="enable-background: new 0 0 512 512"
                       class="transition-transform duration-300 ease-in"
                       version="1.1"
@@ -929,10 +1015,10 @@
                       xml:space="preserve"
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
-                      aria-labelledby="title desc"
+                      aria-labelledby="arrow3_title arrow3_desc"
                     >
-                      <title id="title">Arrow Button</title>
-                      <desc id="desc">
+                      <title id="arrow3_title">Arrow Button</title>
+                      <desc id="arrow3_desc">
                         Arrow Button that open and closes the category panel
                       </desc>
                       <polygon
@@ -942,10 +1028,10 @@
                     </svg>
                   </div>
                   <div
-                    class="flex flex-col overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
                     id="price_list"
                   >
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -957,7 +1043,7 @@
                       </button>
                       <p>20-100</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -969,7 +1055,7 @@
                       </button>
                       <p>100-500</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -981,7 +1067,7 @@
                       </button>
                       <p>500-2000</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -993,7 +1079,7 @@
                       </button>
                       <p>2000-10000</p>
                     </div>
-                    <div class="flex justify-between items-center">
+                    <div class="flex-center">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1018,7 +1104,7 @@
                 class="sort_modal hidden absolute z-10 border bg-light-Secondary border-light-border dark:bg-dark-Secondary dark:border-light-border top-[50px] rounded-lg py-6 px-6 right-0"
                 id="sort_modal"
               >
-                <ul class="sort_list flex flex-col items-end gap-2">
+                <ul class="sort_list flex-column items-end gap-2">
                   <li class="sort-item">Alphabet (High To Low)</li>
                   <li class="sort-item">Alphabet (Low To High)</li>
                   <li class="sort-item">Rating (High To Low)</li>
@@ -1046,7 +1132,7 @@
       id="Footer"
     >
       <div
-        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+        class="flex-column items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
       >
         <h2 class="uppercase text-[1.5rem] tracking-widest">Our Store</h2>
         <div class="text-center">
@@ -1056,7 +1142,7 @@
         </div>
       </div>
       <div
-        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+        class="flex-column items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
       >
         <h2 class="uppercase text-[1.5rem] tracking-widest">Opening Hours</h2>
         <div class="text-center">
@@ -1066,7 +1152,7 @@
         </div>
       </div>
       <div
-        class="flex flex-col items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
+        class="flex-column items-center gap-y-4 col-span-4 md:col-span-4 xl:col-span-3"
       >
         <h2 class="uppercase text-[1.5rem] tracking-widest">Help</h2>
         <div class="text-center">
@@ -1076,11 +1162,10 @@
         </div>
       </div>
       <div
-        class="flex col-span-4 md:flex-col md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
+        class="flex col-span-4 md:flex-column md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
       >
         <nav class="flex gap-4">
           <svg
-            height="100%"
             width="30"
             height="30"
             class="cursor-pointer icon-hover"
@@ -1092,15 +1177,13 @@
             "
             version="1.1"
             viewBox="0 0 512 512"
-            width="100%"
             xml:space="preserve"
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:serif="http://www.serif.com/"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            aria-labelledby="title desc"
+            aria-labelledby="facebook_title facebook_desc"
           >
-            <title id="title">Facebook logo</title>
-            <desc id="desc">Facebook logo that has an F in it</desc>
+            <title id="facebook_title">Facebook logo</title>
+            <desc id="facebook_desc">Facebook logo that has an F in it</desc>
             <path
               fill="currentColor"
               d="M512,257.555c0,-141.385 -114.615,-256 -256,-256c-141.385,0 -256,114.615 -256,256c0,127.777 93.616,233.685 216,252.89l0,-178.89l-65,0l0,-74l65,0l0,-56.4c0,-64.16 38.219,-99.6 96.695,-99.6c28.009,0 57.305,5 57.305,5l0,63l-32.281,0c-31.801,0 -41.719,19.733 -41.719,39.978l0,48.022l71,0l-11.35,74l-59.65,0l0,178.89c122.385,-19.205 216,-125.113 216,-252.89Z"
@@ -1108,7 +1191,6 @@
             />
           </svg>
           <svg
-            height="100%"
             width="30"
             height="30"
             class="cursor-pointer icon-hover"
@@ -1120,22 +1202,19 @@
             "
             version="1.1"
             viewBox="0 0 512 512"
-            width="100%"
             xml:space="preserve"
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:serif="http://www.serif.com/"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            aria-labelledby="title desc"
+            aria-labelledby="insta_title insta_desc"
           >
-            <title id="title">Instagram Icon</title>
-            <desc id="desc">Instagram Icon that resembles a camera</desc>
+            <title id="insta_title">Instagram Icon</title>
+            <desc id="insta_desc">Instagram Icon that resembles a camera</desc>
             <path
               fill="currentColor"
               d="M256,0c141.29,0 256,114.71 256,256c0,141.29 -114.71,256 -256,256c-141.29,0 -256,-114.71 -256,-256c0,-141.29 114.71,-256 256,-256Zm0,96c-43.453,0 -48.902,0.184 -65.968,0.963c-17.03,0.777 -28.661,3.482 -38.839,7.437c-10.521,4.089 -19.444,9.56 -28.339,18.455c-8.895,8.895 -14.366,17.818 -18.455,28.339c-3.955,10.177 -6.659,21.808 -7.437,38.838c-0.778,17.066 -0.962,22.515 -0.962,65.968c0,43.453 0.184,48.902 0.962,65.968c0.778,17.03 3.482,28.661 7.437,38.838c4.089,10.521 9.56,19.444 18.455,28.34c8.895,8.895 17.818,14.366 28.339,18.455c10.178,3.954 21.809,6.659 38.839,7.436c17.066,0.779 22.515,0.963 65.968,0.963c43.453,0 48.902,-0.184 65.968,-0.963c17.03,-0.777 28.661,-3.482 38.838,-7.436c10.521,-4.089 19.444,-9.56 28.34,-18.455c8.895,-8.896 14.366,-17.819 18.455,-28.34c3.954,-10.177 6.659,-21.808 7.436,-38.838c0.779,-17.066 0.963,-22.515 0.963,-65.968c0,-43.453 -0.184,-48.902 -0.963,-65.968c-0.777,-17.03 -3.482,-28.661 -7.436,-38.838c-4.089,-10.521 -9.56,-19.444 -18.455,-28.339c-8.896,-8.895 -17.819,-14.366 -28.34,-18.455c-10.177,-3.955 -21.808,-6.66 -38.838,-7.437c-17.066,-0.779 -22.515,-0.963 -65.968,-0.963Zm0,28.829c42.722,0 47.782,0.163 64.654,0.933c15.6,0.712 24.071,3.318 29.709,5.509c7.469,2.902 12.799,6.37 18.397,11.969c5.6,5.598 9.067,10.929 11.969,18.397c2.191,5.638 4.798,14.109 5.509,29.709c0.77,16.872 0.933,21.932 0.933,64.654c0,42.722 -0.163,47.782 -0.933,64.654c-0.711,15.6 -3.318,24.071 -5.509,29.709c-2.902,7.469 -6.369,12.799 -11.969,18.397c-5.598,5.6 -10.928,9.067 -18.397,11.969c-5.638,2.191 -14.109,4.798 -29.709,5.509c-16.869,0.77 -21.929,0.933 -64.654,0.933c-42.725,0 -47.784,-0.163 -64.654,-0.933c-15.6,-0.711 -24.071,-3.318 -29.709,-5.509c-7.469,-2.902 -12.799,-6.369 -18.398,-11.969c-5.599,-5.598 -9.066,-10.928 -11.968,-18.397c-2.191,-5.638 -4.798,-14.109 -5.51,-29.709c-0.77,-16.872 -0.932,-21.932 -0.932,-64.654c0,-42.722 0.162,-47.782 0.932,-64.654c0.712,-15.6 3.319,-24.071 5.51,-29.709c2.902,-7.468 6.369,-12.799 11.968,-18.397c5.599,-5.599 10.929,-9.067 18.398,-11.969c5.638,-2.191 14.109,-4.797 29.709,-5.509c16.872,-0.77 21.932,-0.933 64.654,-0.933Zm0,49.009c-45.377,0 -82.162,36.785 -82.162,82.162c0,45.377 36.785,82.162 82.162,82.162c45.377,0 82.162,-36.785 82.162,-82.162c0,-45.377 -36.785,-82.162 -82.162,-82.162Zm0,135.495c-29.455,0 -53.333,-23.878 -53.333,-53.333c0,-29.455 23.878,-53.333 53.333,-53.333c29.455,0 53.333,23.878 53.333,53.333c0,29.455 -23.878,53.333 -53.333,53.333Zm104.609,-138.741c0,10.604 -8.597,19.199 -19.201,19.199c-10.603,0 -19.199,-8.595 -19.199,-19.199c0,-10.604 8.596,-19.2 19.199,-19.2c10.604,0 19.201,8.596 19.201,19.2Z"
             />
           </svg>
           <svg
-            height="100%"
             width="30"
             height="30"
             class="cursor-pointer icon-hover"
@@ -1147,14 +1226,12 @@
             "
             version="1.1"
             viewBox="0 0 512 512"
-            width="100%"
             xml:space="preserve"
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:serif="http://www.serif.com/"
-            aria-labelledby="title desc"
+            aria-labelledby="twitter_title twitter_desc"
           >
-            <title id="title">Twitter icon</title>
-            <desc id="desc">Twitter icon that has a bird in it</desc>
+            <title id="twitter_title">Twitter icon</title>
+            <desc id="twitter_desc">Twitter icon that has a bird in it</desc>
             <path
               fill="currentColor"
               d="M256,0c141.29,0 256,114.71 256,256c0,141.29 -114.71,256 -256,256c-141.29,0 -256,-114.71 -256,-256c0,-141.29 114.71,-256 256,-256Zm-45.091,392.158c113.283,0 175.224,-93.87 175.224,-175.223c0,-2.682 0,-5.364 -0.128,-7.919c12.005,-8.684 22.478,-19.54 30.779,-31.928c-10.983,4.853 -22.861,8.174 -35.377,9.706c12.772,-7.663 22.478,-19.668 27.076,-34.099c-11.878,7.024 -25.032,12.132 -39.081,14.942c-11.239,-12.005 -27.203,-19.412 -44.955,-19.412c-33.972,0 -61.558,27.586 -61.558,61.558c0,4.853 0.511,9.578 1.66,14.048c-51.213,-2.554 -96.552,-27.075 -126.947,-64.368c-5.237,9.068 -8.302,19.668 -8.302,30.907c0,21.328 10.856,40.23 27.459,51.213c-10.09,-0.255 -19.541,-3.065 -27.842,-7.662l0,0.766c0,29.885 21.2,54.661 49.425,60.409c-5.108,1.404 -10.6,2.171 -16.219,2.171c-3.96,0 -7.791,-0.383 -11.622,-1.15c7.79,24.521 30.523,42.274 57.471,42.784c-21.073,16.476 -47.637,26.31 -76.501,26.31c-4.981,0 -9.834,-0.256 -14.687,-0.894c26.948,17.624 59.387,27.841 94.125,27.841Z"
