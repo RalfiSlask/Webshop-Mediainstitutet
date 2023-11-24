@@ -1,23 +1,3 @@
-/**
- * Import productData x
- * Setup Selectors x
- * Get darkmode button as selector x
- * Add Event Listener x
- * Create initialTheme function and use localStorage and user preferences x
- * Create SwitchTheme function and toggle Theme based on if root contains dark, set LocalStorage x
- * Create a function for generating the products x
- * Click Event for opening Sort Modal x
- * Click Event for Menu x
- * Change Menu Button on Click x
- * Click Event for opening Filter Modal x
- * Add to Cart functionality x
- * Calculate Total Price x
- * Handle Remove and Plus Minus functionality in cart x
- * Function/s for sorting the products x
- * Function/s for filtering products based on price interval and category
- * Animation for Menu
- */
-
 import productData from './json/data.json';
 import type { ProductType, CartObjectType } from './assets/utils/types';
 import {
@@ -29,7 +9,14 @@ import {
   handleReset,
   toggleCartClassesBasedOnNumberOfProducts,
   switchVisibilityOfInputs,
-  setInputAttribute
+  setInputAttribute,
+  initialTheme,
+  openOrCloseSidebar,
+  changeVisibilityOfCheckboxes,
+  toggleCategoryContainer,
+  displayNumberOfProductsOnCartLogo,
+  displayMondayDiscountText,
+  switchTheme
 } from './assets/utils/helperfunctions';
 import {
   emailRegex,
@@ -40,14 +27,11 @@ import {
   addressRegex
 } from './assets/utils/regEx';
 
-let productArrayOfObjects = productData;
-
 /* Selectors */
 
 // Containers
 
 const root = document.documentElement;
-const body = document.body;
 const checkoutForm = document.querySelector(
   '#checkout_form'
 ) as HTMLFormElement;
@@ -85,52 +69,23 @@ const cartModal = document.querySelector('#cart_modal');
 // Local Storage
 const storedTheme = localStorage.getItem('theme');
 // Other
-const lightbox = document.querySelector('#lightbox');
+
 const doesUserPreferDark = window.matchMedia(
   '(prefers-color-scheme: dark'
 ).matches; // user theme preferences
 
+const arrayOfInputTests = [
+  { type: 'text', regEx: textOnlyRegx },
+  { type: 'address', regEx: addressRegex },
+  { type: 'number', regEx: numberOnlyRegex },
+  { type: 'mail', regEx: emailRegex },
+  { type: 'tel', regEx: telephoneRegex },
+  { type: 'social', regEx: socialSecurityRegex }
+];
+
+let productArrayOfObjects = productData;
+let errorMessage = 'Can´t be empty';
 let cartArrayOfObjects: CartObjectType[] = [];
-
-const openSidebar = (animationClass: string, modal: Element | null) => {
-  modal?.classList.add(animationClass);
-  // adding scroll functionality for body and cart-container
-  cartContainer?.classList.add('scroll');
-  body.classList.add('no-scroll');
-  modal?.classList.add('flex');
-  lightbox?.classList.remove('hidden');
-};
-
-const closeSidebar = (animationClass: string, modal: Element | null) => {
-  modal?.classList.remove(animationClass);
-  body.classList.remove('no-scroll');
-  cartContainer?.classList.remove('scroll');
-  modal?.classList.remove('flex');
-  lightbox?.classList.add('hidden');
-};
-
-const initialTheme = (
-  doesUserPreferDark: boolean,
-  root: HTMLElement,
-  storedTheme: string | null
-) => {
-  doesUserPreferDark
-    ? root.classList.add('dark')
-    : root.classList.remove('dark');
-  if (storedTheme === null) {
-    return;
-  }
-  storedTheme === 'dark'
-    ? root.classList.add('dark')
-    : root.classList.remove('dark');
-};
-
-const switchTheme = (root: HTMLElement) => {
-  const isDarkModeOn = document.documentElement.classList.contains('dark');
-  root.classList.toggle('dark', !isDarkModeOn);
-  // setting the theme in the localStorage
-  localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
-};
 
 const handleClickOnSortPanel = (sortModal: Element | null) => {
   sortModal?.classList.toggle('hidden');
@@ -288,37 +243,6 @@ const handleMouseLeaveOnProductContainer = (e: Event) => {
   }
 };
 
-const toggleCategoryContainer = (e: Event) => {
-  const target = e.target as HTMLElement;
-  const categorySwitcher = target.closest('.category_switcher');
-  if (categorySwitcher === null) {
-    return;
-  }
-  categorySwitcher.nextElementSibling?.classList.toggle('close-categories');
-  // toggle rotation on arrow
-  categorySwitcher.children[1].classList.toggle('rotate');
-  if (categorySwitcher.parentElement === null) return;
-  // fix this animation not done
-  categorySwitcher.parentElement.classList.toggle('closed');
-};
-
-const displayNumberOfProductsOnCartLogo = (
-  button: Element | null,
-  numberOfProducts: number
-) => {
-  if (button === null) {
-    return;
-  }
-  if (numberOfProducts > 0) {
-    button.classList.remove('hidden');
-    button.classList.add('flex');
-    button.textContent = numberOfProducts.toString();
-  } else {
-    button.classList.add('hidden');
-    button.classList.remove('flex');
-  }
-};
-
 const generateProductsInCartAsHTML = (
   arrayOfObjects: CartObjectType[],
   cartContainer: Element | null
@@ -329,7 +253,7 @@ const generateProductsInCartAsHTML = (
       const cartPanel = document.createElement('div');
       // Making the tailwind classes into an array so i can add these to the product container
       const tailwindClasses: string[] =
-        'flex justify-between items-center border-y border-light-border dark:border-dark-border gap-2 px-3 py-2 grid grid-cols-8 bg-light-Main dark:bg-dark-Main'.split(
+        'flex justify-between w-full items-center border-y border-light-border dark:border-dark-border gap-2 px-3 py-2 grid grid-cols-8 bg-light-Main dark:bg-dark-Main'.split(
           ' '
         );
       tailwindClasses.forEach((className) => {
@@ -338,7 +262,7 @@ const generateProductsInCartAsHTML = (
       cartPanel.id = `cart_panel-${product.id}`;
       const { id, name, price, cart, count, alt } = product;
       cartPanel.innerHTML = `
-      <div class="flex items-center gap-4 col-span-5">
+      <div class="flex items-center gap-4 col-span-5 ">
         <img src=${cart} width="100" height="100" alt=${alt} class="rounded-md h-[100px] w-[100px] object-cover">
         <div class="flex flex-col gap-2">
           <h3 class="text-[1.25rem] font-bold">${name}</h3>
@@ -375,6 +299,31 @@ const getCartObject = (product: CartObjectType) => {
   return cartObject;
 };
 
+const changeColorOfCheckoutButtonDependingOnTotalPrice = (
+  priceContainer: Element | null,
+  checkoutButton: Element | null
+) => {
+  const price = Number(priceContainer?.textContent?.replace('$ ', ''));
+  checkoutButton?.classList.remove(
+    'lowest',
+    'low',
+    'medium',
+    'high',
+    'highest'
+  );
+  if (price < 500) {
+    checkoutButton?.classList.add('lowest');
+  } else if (price < 1500) {
+    checkoutButton?.classList.add('low');
+  } else if (price < 5000) {
+    checkoutButton?.classList.add('medium');
+  } else if (price < 20000) {
+    checkoutButton?.classList.add('high');
+  } else {
+    checkoutButton?.classList.add('highest');
+  }
+};
+
 const handleClickOnAddToCartButton = (e: Event) => {
   const target = e.target as HTMLElement;
   if (target === null) {
@@ -384,7 +333,7 @@ const handleClickOnAddToCartButton = (e: Event) => {
   if (cartButton === null) {
     return;
   }
-  const id = Number(cartButton.id[cartButton.id.length - 1]);
+  const id = Number(cartButton.id.replace('add_cart_button-', ''));
   // locates the product in the productData that matches the id of the product clicked
   const product = productData.find((product) => product.id === id);
   if (product === undefined) {
@@ -399,12 +348,26 @@ const handleClickOnAddToCartButton = (e: Event) => {
   if (!doesObjectExistInArray) {
     cartArrayOfObjects.push(cartProduct);
   }
-  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
+  calculateAndDisplayTotalPrice(
+    cartArrayOfObjects,
+    totalPriceContainer,
+    shippingContainer
+  );
   displayNumberOfProductsOnCartLogo(
     cartDisplayButton,
     cartArrayOfObjects.length
   );
+  toggleCartClassesBasedOnNumberOfProducts(
+    cartArrayOfObjects,
+    emptyCartContainer,
+    cartContainer,
+    checkoutButton
+  );
   generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+  changeColorOfCheckoutButtonDependingOnTotalPrice(
+    totalPriceContainer,
+    checkoutButton
+  );
 };
 
 const handleclickOnRemove = (clickedId: number) => {
@@ -417,27 +380,51 @@ const handleclickOnRemove = (clickedId: number) => {
     cartContainer,
     checkoutButton
   );
-  calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
+  calculateAndDisplayTotalPrice(
+    cartArrayOfObjects,
+    totalPriceContainer,
+    shippingContainer
+  );
   displayNumberOfProductsOnCartLogo(
     cartDisplayButton,
     cartArrayOfObjects.length
   );
   generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+  changeColorOfCheckoutButtonDependingOnTotalPrice(
+    totalPriceContainer,
+    checkoutButton
+  );
 };
 
 const handleclickOnPlusSign = (product: CartObjectType) => {
   if (product.count > 0) {
     product.count += 1;
-    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
+    calculateAndDisplayTotalPrice(
+      cartArrayOfObjects,
+      totalPriceContainer,
+      shippingContainer
+    );
     generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+    changeColorOfCheckoutButtonDependingOnTotalPrice(
+      totalPriceContainer,
+      checkoutButton
+    );
   }
 };
 
 const handleClickOnMinusSign = (product: CartObjectType) => {
   if (product.count > 1) {
     product.count -= 1;
-    calculateAndDisplayTotalPrice(cartArrayOfObjects, totalPriceContainer, shippingContainer);
+    calculateAndDisplayTotalPrice(
+      cartArrayOfObjects,
+      totalPriceContainer,
+      shippingContainer
+    );
     generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+    changeColorOfCheckoutButtonDependingOnTotalPrice(
+      totalPriceContainer,
+      checkoutButton
+    );
   }
 };
 
@@ -466,6 +453,18 @@ const handleClickableItemsOnProducts = (e: Event) => {
   }
 };
 
+/* const initializeFormTimer = (maxCount: number) => {
+  let count = 0;
+  return () => {
+    count += 1;
+    console.log(count);
+    if (count > maxCount) {
+      handleReset(checkoutForm);
+      count = 0;
+    }
+  };
+}; */
+
 const handleClickOnCheckoutButton = (
   e: Event,
   checkoutContainer: Element | null,
@@ -480,6 +479,11 @@ const handleClickOnCheckoutButton = (
   if (currentPrice > 800) {
     invoiceInput?.classList.add('hide');
   }
+  // Interval to reset form and make the user know they are lazy
+  /*  const fifteenMinutesInSeconds = 15 * 60;
+  const updateTimer = initializeFormTimer(fifteenMinutesInSeconds)
+  const countdownInterval = setInterval(updateTimer, 1000); */
+
   const checkoutButton = e.target as HTMLElement;
   const orderButton = checkoutButton.nextElementSibling;
   checkoutContainer?.classList.add('open-checkout');
@@ -555,8 +559,6 @@ const togglePaymentInputButtons = (
   }
 };
 
-
-
 const togglePaymentMethod = (
   e: Event,
   invoiceInput: Element | null,
@@ -572,29 +574,21 @@ const togglePaymentMethod = (
     socialSecurityInputContainer?.querySelector('#social');
   if (invoiceInputClosest !== null) {
     togglePaymentInputButtons(invoiceInputClosest, cardInput);
-    switchVisibilityOfInputs(
-      cardInputContainer,
-      socialSecurityInputContainer
-    );
+    switchVisibilityOfInputs(cardInputContainer, socialSecurityInputContainer);
     setInputAttribute(socialSecurityInput, 'required', true);
   } else if (cardInputClosest !== null) {
     togglePaymentInputButtons(cardInputClosest, invoiceInput);
-    switchVisibilityOfInputs(
-      socialSecurityInputContainer,
-      cardInputContainer
-    );
+    switchVisibilityOfInputs(socialSecurityInputContainer, cardInputContainer);
     setInputAttribute(socialSecurityInput, 'required', false);
   }
 };
-
-let errorMessage = 'Can´t be empty';
 
 const validateInputWithRegex = (
   input: HTMLInputElement,
   regExp: RegExp,
   errorMessage: string
 ) => {
-  const errorText = input.parentElement?.querySelector('p');
+  const errorText = input.parentElement?.parentElement?.querySelector('p');
   if (errorText !== undefined && errorText !== null) {
     if (!regExp.test(input.value)) {
       errorText.classList.remove('hide');
@@ -609,19 +603,60 @@ const validateInputWithRegex = (
   }
 };
 
-const handleSubmit = (form: HTMLFormElement | null) => {
+const changeTextOnPersonalData = (checkbox: Element) => {
+  if (checkbox.id === 'personal') {
+    const personal = checkbox.nextElementSibling;
+    if (personal !== null) {
+      if (checkbox.classList.contains('main-button')) {
+        personal.textContent = 'Approves the processing of personal data *';
+      } else {
+        const personTextWithoutRequired = personal?.textContent?.replace(
+          '*',
+          ''
+        );
+        if (personTextWithoutRequired !== undefined) {
+          personal.textContent = personTextWithoutRequired;
+        }
+      }
+    }
+  }
+};
+
+// Might be unneccesary, maybe have to use custom styling for checkboxes
+
+const clickingOnCheckBoxes = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const checkbox = target.closest('.checkbox');
+  if (checkbox !== null) {
+    if (checkbox.id === 'personal') {
+      changeSubmitButtonColorDependingOnFormValidity(
+        isTheFormValid(),
+        submitButton
+      );
+    }
+    changeVisibilityOfCheckboxes(checkbox);
+    changeTextOnPersonalData(checkbox);
+  }
+};
+
+checkoutContainer?.addEventListener('click', clickingOnCheckBoxes);
+
+const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
   const allRequiredInputs = form?.querySelectorAll(
-    'input[required="true"]'
+    'input[required]'
   ) as NodeListOf<HTMLInputElement>;
+  e.preventDefault();
   allRequiredInputs?.forEach((input) => {
     if (input.value.trim() === '') {
-      const errorText = input.parentElement?.querySelector('p[aria-live]');
+      const errorText =
+        input.parentElement?.parentElement?.querySelector('p[aria-live]');
       if (errorText !== undefined && errorText !== null) {
         errorText.textContent = 'Can´t be empty';
         errorText.classList.remove('hide');
       }
     } else {
       if (input.classList.contains('text')) {
+        console.log('text');
         errorMessage = 'Can´t contain numbers';
         validateInputWithRegex(input, textOnlyRegx, errorMessage);
       } else if (input.classList.contains('address')) {
@@ -642,6 +677,90 @@ const handleSubmit = (form: HTMLFormElement | null) => {
       }
     }
   });
+};
+
+/* const validateInputWithRegex = (
+  input: HTMLInputElement,
+  regExp: RegExp,
+  errorMessage: string
+) => {
+  const errorText = input.parentElement?.parentElement?.querySelector('p');
+  if (errorText !== undefined && errorText !== null) {
+    if (!regExp.test(input.value)) {
+      errorText.classList.remove('hide');
+      errorText.textContent = errorMessage;
+      input.classList.remove('valid');
+    } else {
+      errorText.classList.add('hide');
+      // also removing the text for screen readers
+      errorText.textContent = '';
+      input.classList.add('valid');
+    }
+  }
+}; */
+
+const handleValidityOfInputsWithRegex = (
+  input: HTMLInputElement,
+  regExp: RegExp
+) => {
+  let isInputValid = false;
+  isInputValid = regExp.test(input.value);
+  if (!isInputValid) {
+    input.classList.add('through');
+    input.classList.remove('valid');
+    input.nextElementSibling?.classList.remove('hide');
+  } else {
+    input.classList.remove('through');
+    input.classList.add('valid');
+    input.nextElementSibling?.classList.add('hide');
+  }
+};
+
+const changeSubmitButtonColorDependingOnFormValidity = (
+  isTheFormValid: boolean | undefined,
+  button: Element | null
+) => {
+  if (isTheFormValid === true) {
+    button?.classList.add('main-button');
+    button?.classList.remove('lowest');
+  } else {
+    button?.classList.remove('main-button');
+    button?.classList.add('lowest');
+  }
+};
+
+const isTheFormValid = () => {
+  const allRequiredInputs = document.querySelectorAll('input[required]');
+  const personalCheck = document.querySelector('#personal') as HTMLInputElement;
+  const everyInputIsValid = Array.from(allRequiredInputs).every((input) =>
+    input.classList.contains('valid')
+  );
+  if (personalCheck !== null) {
+    console.log(personalCheck.checked);
+    return personalCheck.checked && everyInputIsValid;
+  }
+};
+
+const handleChangeOnCheckoutInputs = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  if (target !== null) {
+    const errorText =
+      target.parentElement?.parentElement?.querySelector('p[aria-live]');
+    if (errorText !== null) {
+      errorText?.classList.add('hide');
+    }
+    // using an array of object where i have class types and regEx tests for those types
+    const inputTypeObject = arrayOfInputTests.find((test) =>
+      target.classList.contains(test.type)
+    );
+    if (inputTypeObject !== undefined) {
+      handleValidityOfInputsWithRegex(target, inputTypeObject?.regEx);
+    }
+    changeSubmitButtonColorDependingOnFormValidity(
+      isTheFormValid(),
+      submitButton
+    );
+  }
 };
 
 // Borde nog refaktorera
@@ -723,19 +842,26 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
 
 /* Initial Function Calls */
 
-initialTheme(doesUserPreferDark, root, storedTheme);
-generateList(productData);
+const initialFunctionCalls = () => {
+  displayMondayDiscountText();
+  initialTheme(doesUserPreferDark, root, storedTheme);
+  generateList(productData);
+};
 
 /* Event Listeners */
+
+document.addEventListener('DOMContentLoaded', initialFunctionCalls);
 
 // Event Delegations
 
 listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mouse over cart button
 listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
+checkoutForm.addEventListener('input', handleChangeOnCheckoutInputs); // handle changes when user types in form inputs
 listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
 cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pressing remove, plus and minus buttons
 filterModal?.addEventListener('click', toggleCategoryContainer);
 filterModal?.addEventListener('click', filterByCategories);
+
 sortModal?.addEventListener('click', (e) => {
   handleClickOnSortButtons(e, productArrayOfObjects);
 });
@@ -749,13 +875,13 @@ menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
 filterButtonOpen?.addEventListener('click', () => {
-  openSidebar('open-sidebar', filterModal);
+  openOrCloseSidebar('open-sidebar', filterModal, cartContainer, true);
 });
 filterButtonClose?.addEventListener('click', () => {
-  closeSidebar('open-sidebar', filterModal);
+  openOrCloseSidebar('open-sidebar', filterModal, cartContainer, false);
 });
 addToCartButton?.addEventListener('click', () => {
-  openSidebar('open-sidebar', cartModal);
+  openOrCloseSidebar('open-sidebar', cartModal, cartContainer, true);
   toggleCartClassesBasedOnNumberOfProducts(
     cartArrayOfObjects,
     emptyCartContainer,
@@ -764,7 +890,7 @@ addToCartButton?.addEventListener('click', () => {
   );
 });
 closeCartButton?.addEventListener('click', () => {
-  closeSidebar('open-sidebar', cartModal);
+  openOrCloseSidebar('open-sidebar', cartModal, cartContainer, false);
 });
 darkmodeButton?.addEventListener('click', () => {
   switchTheme(root);
@@ -785,8 +911,8 @@ validateButton?.addEventListener('click', handleClickOnValidateButton);
 resetButton?.addEventListener('click', () => {
   handleReset(checkoutForm);
 });
-submitButton?.addEventListener('click', () => {
-  handleSubmit(checkoutForm);
+submitButton?.addEventListener('click', (e) => {
+  handleSubmit(e, checkoutForm);
 });
 paymentInputsContainer?.addEventListener('click', (e) => {
   togglePaymentMethod(e, invoiceInput, cardInput);

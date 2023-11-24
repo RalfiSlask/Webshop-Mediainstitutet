@@ -82,12 +82,10 @@
     ></div>
 
     <div
-      class="open-sidebar fixed border-l flex border-color bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-column top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
+      class="open-sidebar fixed border-l border-color bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-column items-center top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
       id="cart_modal"
     >
-      <div
-        class="flex-center h-14 px-4 pb-3 border-b border-color z-5 w-full"
-      >
+      <div class="flex-center h-14 px-4 pb-3 border-b border-color z-5 w-full">
         <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
         <svg
           id="close_button"
@@ -130,9 +128,16 @@
           a squirrel’s winter stash. Fill it up before they come back!"</cite
         >
       </div>
+      <div class="p-4 hide" id="monday_discount">
+        <h2 class="text-[1.25rem] font-semibold">
+          Monday Discount:
+          <span class="font-bold text-light-open dark:text-dark-open">10%</span>
+          on the entire order!
+        </h2>
+      </div>
       <div
         id="cart_container"
-        class="flex-column gap-4 mt-7 max-h-[800px]"
+        class="flex-column gap-4 pt-7 max-h-[800px] w-full items-center"
       ></div>
       <div
         class="bg-light-Main flex-column gap-4 dark:bg-dark-Main h-full absolute top-20 z-5 max-h-[1000px] -translate-y-[-1100px] w-full px-2 pt-4"
@@ -146,32 +151,50 @@
             <div class="flex-column gap-1 w-full">
               <div class="flex-center h-7">
                 <label for="firstname" class="font-medium">First name</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
-              <input
-                name="firstname"
-                id="firstname"
-                type="text"
-                class="input text firstname"
-                placeholder="e.g. First name"
-                required="true"
-                aria-required="true"
-              />
+              <div class="w-full relative">
+                <input
+                  name="firstname"
+                  id="firstname"
+                  type="text"
+                  class="input text firstname w-full"
+                  placeholder="e.g. First name"
+                  required
+                  aria-required
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
             <div class="flex-column gap-1 w-full">
               <div class="flex-center h-7">
                 <label for="lastname" class="font-medium">Last name</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="lastname"
                 id="lastname"
                 type="text"
                 placeholder="e.g. Last name"
                 class="input text"
-                required="true"
-                aria-required="true"
+                required
+                aria-required
               />
+              <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
           </div>
           <div class="flex-column gap-1 w-full">
@@ -179,47 +202,72 @@
               <label for="address" class="font-medium">Address</label>
               <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
             </div>
+            <div class="w-full relative">
             <input
               name="address"
               id="address"
               type="text"
               placeholder="e.g. Address"
               class="input address"
-              required="true"
-              aria-required="true"
+              required
+              aria-required
             />
+            <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
           </div>
 
           <div class="flex gap-4 w-full">
             <div class="flex-column gap-2 w-[40%]">
               <div class="flex-center h-7">
                 <label for="postal" class="font-medium">Postal Code</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="postal"
                 id="postal"
                 type="text"
                 placeholder="e.g. Postal Code"
                 class="input number"
-                required="true"
-             aria-required="true"
+                required
+                aria-required
               />
+              <p
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+            >
+              *
+            </p>
+          </div>
             </div>
             <div class="flex-column gap-2 w-[40%]">
               <div class="flex-center h-7">
                 <label for="city" class="font-medium">City</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="city"
                 id="city"
                 type="text"
                 placeholder="e.g. City"
                 class="input text"
-                required="true"
-                aria-required="true"
+                required
+                aria-required
               />
+              <p
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+            >
+              *
+            </p>
+          </div>
             </div>
           </div>
 
@@ -227,33 +275,51 @@
             <div class="flex-column gap-1 w-full">
               <div class="flex-center h-7">
                 <label for="tel" class="font-medium">Telephone</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="tel"
                 id="tel"
                 type="tel"
                 placeholder="e.g. Telephone"
                 class="input tel"
-                required="true"
-                aria-required="true"
+                required
+                aria-required
               />
+              <p
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+            >
+              *
+            </p>
+          </div>
             </div>
             <div class="flex-column gap-1 w-full">
               <div class="flex-center h-7">
                 <label for="mail" class="font-medium">Email</label>
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="mail"
                 id="mail"
                 type="email"
                 placeholder="e.g. Email"
-                class="input mail"
-                required="true"
-                aria-required="true"
+                class="input mail w-full"
+                required
+                aria-required
               />
+              <p
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+            >
+              *
+            </p>
             </div>
+          </div>
           </div>
           <div id="payment" class="flex-column gap-6 h-[200px] relative">
             <div class="flex justify-between w-full">
@@ -269,9 +335,7 @@
                   <div
                     class="w-6 h-6 flex justify-center items-center border border-color rounded-full"
                   >
-                    <button
-                      class="w-2 h-2 rounded-full input-button"
-                    ></button>
+                    <button class="w-2 h-2 rounded-full input-button"></button>
                   </div>
                   <p>Invoice</p>
                 </div>
@@ -282,7 +346,9 @@
                   <div
                     class="w-6 h-6 flex justify-center items-center border border-color rounded-full"
                   >
-                    <button class="w-2 h-2 input-button rounded-full main-button"></button>
+                    <button
+                      class="w-2 h-2 input-button rounded-full main-button"
+                    ></button>
                   </div>
                   <p>Card</p>
                 </div>
@@ -297,22 +363,31 @@
                 <label for="social" class="font-medium number"
                   >Social Security Number</label
                 >
-                <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
+                <p class="text-red-500 hide" aria-live="polite">
+                  Can´t be empty
+                </p>
               </div>
+              <div class="w-full relative">
               <input
                 name="social"
                 id="social"
                 type="text"
                 placeholder="YYMMDD-1234"
-                required="false"
-             aria-required="true"
+                aria-required
                 class="input social"
               />
+              <p
+              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+            >
+              *
+            </p>
             </div>
-
+            </div>
             <div class="flex gap-2 absolute bottom-0" id="card_container">
               <div class="flex-column gap-2">
-                <label for="card_number" class="font-medium h-7">Card Number</label>
+                <label for="card_number" class="font-medium h-7"
+                  >Card Number</label
+                >
                 <input
                   type="text"
                   name="card_number"
@@ -352,26 +427,11 @@
         <div class="flex-column gap-8 px-4">
           <div class="flex-column gap-4">
             <div class="flex gap-4 items-center">
-              <button class="checkbox">
-                <img
-                  src="./src/assets/icons/check.svg"
-                  width="20"
-                  height="20"
-                  alt="check icon"
-                  class="hidden"
-                />
-              </button>
-              <p>Approves the processing of personal data</p>
+              <input type="checkbox" class="checkbox main-button" id="personal" required>
+              <p>Approves the processing of personal data *</p>
             </div>
             <div class="flex gap-4 items-center">
-              <button class="checkbox main-button">
-                <img
-                  src="./src/assets/icons/check.svg"
-                  width="20"
-                  height="20"
-                  alt="check icon"
-                />
-              </button>
+              <input type="checkbox" class="checkbox main-button" id="newsletter" checked>
               <p>I want newsletter</p>
             </div>
           </div>
@@ -385,7 +445,7 @@
               type="text"
               spellcheck="false"
               placeholder="e.g. Espresso"
-              class="input"
+              class="input max-w-[250px]"
             />
             <button class="secondary-button px-4 h-full" id="validate_button">
               Validate
@@ -409,13 +469,12 @@
         <h2 class="text-[1.5rem]">Checkout</h2>
         <p id="total_price">$ 0</p>
       </div>
-      <button
+      <input
         type="submit"
-        class="hide h-20 flex justify-center px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
+        class="hide h-20 flex text-[1.5rem] justify-center px-4 items-center lowest cursor-pointer absolute bottom-0 w-full"
         id="submit_button"
-      >
-        <h2 class="text-[1.5rem]">Continue And Pay</h2>
-      </button>
+        value="Continue and Pay"
+      />
     </div>
 
     <header
@@ -498,7 +557,7 @@
       </div>
       <div class="lower_header w-[90vw] flex-center h-20">
         <div
-          class="search_container items-center cursor-pointer input flex h-6 gap-2 px-1 "
+          class="search_container items-center cursor-pointer input max-w-[300px] flex h-6 gap-2 px-1"
         >
           <svg
             height="20px"
