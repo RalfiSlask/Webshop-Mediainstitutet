@@ -60,7 +60,7 @@
     id="Home"
   >
     <div
-      class="w-full left-0 hidden min-h-screen md:hidden fixed z-[30] pt-[300px] bg-light-Secondary dark:bg-dark-Secondary"
+      class="w-full left-0 hidden min-h-screen md:hidden fixed z-[30] pt-[300px] secondary-theme"
       id="menu"
     >
       <nav class="md:flex absolute left-1/2 -translate-x-1/2">
@@ -82,10 +82,13 @@
     ></div>
 
     <div
-      class="open-sidebar fixed border-l border-color bg-light-Secondary dark:bg-dark-Secondary h-screen right-0 flex-column items-center top-0 w-[700px] transition-transform duration-300 ease-in translate-x-[700px] z-50 pt-4"
+      class="fixed border-l border-color secondary-theme h-screen right-0 flex-column items-center top-0 w-full -translate-x-[screen] md:w-[600px] transition-transform duration-300 ease-in translate-x-[600px] z-50"
       id="cart_modal"
     >
-      <div class="flex-center h-14 px-4 pb-3 border-b border-color z-5 w-full">
+
+
+
+      <div class="flex-between h-14 px-4 py-3 border-b border-color secondary-theme z-5 w-full">
         <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
         <svg
           id="close_button"
@@ -139,8 +142,58 @@
         id="cart_container"
         class="flex-column gap-4 pt-7 max-h-[800px] w-full items-center"
       ></div>
+      <div class="hide absolute top-1/2 -translate-y-1/2 main-theme p-8 flex-column items-center gap-4 z-10 w-full h-full " id="confirmation_container">
+        <div class="text-center flex-column gap-4 secondary-theme border border-color p-4 rounded-md">
+          <h3 class="text-[1.5rem] font-semibold uppercase">Your order is</h3>
+          <h2 class="text-[4rem] font-bold uppercase tracking-widest">On the way</h2>
+        </div>
+  
+        <p class="text-[1.125rem] text-center">You will recieve an email confirmation shortly</p>
+        <h3>Will be delivering in: <span id="deliver_time">0</span></h3>
+        <div class="flex justify-between border-t border-color pt-4 w-full">
+          <div class="w-[33%] flex-column gap-2 px-4">
+            <h4>Date</h4>
+            <p id="date" class="font-bold">02 June 2023</p>
+          </div>
+          <div class="border-x border-color flex-column gap-2 px-4 w-[33%]">
+            <h4>Order Number</h4>
+            <p class="font-bold" id="order_number">0233-3232323</p>
+          </div>
+          <div class="w-[33%] flex-column gap-2 px-4">
+            <h4>Payment Method</h4>
+            <p id="payment_method" class="font-bold">Card</p>
+          </div>
+        </div>
+        <div class="flex-column gap-3 border-y border-color py-4 w-full">
+          <div class="flex-between">
+            <h4>Shipping</h4>
+            <p id="shipping_confirm">0</p>
+          </div>
+          <div class="flex-between">
+            <h4>Sub Total</h4>
+            <p id="total_confirm">0</p>
+          </div>
+        </div>
+        <div class="flex-between w-full">
+          <h4 class="text-[1.125rem] font-semibold">Grand Total</h4>
+          <p class="text-[1.125rem] font-semibold" id="grand_total">0</p>
+        </div>
+        <div class="flex items-center justify-center gap-4 border-b border-color pb-4 pt-6 w-full">
+          <div class="w-[150px] h-[225px]">
+            <img src="./src/assets/images/fox-confirmation.png" width="408" height="612" alt="fox sitting on a yellow chair" class="w-full h-auto object-cover">
+          </div>
+          <div class="flex-column text-center gap-2">
+            <h3 class="text-[1.125rem]">We at</h3>
+            <h2 class="font-garamond text-[1.75rem] font-semibold">Fluff & Stuff</h2>
+            <p class="text-[1.125rem]">Wish you a pleasant day!</p>
+          </div>
+
+        </div>
+   
+       
+      </div>
       <div
-        class="bg-light-Main flex-column gap-4 dark:bg-dark-Main h-full absolute top-20 z-5 max-h-[1000px] -translate-y-[-1100px] w-full px-2 pt-4"
+        class=" flex-column gap-4 main-theme h-full absolute top-20 z-5 -translate-y-[-100%] w-full px-2 pt-4"
         id="checkout_container"
       >
         <form
@@ -149,7 +202,7 @@
         >
           <div class="flex gap-4 w-full">
             <div class="flex-column gap-1 w-full">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="firstname" class="font-medium">First name</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -173,7 +226,7 @@
               </div>
             </div>
             <div class="flex-column gap-1 w-full">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="lastname" class="font-medium">Last name</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -198,7 +251,7 @@
             </div>
           </div>
           <div class="flex-column gap-1 w-full">
-            <div class="flex-center h-7">
+            <div class="flex-between h-7">
               <label for="address" class="font-medium">Address</label>
               <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
             </div>
@@ -222,7 +275,7 @@
 
           <div class="flex gap-4 w-full">
             <div class="flex-column gap-2 w-[40%]">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="postal" class="font-medium">Postal Code</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -246,7 +299,7 @@
           </div>
             </div>
             <div class="flex-column gap-2 w-[40%]">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="city" class="font-medium">City</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -270,10 +323,9 @@
           </div>
             </div>
           </div>
-
           <div class="flex gap-4 w-full">
             <div class="flex-column gap-1 w-full">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="tel" class="font-medium">Telephone</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -297,7 +349,7 @@
           </div>
             </div>
             <div class="flex-column gap-1 w-full">
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="mail" class="font-medium">Email</label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
@@ -359,7 +411,7 @@
               class="flex-column absolute bottom-0 gap-2 w-[50%] hide"
               id="social_container"
             >
-              <div class="flex-center h-7">
+              <div class="flex-between h-7">
                 <label for="social" class="font-medium number"
                   >Social Security Number</label
                 >
@@ -424,10 +476,11 @@
             </div>
           </div>
         </form>
-        <div class="flex-column gap-8 px-4">
+
+        <div class="flex-column gap-8 px-4" id="lower_checkout">
           <div class="flex-column gap-4">
             <div class="flex gap-4 items-center">
-              <input type="checkbox" class="checkbox main-button" id="personal" required>
+              <input type="checkbox" class="checkbox main-button" id="personal">
               <p>Approves the processing of personal data *</p>
             </div>
             <div class="flex gap-4 items-center">
@@ -480,11 +533,10 @@
     <header
       class="px-3 fixed z-30 w-full flex-column items-center main-theme border-b border-color"
     >
-      <div class="h-16 upper_header w-[90vw] flex-center">
+      <div class="h-16 upper_header w-[90vw] flex-between">
         <h2 class="uppercase font-garamond theme-heading text-[1.5rem]">
           Fluff & Stuff
         </h2>
-        <h2 id="shipping">Shipping</h2>
         <div class="flex gap-4 items-center">
           <div
             class="relative w-[30px] h-[30px] cursor-pointer"
@@ -555,7 +607,7 @@
           </svg>
         </div>
       </div>
-      <div class="lower_header w-[90vw] flex-center h-20">
+      <div class="lower_header w-[90vw] flex-between h-20">
         <div
           class="search_container items-center cursor-pointer input max-w-[300px] flex h-6 gap-2 px-1"
         >
@@ -610,7 +662,7 @@
         class="main-theme span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-color"
       >
         <div
-          class="bg-light-Secondary dark:bg-dark-Secondary w-full md:w-[90vw] relative z-0"
+          class="secondary-theme w-full md:w-[90vw] relative z-0"
         >
           <div
             class="flex-column items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full"
@@ -837,7 +889,7 @@
                 </svg>
               </div>
               <div
-                class="fixed border-r border-color bg-light-Secondary dark:bg-dark-Secondary min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
+                class="fixed border-r border-color secondary-theme min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
                 id="filter_modal"
               >
                 <div class="flex gap-2 items-center mb-16">
@@ -990,7 +1042,7 @@
                     class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
                     id="category_list"
                   >
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1003,7 +1055,7 @@
                       <p>Bewildered Beasts</p>
                       <p>3</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1016,7 +1068,7 @@
                       <p>Gaping Gallery</p>
                       <p>4</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1029,7 +1081,7 @@
                       <p>not Quite Natural</p>
                       <p>6</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1042,7 +1094,7 @@
                       <p>Happy Accidents</p>
                       <p>5</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1090,7 +1142,7 @@
                     class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
                     id="price_list"
                   >
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1102,7 +1154,7 @@
                       </button>
                       <p>20-100</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1114,7 +1166,7 @@
                       </button>
                       <p>100-500</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1126,7 +1178,7 @@
                       </button>
                       <p>500-2000</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1138,7 +1190,7 @@
                       </button>
                       <p>2000-10000</p>
                     </div>
-                    <div class="flex-center">
+                    <div class="flex-between">
                       <button class="checkbox">
                         <img
                           src="./src/assets/icons/check.svg"
@@ -1221,7 +1273,7 @@
         </div>
       </div>
       <div
-        class="flex col-span-4 md:flex-column md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
+        class="flex flex-col col-span-4 xl:flex-row xl:gap-8 md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
       >
         <nav class="flex gap-4">
           <svg
@@ -1298,7 +1350,7 @@
           </svg>
         </nav>
         <p class="text-[0.8rem] font-light">
-          Copyright &copy; 2023 Stuff & Fluff. All Rights Reserved.
+          Copyright &copy; 2023 Fluff & Stuff. All Rights Reserved.
         </p>
       </div>
     </footer>

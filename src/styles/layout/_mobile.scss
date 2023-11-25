@@ -25,6 +25,7 @@ html {
     height: 0;
     padding: 0;
     margin: 0;
+    width: 0;
 }
 
 .no-scroll {
@@ -77,8 +78,14 @@ html {
 
 /* Custom Tailwind Settings */
 
+
+
 .main-theme {
     @apply bg-light-Main dark:bg-dark-Main;
+}
+
+.secondary-theme {
+    @apply bg-light-Secondary dark:bg-dark-Secondary;
 }
 
 .border-color {
@@ -89,8 +96,12 @@ html {
     @apply flex flex-col
 }
 
+.flex-between {
+    @apply flex justify-between items-center
+}
+
 .flex-center {
-    @apply flex justify-between items-center;
+    @apply flex justify-center items-center;
 }
 
 .sort-item {
@@ -106,7 +117,7 @@ html {
 }
 
 .input {
-    @apply bg-light-input dark:text-white w-full dark:bg-dark-input px-3 focus:border-light-primary-button-hover-border focus:border-[2px] focus:px-[10px] focus:py-[2px] hover:bg-light-input-hover dark:hover:bg-dark-input-hover outline-none cursor-pointer border border-light-border dark:border-dark-border rounded-md h-10;
+    @apply bg-light-input dark:text-white w-full border dark:bg-dark-input px-3 focus:border-light-primary-button-hover-border focus:border-[2px] hover:bg-light-input-hover dark:hover:bg-dark-input-hover outline-none cursor-pointer border-light-border dark:border-dark-border rounded-md h-10;
 }
 
 .custom-grid {

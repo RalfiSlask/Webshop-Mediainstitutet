@@ -1,38 +1,38 @@
 [
     {
         "id": 1,
-        "name": "Foxy Loxy",
+        "name": "Otterly Charming",
         "price": 325, 
         "category": "Peculiar Profiles",
         "rating": 3,
         "reviews": 17,
-        "species": "European Fox (Vulpes vulpes)",
+        "species": "European otter",
         "image": {
-            "mobile": "/assets/images/layout/mobile/fox.webp",
-            "tablet": "/assets/images/layout/tablet/fox.webp",
-            "desktop": "/assets/images/layout/desktop/fox.webp"
+            "mobile": "/assets/images/layout/mobile/otter2.webp",
+            "tablet": "/assets/images/layout/tablet/otter2.webp",
+            "desktop": "/assets/images/layout/desktop/otter2.webp"
         },
-        "alt": "A fox with an elongated body and a stretched tail",
-        "cart": "/assets/images/cart/fox.webp",
+        "alt": "A otter with an elongated body and a stretched tail.",
+        "cart": "/assets/images/cart/otter2.webp",
         "online": 2000,
         "shop": 34,
         "count": 1 
     },
     {
         "id": 2,
-        "name": "Spotty McSpotface",
+        "name": "Mighty Barker",
         "price": 850, 
         "category": "Peculiar Profiles",
         "rating": 1,
         "reviews": 23756,
-        "species": "Leopard (Panthera Pardus)",
+        "species": "Dog",
         "image": {
-            "mobile": "/assets/images/layout/mobile/lepard.webp",
-            "tablet": "/assets/images/layout/tablet/lepard.webp",
-            "desktop": "/assets/images/layout/desktop/lepard.webp"
+            "mobile": "/assets/images/layout/mobile/dog2.webp",
+            "tablet": "/assets/images/layout/tablet/dog2.webp",
+            "desktop": "/assets/images/layout/desktop/dog2.webp"
         },
-        "alt": "A rather elongated Lepard with an open jaw.",
-        "cart": "/assets/images/cart/lepard.webp",
+        "alt": "A depiction of a dog mid-bark, showcasing its impressive size and vigilant demeanor.",
+        "cart": "/assets/images/cart/dog2.webp",
         "online": 1450,
         "shop": 125,
         "count": 1 
@@ -44,13 +44,13 @@
         "category": "Happy Accidents",
         "rating": 0,
         "reviews": 3421,
-        "species": "Olive Baboon (Papio anubis)",
+        "species": "Olive Baboon",
         "image": {
             "mobile": "/assets/images/layout/mobile/baboon.webp",
             "tablet": "/assets/images/layout/tablet/baboon.webp",
             "desktop": "/assets/images/layout/desktop/baboon.webp"
         },
-        "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture",
+        "alt": "A mounted baboon with a lifelike posture, showcasing its distinct facial features and fur texture.",
         "cart": "/assets/images/cart/baboon.webp",
         "online": 12000,
         "shop": 2,
@@ -63,13 +63,13 @@
         "category": "Happy Accidents",
         "rating": 2,
         "reviews": 7456,
-        "species": "North American Beaver (Castor canadensis)",
+        "species": "North American Beaver",
         "image": {
             "mobile": "/assets/images/layout/mobile/beaver.webp",
             "tablet": "/assets/images/layout/tablet/beaver.webp",
             "desktop": "/assets/images/layout/desktop/beaver.webp"
         },
-        "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth",
+        "alt": "A beaver in a natural pose, highlighting its characteristic flat tail and sharp teeth.",
         "cart": "/assets/images/cart/beaver.webp",
         "online": 34000,
         "shop": 12,
@@ -82,7 +82,7 @@
         "category": "Not Quite Natural",
         "rating": 0,
         "reviews": 2,
-        "species": "Bobcat (Lynx rufus)",
+        "species": "Bobcat",
         "image": {
             "mobile": "/assets/images/layout/mobile/bobcat.webp",
             "tablet": "/assets/images/layout/tablet/bobcat.webp",
@@ -96,18 +96,18 @@
     },
     {
         "id": 6,
-        "name": "Howlin’ Hyena Impersonator",
+        "name": "Desert Prowler",
         "price": 2100, 
         "category": "Happy Accidents",
         "rating": 3,
         "reviews": 2345,
-        "species": "Coyote (Canis latrans)",
+        "species": "Coyote)",
         "image": {
             "mobile": "/assets/images/layout/mobile/coyote.webp",
             "tablet": "/assets/images/layout/tablet/coyote.webp",
             "desktop": "/assets/images/layout/desktop/coyote.webp"
         },
-        "alt": "A coyote taxidermy, depicted mid-stride, showcasing its slender build and bushy tail.",
+        "alt": "A lifelike depiction of a coyote, showcasing its slender build and alertness.",
         "cart": "/assets/images/cart/coyote.webp",
         "online": 500,
         "shop": 100,
@@ -120,7 +120,7 @@
         "category": "Happy Accidents",
         "rating": 5,
         "reviews": 102555,
-        "species": "Domestic Ferret (Mustela putorius furo)",
+        "species": "Domestic Ferret",
         "image": {
             "mobile": "/assets/images/layout/mobile/ferret.webp",
             "tablet": "/assets/images/layout/tablet/ferret.webp",
@@ -139,13 +139,13 @@
         "category": "Not Quite Natural",
         "rating": 5,
         "reviews": 14552,
-        "species": "European Fox (Vulpes vulpes)",
+        "species": "European Fox",
         "image": {
             "mobile": "/assets/images/layout/mobile/fox2.webp",
             "tablet": "/assets/images/layout/tablet/fox2.webp",
             "desktop": "/assets/images/layout/desktop/fox2.webp"
         },
-        "alt": "Calm fox sitting on a chair",
+        "alt": "Calm fox sitting on a chair.",
         "cart": "/assets/images/cart/fox2.webp",
         "online": 1200,
         "shop": 85,
@@ -172,19 +172,19 @@
     },
     {
         "id": 10,
-        "name": "Giggles the Spotted",
+        "name": "Sir Moo-a-Lot",
         "price": 1125, 
         "category": "Not Quite Natural",
         "rating": 4,
         "reviews": 2344,
-        "species": "Spotted Hyena (Crocuta crocuta)",
+        "species": "Ox",
         "image": {
-            "mobile": "/assets/images/layout/mobile/hyena.webp",
-            "tablet": "/assets/images/layout/tablet/hyena.webp",
-            "desktop": "/assets/images/layout/desktop/hyena.webp"
+            "mobile": "/assets/images/layout/mobile/ox.webp",
+            "tablet": "/assets/images/layout/tablet/ox.webp",
+            "desktop": "/assets/images/layout/desktop/ox.webp"
         },
-        "alt": "A hyena mount, capturing its unique spotted coat and powerful jaws",
-        "cart": "/assets/images/cart/hyena.webp",
+        "alt": "This ox, aptly named for its robust and bellowing nature, stands proudly, showcasing its strength and gentle eyes.",
+        "cart": "/assets/images/cart/ox.webp",
         "online": 3000,
         "shop": 12,
         "count": 1 
@@ -196,13 +196,13 @@
         "category": "Bewildered Beasts",
         "rating": 1,
         "reviews": 8004,
-        "species": "European Otter (Lutra lutra)",
+        "species": "European Otter",
         "image": {
             "mobile": "/assets/images/layout/mobile/otter.webp",
             "tablet": "/assets/images/layout/tablet/otter.webp",
             "desktop": "/assets/images/layout/desktop/otter.webp"
         },
-        "alt": "An Otter showcasing his sleek body. ",
+        "alt": "An Otter showcasing his sleek body.",
         "cart": "/assets/images/cart/otter.webp",
         "online": 40,
         "shop": 120,
@@ -215,7 +215,7 @@
         "category": "Not Quite Natural",
         "rating": 4,
         "reviews": 2333,
-        "species": "Wild Boar (Sus scrofa)",
+        "species": "Wild Boar",
         "image": {
             "mobile": "/assets/images/layout/mobile/pig.webp",
             "tablet": "/assets/images/layout/tablet/pig.webp",
@@ -229,19 +229,19 @@
     },
     {
         "id": 13,
-        "name": "Frosty the Snow Bear",
+        "name": "Barky McSnarlface",
         "price": 125800, 
         "category": "Gaping Gallery",
         "rating": 3,
         "reviews": 1200,
-        "species": "Polar Bear (Ursus maritimus)",
+        "species": "Dog",
         "image": {
-            "mobile": "/assets/images/layout/mobile/polar.webp",
-            "tablet": "/assets/images/layout/tablet/polar.webp",
-            "desktop": "/assets/images/layout/desktop/polar.webp"
+            "mobile": "/assets/images/layout/mobile/dog.webp",
+            "tablet": "/assets/images/layout/tablet/dog.webp",
+            "desktop": "/assets/images/layout/desktop/dog.webp"
         },
-        "alt": "A polar bear with its mouth open, showcasing its impressive size and sharp teeth",
-        "cart": "/assets/images/cart/polar.webp",
+        "alt": "Depicts the dog's protective nature, emphasized by its open mouth and sharp teeth.",
+        "cart": "/assets/images/cart/dog.webp",
         "online": 4000,
         "shop": 8,
         "count": 1 
@@ -253,13 +253,13 @@
         "category": "Gaping Gallery",
         "rating": 5,
         "reviews": 12234,
-        "species": "Gray Wolf (Canis lupus)",
+        "species": "Gray Wolf",
         "image": {
             "mobile": "/assets/images/layout/mobile/wolf.webp",
             "tablet": "/assets/images/layout/tablet/wolf.webp",
             "desktop": "/assets/images/layout/desktop/wolf.webp"
         },
-        "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze",
+        "alt": "A wolf with its mouth open, capturing its powerful build and intense gaze.",
         "cart": "/assets/images/cart/wolf.webp",
         "online": 3000,
         "shop": 128,
@@ -267,38 +267,38 @@
     },
     {
         "id": 15,
-        "name": "Scruffy the Wolfster",
+        "name": "King Fluff'n'Roar",
         "price": 2800, 
         "category": "Gaping Gallery",
         "rating": 2,
         "reviews": 444,
-        "species": "Gray Wolf (Canis lupus)",
+        "species": "Lion",
         "image": {
-            "mobile": "/assets/images/layout/mobile/wolf2.webp",
-            "tablet": "/assets/images/layout/tablet/wolf2.webp",
-            "desktop": "/assets/images/layout/desktop/wolf2.webp"
+            "mobile": "/assets/images/layout/mobile/lion.webp",
+            "tablet": "/assets/images/layout/tablet/lion.webp",
+            "desktop": "/assets/images/layout/desktop/lion.webp"
         },
-        "alt": "A scruffy looking wolf with its jaw wide open.",
-        "cart": "/assets/images/cart/wolf2.webp",
+        "alt": "This lion, with its majestic mane and mighty roar, comically resembles a scruffy yet regal monarch of the savannah.",
+        "cart": "/assets/images/cart/lion.webp",
         "online": 100,
         "shop": 64,
         "count": 1 
     },
     {
         "id": 16,
-        "name": "Honey Hoarder",
+        "name": "Prowler Puzzler",
         "price": 14215, 
         "category": "Gaping Gallery",
         "rating": 2,
         "reviews": 23777,
-        "species": "Brown Bear (Ursus arctos)",
+        "species": "Mountain Lion",
         "image": {
-            "mobile": "/assets/images/layout/mobile/bear.webp",
-            "tablet": "/assets/images/layout/tablet/bear.webp",
-            "desktop": "/assets/images/layout/desktop/bear.webp"
+            "mobile": "/assets/images/layout/mobile/mountain.webp",
+            "tablet": "/assets/images/layout/tablet/mountain.webp",
+            "desktop": "/assets/images/layout/desktop/mountain.webp"
         },
-        "alt": "A brown bear that seems to not have everything right with it.",
-        "cart": "/assets/images/cart/bear.webp",
+        "alt": "A curious portrayal of a mountain lion, with an amusingly perplexed expression.",
+        "cart": "/assets/images/cart/mountain.webp",
         "online": 8000,
         "shop": 2,
         "count": 1 
@@ -310,13 +310,13 @@
         "category": "Bewildered Beasts",
         "rating": 4,
         "reviews": 1111,
-        "species": "Great Horned Owl (Bubo virginianus)",
+        "species": "Great Horned Owl",
         "image": {
             "mobile": "/assets/images/layout/mobile/owl.webp",
             "tablet": "/assets/images/layout/tablet/owl.webp",
             "desktop": "/assets/images/layout/desktop/owl.webp"
         },
-        "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture",
+        "alt": "An owl with a humorous expression, emphasizing its large eyes and feathery texture.",
         "cart": "/assets/images/cart/owl.webp",
         "online": 3200,
         "shop": 54,
@@ -329,13 +329,13 @@
         "category": "Not Quite Natural",
         "rating": 3,
         "reviews": 1234,
-        "species": "Eastern Squirrel (Sciurus carolinensis)",
+        "species": "Eastern Squirrel",
         "image": {
             "mobile": "/assets/images/layout/mobile/squirrel.webp",
             "tablet": "/assets/images/layout/tablet/squirrel.webp",
             "desktop": "/assets/images/layout/desktop/squirrel.webp"
         },
-        "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers",
+        "alt": "A squirrel clutching a nut, highlighting its bushy tail and nimble fingers.",
         "cart": "/assets/images/cart/squirrel.webp",
         "online": 7000,
         "shop": 12,

@@ -11,12 +11,15 @@ import {
   switchVisibilityOfInputs,
   setInputAttribute,
   initialTheme,
+  switchTheme,
   openOrCloseSidebar,
   changeVisibilityOfCheckboxes,
   toggleCategoryContainer,
   displayNumberOfProductsOnCartLogo,
   displayMondayDiscountText,
-  switchTheme
+  getRandomOrderNumberAsString,
+  getCurrentDateAsString,
+  getMilitaryTimeAsStringWithAddedMinutes
 } from './assets/utils/helperfunctions';
 import {
   emailRegex,
@@ -43,7 +46,7 @@ const checkoutContainer = document.querySelector('#checkout_container');
 const paymentInputsContainer = document.querySelector('#payment_inputs');
 const invoiceInput = document.querySelector('#invoice_input');
 const cardInput = document.querySelector('#card_input');
-const shippingContainer = document.querySelector('#shipping');
+const shippingContainer = document.querySelector('#shipping_confirm');
 // Buttons / ListItems
 const validateButton = document.querySelector('#validate_button');
 const resetButton = document.querySelector('#reset_button');
@@ -75,17 +78,17 @@ const doesUserPreferDark = window.matchMedia(
 ).matches; // user theme preferences
 
 const arrayOfInputTests = [
-  { type: 'text', regEx: textOnlyRegx },
-  { type: 'address', regEx: addressRegex },
-  { type: 'number', regEx: numberOnlyRegex },
-  { type: 'mail', regEx: emailRegex },
-  { type: 'tel', regEx: telephoneRegex },
-  { type: 'social', regEx: socialSecurityRegex }
+  { type: 'text', regEx: textOnlyRegx, text: 'Can´t contain numbers' },
+  { type: 'address', regEx: addressRegex, text: 'Must be valid address' },
+  { type: 'number', regEx: numberOnlyRegex, text: 'Must consist of numbers' },
+  { type: 'mail', regEx: emailRegex, text: 'Must be a valid email' },
+  { type: 'tel', regEx: telephoneRegex, text: 'Must be a valid number' },
+  { type: 'social', regEx: socialSecurityRegex, text: 'Must be a valid SSN' }
 ];
 
 let productArrayOfObjects = productData;
-let errorMessage = 'Can´t be empty';
 let cartArrayOfObjects: CartObjectType[] = [];
+let isCheckoutOpen = false;
 
 const handleClickOnSortPanel = (sortModal: Element | null) => {
   sortModal?.classList.toggle('hidden');
@@ -120,11 +123,11 @@ const createListItemAsHTML = (
   }).join('');
 
   productContainer.innerHTML = `
-    <div class="flex flex-col gap-4 p-4 h-[120px]">
+    <div class="flex-column gap-4 p-4 h-[120px] border-b border-color">
       <h2 class="text-[1.5rem]">${name}</h2>
       <p class="font-bold">$${price}</p>
     </div>
-  <div class="w-full h-[700px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
+  <div class="w-full bg-gray-200 flex-center h-[400px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
     <img
       srcset="
       ${image.tablet} 640w,
@@ -140,46 +143,45 @@ const createListItemAsHTML = (
       width="300"
       height="300"
       alt="${alt}"
-      class="w-full h-full object-cover absolute"
+      class="w-full h-[90%] xl:h-[85%] object-cover top-0 absolute"
     />
     <div
-      class="w-full translate-y-[250px] h-[250px] transition-transform ease-in duration-300 bg-light-Main dark:bg-dark-Footer border-t border-light-border dark:border-dark-border opacity-90 absolute z-5 bottom-0"
+      class="w-full translate-y-[250px] h-[250px] transition-transform ease-in duration-300 bg-light-Main dark:bg-dark-Footer border-t border-color opacity-95 absolute z-5 bottom-0"
       id="product_info"
     >
-      <div class="col-span-2 flex flex-col px-3">
-        <div class="flex flex-col">
+      <div class="col-span-2 flex-column px-3">
+        <div class="flex-column">
           <div
-            class="border-b border-light-border dark:border-dark-border py-4 flex items-center justify-between"
+            class="border-b border-color py-4 flex-between"
           >
             <h3 class="font-bold">Species</h3>
             <p>${species}</p>
           </div>
           <div
-            class="border-b border-light-border dark:border-dark-border py-4 flex items-center justify-between"
+            class="border-b border-color py-4 flex-between"
           >
             <h3 class="font-bold">Category</h3>
             <p>${category}</p>
           </div>
           <div
-            class="border-b border-light-border dark:border-dark-border py-4 flex flex-col gap-2 justify-between"
+            class="border-b border-color py-4 flex-column gap-2 justify-between"
           >
             <h3 class="font-bold">Description</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing
-              elit. A, nihil iusto molestias odit voluptat.
+              ${alt}
             </p>
           </div>
         </div>
       </div>
     </div>
     <div
-    class="h-16 flex justify-center items-center main-button cursor-pointer absolute bottom-0 w-full add_cart_button"
+    class="h-16 flex-center main-button cursor-pointer absolute bottom-0 w-full add_cart_button"
     id="add_cart_button-${id}"
   >
     <p class="text-[2rem]">Add to cart</p>
   </div>
   </div>
-  <div class="flex flex-col gap-2 px-3 py-6">
+  <div class="flex-column gap-2 px-3 py-6">
     <div class="flex items-center gap-2">
       <div class="flex items-center">
         ${starsHtml}
@@ -206,7 +208,7 @@ const generateList = (productData: ProductType[]) => {
     productContainer.id = 'product';
     // Making the tailwind classes into an array so i can add these to the product container
     const tailwindClasses: string[] =
-      'col-span-4 md:col-span-3 xl:col-span-3 flex flex-col w-full h-[900px] md:h-[700px] xl:h-[600px] bg-light-Secondary dark:bg-dark-Secondary dark:border-dark-border rounded-sm'.split(
+      'col-span-4 md:col-span-3 xl:col-span-3 flex-column w-full h-[900px] md:h-[700px] xl:h-[600px] secondary-theme border border-color rounded-md'.split(
         ' '
       );
     tailwindClasses.forEach((className) => {
@@ -253,7 +255,7 @@ const generateProductsInCartAsHTML = (
       const cartPanel = document.createElement('div');
       // Making the tailwind classes into an array so i can add these to the product container
       const tailwindClasses: string[] =
-        'flex justify-between w-full items-center border-y border-light-border dark:border-dark-border gap-2 px-3 py-2 grid grid-cols-8 bg-light-Main dark:bg-dark-Main'.split(
+        'flex-center w-full border-y border-color gap-2 px-3 py-2 grid grid-cols-8 main-theme'.split(
           ' '
         );
       tailwindClasses.forEach((className) => {
@@ -264,13 +266,13 @@ const generateProductsInCartAsHTML = (
       cartPanel.innerHTML = `
       <div class="flex items-center gap-4 col-span-5 ">
         <img src=${cart} width="100" height="100" alt=${alt} class="rounded-md h-[100px] w-[100px] object-cover">
-        <div class="flex flex-col gap-2">
+        <div class="flex-column gap-2">
           <h3 class="text-[1.25rem] font-bold">${name}</h3>
           <p>$${price}</p>
         </div>
       </div>
       <div class="cart_wrapper flex gap-4 items-center col-span-3" id="${id}">
-        <div class="cart-button h-12 w-[120px] flex justify-between items-center px-3 rounded-sm">
+        <div class="cart-button h-12 w-[120px] flex-center px-3 rounded-sm">
           <button class="text-[1.25rem] cursor-pointer hover:text-light-Main hover:dark:text-dark-Main w-[30px]" id="minus_button">-</button>
           <p class="font-bold">${count}</p>
           <button class="text-[1.25rem] cursor-pointer hover:text-light-Main hover:dark:text-dark-Main w-[30px]" id="plus_button">+</button>
@@ -325,6 +327,10 @@ const changeColorOfCheckoutButtonDependingOnTotalPrice = (
 };
 
 const handleClickOnAddToCartButton = (e: Event) => {
+  // if the checkout is open exit the function so the user cant add more products
+  if (isCheckoutOpen) {
+    return;
+  }
   const target = e.target as HTMLElement;
   if (target === null) {
     return;
@@ -334,7 +340,6 @@ const handleClickOnAddToCartButton = (e: Event) => {
     return;
   }
   const id = Number(cartButton.id.replace('add_cart_button-', ''));
-  // locates the product in the productData that matches the id of the product clicked
   const product = productData.find((product) => product.id === id);
   if (product === undefined) {
     return;
@@ -465,6 +470,28 @@ const handleClickableItemsOnProducts = (e: Event) => {
   };
 }; */
 
+const changeThemeAndDisplayCheckout = (
+  checkoutContainer: Element | null,
+  cartModal: Element | null,
+  checkoutButton: HTMLElement
+) => {
+  const orderButton = checkoutButton.nextElementSibling;
+  const cartHeading = cartModal?.firstElementChild?.children[0];
+  const cartIcon = cartModal?.firstElementChild?.children[1];
+  if (cartHeading !== undefined && checkoutButton !== null) {
+    checkoutContainer?.classList.add('open-checkout');
+    // change from main to secondary theme
+    cartModal?.classList.add('main-theme');
+    cartModal?.classList.remove('secondary-theme');
+    cartContainer?.classList.add('hide');
+    orderButton?.classList.remove('hide');
+    // remove ability to close the checkout
+    cartIcon?.classList.add('hide');
+    // change text in heading to checkout
+    cartHeading.textContent = 'Checkout';
+  }
+};
+
 const handleClickOnCheckoutButton = (
   e: Event,
   checkoutContainer: Element | null,
@@ -472,12 +499,16 @@ const handleClickOnCheckoutButton = (
   totalPriceContainer: Element | null,
   invoiceInput: Element | null
 ) => {
+  // change isCheckoutOpen to ture to make sure the user cant add more items
+  isCheckoutOpen = true;
   const currentPrice = Number(
     totalPriceContainer?.textContent?.replace('$ ', '')
   );
   // invoice option is unavailable if price is over 800
   if (currentPrice > 800) {
     invoiceInput?.classList.add('hide');
+  } else {
+    invoiceInput?.classList.remove('hide');
   }
   // Interval to reset form and make the user know they are lazy
   /*  const fifteenMinutesInSeconds = 15 * 60;
@@ -485,16 +516,7 @@ const handleClickOnCheckoutButton = (
   const countdownInterval = setInterval(updateTimer, 1000); */
 
   const checkoutButton = e.target as HTMLElement;
-  const orderButton = checkoutButton.nextElementSibling;
-  checkoutContainer?.classList.add('open-checkout');
-  const cartHeading = cartModal?.firstElementChild?.children[0];
-  const cartIcon = cartModal?.firstElementChild?.children[1];
-  if (cartHeading !== undefined && checkoutButton !== null) {
-    orderButton?.classList.remove('hide');
-    checkoutButton.classList.add('hide');
-    cartIcon?.classList.add('hide');
-    cartHeading.textContent = 'Checkout';
-  }
+  changeThemeAndDisplayCheckout(checkoutContainer, cartModal, checkoutButton);
 };
 
 const handleClickOnValidateButton = (e: Event) => {
@@ -548,11 +570,26 @@ const isAnyCategoriesSelected = (
   return false;
 };
 
+const setPaymentMethodTextInConfirmation = (
+  paymentContainer: Element | null,
+  currentInput: Element
+) => {
+  if (paymentContainer !== null) {
+    if (currentInput.id === 'invoice_input') {
+      paymentContainer.textContent = 'Invoice';
+    } else {
+      paymentContainer.textContent = 'Card';
+    }
+  }
+};
+
 const togglePaymentInputButtons = (
   currentInput: Element,
   otherInput: Element | null
 ) => {
   const button = currentInput.querySelector('.input-button');
+  const paymentContainer = document.querySelector('#payment_method');
+  setPaymentMethodTextInConfirmation(paymentContainer, currentInput);
   if (button !== null && !button.classList.contains('main-button')) {
     button.classList.toggle('main-button');
     otherInput?.querySelector('.main-button')?.classList.toggle('main-button');
@@ -576,30 +613,18 @@ const togglePaymentMethod = (
     togglePaymentInputButtons(invoiceInputClosest, cardInput);
     switchVisibilityOfInputs(cardInputContainer, socialSecurityInputContainer);
     setInputAttribute(socialSecurityInput, 'required', true);
+    changeSubmitButtonColorDependingOnFormValidity(
+      isTheFormValid(),
+      submitButton
+    );
   } else if (cardInputClosest !== null) {
     togglePaymentInputButtons(cardInputClosest, invoiceInput);
     switchVisibilityOfInputs(socialSecurityInputContainer, cardInputContainer);
     setInputAttribute(socialSecurityInput, 'required', false);
-  }
-};
-
-const validateInputWithRegex = (
-  input: HTMLInputElement,
-  regExp: RegExp,
-  errorMessage: string
-) => {
-  const errorText = input.parentElement?.parentElement?.querySelector('p');
-  if (errorText !== undefined && errorText !== null) {
-    if (!regExp.test(input.value)) {
-      errorText.classList.remove('hide');
-      errorText.textContent = errorMessage;
-      input.classList.remove('valid');
-    } else {
-      errorText.classList.add('hide');
-      // also removing the text for screen readers
-      errorText.textContent = '';
-      input.classList.add('valid');
-    }
+    changeSubmitButtonColorDependingOnFormValidity(
+      isTheFormValid(),
+      submitButton
+    );
   }
 };
 
@@ -641,45 +666,7 @@ const clickingOnCheckBoxes = (e: Event) => {
 
 checkoutContainer?.addEventListener('click', clickingOnCheckBoxes);
 
-const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
-  const allRequiredInputs = form?.querySelectorAll(
-    'input[required]'
-  ) as NodeListOf<HTMLInputElement>;
-  e.preventDefault();
-  allRequiredInputs?.forEach((input) => {
-    if (input.value.trim() === '') {
-      const errorText =
-        input.parentElement?.parentElement?.querySelector('p[aria-live]');
-      if (errorText !== undefined && errorText !== null) {
-        errorText.textContent = 'Can´t be empty';
-        errorText.classList.remove('hide');
-      }
-    } else {
-      if (input.classList.contains('text')) {
-        console.log('text');
-        errorMessage = 'Can´t contain numbers';
-        validateInputWithRegex(input, textOnlyRegx, errorMessage);
-      } else if (input.classList.contains('address')) {
-        errorMessage = 'Must be valid address';
-        validateInputWithRegex(input, addressRegex, errorMessage);
-      } else if (input.classList.contains('number')) {
-        errorMessage = 'Must consist of numbers';
-        validateInputWithRegex(input, numberOnlyRegex, errorMessage);
-      } else if (input.classList.contains('mail')) {
-        errorMessage = 'Must be a valid email';
-        validateInputWithRegex(input, emailRegex, errorMessage);
-      } else if (input.classList.contains('tel')) {
-        errorMessage = 'Must be a valid number';
-        validateInputWithRegex(input, telephoneRegex, errorMessage);
-      } else if (input.classList.contains('social')) {
-        errorMessage = 'Must be a valid SSN';
-        validateInputWithRegex(input, socialSecurityRegex, errorMessage);
-      }
-    }
-  });
-};
-
-/* const validateInputWithRegex = (
+const displayErrorTextIfTestFails = (
   input: HTMLInputElement,
   regExp: RegExp,
   errorMessage: string
@@ -697,7 +684,48 @@ const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
       input.classList.add('valid');
     }
   }
-}; */
+};
+
+const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
+  const allRequiredInputs = form?.querySelectorAll(
+    'input[required]'
+  ) as NodeListOf<HTMLInputElement>;
+  allRequiredInputs?.forEach((input) => {
+    if (input.value.trim() === '') {
+      const errorText =
+        input.parentElement?.parentElement?.querySelector('p[aria-live]');
+      if (errorText !== undefined && errorText !== null) {
+        errorText.textContent = 'Can´t be empty';
+        errorText.classList.remove('hide');
+      }
+    } else {
+      const inputTypeObject = arrayOfInputTests.find((test) =>
+        input.classList.contains(test.type)
+      );
+      if (inputTypeObject !== undefined) {
+        displayErrorTextIfTestFails(
+          input,
+          inputTypeObject?.regEx,
+          inputTypeObject.text
+        );
+      }
+    }
+  });
+  if (isTheFormValid() === true) {
+    const dateContainer = document.querySelector('#date');
+    const orderContainer = document.querySelector('#order_number');
+    if (dateContainer === null || orderContainer === null) {
+      return;
+    }
+    orderContainer.textContent = getRandomOrderNumberAsString();
+    dateContainer.textContent = getCurrentDateAsString();
+    const confirmationContainer = document.querySelector(
+      '#confirmation_container'
+    );
+    confirmationContainer?.classList.remove('hide');
+    cartContainer?.classList.add('hide');
+  }
+};
 
 const handleValidityOfInputsWithRegex = (
   input: HTMLInputElement,
@@ -736,7 +764,6 @@ const isTheFormValid = () => {
     input.classList.contains('valid')
   );
   if (personalCheck !== null) {
-    console.log(personalCheck.checked);
     return personalCheck.checked && everyInputIsValid;
   }
 };
@@ -762,6 +789,27 @@ const handleChangeOnCheckoutInputs = (e: Event) => {
     );
   }
 };
+
+
+const getDeliveryTimeAsString = () => {
+  let deliveryTime = '';
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentTime = currentDate.getHours();
+  const isFriday = currentDay === 5;
+  const isTimeBetweenElevenAndOnePm = currentTime >= 11 && currentTime < 13;
+  const isTimeInTheMiddleOfTheNight = currentTime >= 0 && currentTime < 4;
+  if (isFriday && isTimeBetweenElevenAndOnePm) {
+    deliveryTime = '15:00 PM';
+  } else if (isTimeInTheMiddleOfTheNight) {
+    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 45);
+  } else {
+    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 30);
+  }
+  return `You will get your order at ${deliveryTime}`;
+};
+
+getDeliveryTimeAsString();
 
 // Borde nog refaktorera
 

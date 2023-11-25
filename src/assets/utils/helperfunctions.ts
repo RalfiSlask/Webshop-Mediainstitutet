@@ -13,6 +13,15 @@ export const hideAllCheckmarks = (
   });
 };
 
+export const getMilitaryTimeAsStringWithAddedMinutes = (currentDate: Date, addedMinutes: number) => {
+  currentDate.setMinutes(currentDate.getMinutes() + addedMinutes);
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${formattedMinutes}`;
+};
+
+
 export const handleClickOnMenuLinks = (
   e: Event,
   menuButton: HTMLImageElement,
@@ -52,6 +61,28 @@ export const toggleCartClassesBasedOnNumberOfProducts = (
   }
 };
 
+export const getRandomOrderNumberAsString = () => {
+  let firstFour = '';
+  for (let i = 0; i < 4; i++) {
+    const randomNumber = Math.floor(Math.random() * 9)
+    firstFour += randomNumber;
+  };
+  let lastEight = '';
+  for (let i = 0; i < 8; i++) {
+    const randomNumber = Math.floor(Math.random() * 9)
+    lastEight += randomNumber;
+  };
+  return `${firstFour}-${lastEight}`;
+};
+
+export const getCurrentDateAsString = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.toLocaleString('en-Us', { month: 'long' });
+  const currentYear = currentDate.getFullYear();
+  return `${currentDay} ${currentMonth} ${currentYear}`;
+};
+
 export const getTotalPriceWithMondayDiscount = (totalPrice: number) => {
   const currentDate = new Date();
   const currentDay = currentDate.getDay();
@@ -74,6 +105,25 @@ export const getProductPriceDependingOnIfItIsWeekendOrNot = (
     isItFridayAfterThreePM || isItBeforeMondayThreeAm || isItWeekend;
   // If it is Friday after 3 pm and before 3 am on Monday return product total price with a 15% surcharge
   return isThereWeekendSurcharge ? productTotalPrice * 1.15 : productTotalPrice;
+};
+
+const displayPrices = (totalPriceContainer: Element | null, shippingContainer: Element | null, shipping: number, totalPrice: number, grandTotalNumber: number) => {
+  const totalPriceInConfirmation = document.querySelector('#total_confirm');
+  const grandTotal = document.querySelector('#grand_total');
+  if (
+    totalPriceContainer === null ||
+    shippingContainer === null ||
+    totalPriceInConfirmation === null ||
+    grandTotal === null
+  ) {
+    return;
+  }
+  shippingContainer.textContent = `$ ${shipping.toFixed(0)}`;
+  totalPriceContainer.textContent = `$ ${getTotalPriceWithMondayDiscount(
+    totalPrice
+  ).toFixed(0)}`;
+  totalPriceInConfirmation.textContent = totalPriceContainer.textContent;
+  grandTotal.textContent = `$ ${grandTotalNumber.toString()}`;
 };
 
 export const calculateAndDisplayTotalPrice = (
@@ -100,13 +150,8 @@ export const calculateAndDisplayTotalPrice = (
       : (shipping += productTotal / 10);
     totalPrice += productTotal;
   });
-  if (totalPriceContainer === null || shippingContainer === null) {
-    return;
-  }
-  shippingContainer.textContent = `Shipping: ${shipping.toFixed(0)}`;
-  totalPriceContainer.textContent = `$ ${getTotalPriceWithMondayDiscount(
-    totalPrice
-  ).toFixed(0)}`;
+  const grandTotal = Number((shipping + totalPrice).toFixed(0));
+  displayPrices(totalPriceContainer, shippingContainer, shipping, totalPrice, grandTotal)
 };
 
 export const toggleCategoryContainer = (e: Event) => {
