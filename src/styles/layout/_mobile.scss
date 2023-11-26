@@ -76,9 +76,63 @@ html {
     opacity: 70%;
 }
 
+/* .gotocart-button:focus, .user-button:focus, .darkmode-button:focus, .filter-button:focus, .sort-button:focus {
+    outline: 2px solid blue;
+} */
+
 /* Custom Tailwind Settings */
 
+.christmas-main-theme {
+    @apply bg-christmas-Main
+}
 
+.christmas-secondary-theme {
+    @apply bg-christmas-Secondary
+}
+
+.christmas-border-color {
+    @apply border-christmas-border
+}
+
+.christmas-footer {
+    @apply bg-christmas-Footer
+}
+
+.christmas-main-button {
+    @apply bg-christmas-primary-button-bg text-christmas-primary-button-text border-christmas-primary-button-border hover:bg-christmas-primary-button-hover-bg hover:border-christmas-primary-button-hover-border
+}
+
+.christmas-secondary-button {
+    @apply bg-christmas-secondary-button-bg text-christmas-secondary-button-text border-christmas-secondary-button-border hover:bg-christmas-secondary-button-hover-bg hover:border-christmas-secondary-button-hover-border
+}
+
+.christmas-input {
+    @apply bg-christmas-input hover:bg-christmas-input-hover
+}
+
+.christmas-navtext {
+    @apply hover:text-christmas-navtext-hover
+}
+
+.christmas-icon-hover {
+    @apply hover:text-christmas-icon-hover
+}
+
+.christmas-main-text {
+    @apply text-christmas-text
+}
+
+.christmas-main-Heading {
+    @apply text-christmas-Headings
+}
+
+.main-text {
+    @apply text-light-text dark:text-dark-text
+}
+
+.main-Heading {
+    @apply text-light-Headings dark:text-dark-Headings;   
+}
 
 .main-theme {
     @apply bg-light-Main dark:bg-dark-Main;
@@ -142,19 +196,19 @@ html {
 
 .cart-button {
     @apply bg-light-primary-button-bg text-light-primary-button-text dark:bg-dark-primary-button-bg dark:text-dark-primary-button-text 
-    border border-light-primary-button-border dark:border-dark-primary-button-border
+    border border-light-primary-button-border dark:border-dark-primary-button-border focus:border-2 focus:border-green-600
 }
 
 .main-button {
     @apply bg-light-primary-button-bg text-light-primary-button-text dark:bg-dark-primary-button-bg dark:text-dark-primary-button-text 
     border border-light-primary-button-border dark:border-dark-primary-button-border hover:bg-light-primary-button-hover-bg hover:border-light-primary-button-hover-border
-    dark:hover:bg-dark-primary-button-hover-bg dark:hover:border-dark-primary-button-hover-border cursor-pointer
+    dark:hover:bg-dark-primary-button-hover-bg dark:hover:border-dark-primary-button-hover-border cursor-pointer focus:border-2 focus:border-green-600
 }
 
 .secondary-button {
     @apply bg-light-secondary-button-bg text-light-secondary-button-text dark:bg-dark-secondary-button-bg dark:text-dark-secondary-button-text
     border border-light-secondary-button-border dark:border-dark-secondary-button-border hover:bg-light-secondary-button-hover-bg hover:border-light-secondary-button-hover-border
-    dark:hover:bg-dark-secondary-button-hover-bg dark:hover:border-dark-secondary-button-hover-border
+    dark:hover:bg-dark-secondary-button-hover-bg dark:hover:border-dark-secondary-button-hover-border focus:border-2 focus:border-green-600
 }
 
 .info-open {

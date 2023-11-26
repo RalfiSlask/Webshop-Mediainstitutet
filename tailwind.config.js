@@ -80,6 +80,30 @@ export default {
           "medium-hover": "#5E85B2",
           "high-hover": "#B07CE8",
           "highest-hover": "#E0B951"
+        }, 
+        christmas: {
+          "Main": "#E74C3C",
+          "Secondary": "#2ECC71",
+          "open": "#FFD700",
+          "open-hover": "#FFA500",
+          "Footer": "#2ECC71",
+          "Headings": "#333333",
+          "text": "black",
+          "border": "#8B4513",
+          "primary-button-bg": "#FF6347",
+          "primary-button-text": "#FFFFFF",
+          "primary-button-border": "#8B4513",
+          "primary-button-hover-bg": "#FFA07A",
+          "primary-button-hover-border": "#FF4500",
+          "secondary-button-bg": "#FFD700",
+          "secondary-button-text": "#008000",
+          "secondary-button-border": "#228B22",
+          "secondary-button-hover-bg": "#ADFF2F",
+          "secondary-button-hover-border": "#32CD32",
+          "input": "#FFFFFF",
+          "input-hover": "#FFFAF0",
+          "navtext-hover": "#FFA500",
+          "icon-hover": "#FF6347"
         }
       }
     },

@@ -56,7 +56,7 @@
   </head>
 
   <body
-    class="flex-column items-center font-roboto text-light-text dark:text-dark-text main-theme"
+    class="flex-column items-center font-roboto main-text main-theme"
     id="Home"
   >
     <div
@@ -65,7 +65,7 @@
     >
       <nav class="md:flex absolute left-1/2 -translate-x-1/2">
         <ul
-          class="flex-column gap-4 cursor-pointer text-[2rem] text-light-Headings dark:text-dark-Headings"
+          class="flex-column gap-4 cursor-pointer text-[2rem] main-Heading"
           id="nav-list"
         >
           <li class="navtext"><a href="#Home">Home</a></li>
@@ -85,10 +85,9 @@
       class="fixed border-l border-color secondary-theme h-screen right-0 flex-column items-center top-0 w-full -translate-x-[screen] md:w-[600px] transition-transform duration-300 ease-in translate-x-[600px] z-50"
       id="cart_modal"
     >
-
-
-
-      <div class="flex-between h-14 px-4 py-3 border-b border-color secondary-theme z-5 w-full">
+      <div
+        class="flex-between h-14 px-4 py-3 border-b border-color secondary-theme z-5 w-full"
+      >
         <h2 class="text-[1.25rem] uppercase">Your Cart</h2>
         <svg
           id="close_button"
@@ -96,6 +95,7 @@
           width="30"
           height="30"
           role="button"
+          tabindex="0"
           viewBox="0 0 32 32"
           xmlns="http://www.w3.org/2000/svg"
           aria-labelledby="title desc"
@@ -126,10 +126,10 @@
       >
         <h2 class="text-[2rem] font-garamond">Your cart is empty</h2>
         <img src="./src/assets/images/empty-cart.png" alt="sad empty cart" />
-        <cite class="text-center font-garamond text-[1.25rem]"
-          >"Looks like the critters have scampered off! Your cart is as empty as
-          a squirrel’s winter stash. Fill it up before they come back!"</cite
-        >
+        <cite class="text-center font-garamond text-[1.25rem]">
+          "Looks like the critters have scampered off! Your cart is as empty as
+          a squirrel’s winter stash. Fill it up before they come back!"
+        </cite>
       </div>
       <div class="p-4 hide" id="monday_discount">
         <h2 class="text-[1.25rem] font-semibold">
@@ -142,14 +142,23 @@
         id="cart_container"
         class="flex-column gap-4 pt-7 max-h-[800px] w-full items-center"
       ></div>
-      <div class="hide absolute top-1/2 -translate-y-1/2 main-theme p-8 flex-column items-center gap-4 z-10 w-full h-full " id="confirmation_container">
-        <div class="text-center flex-column gap-4 secondary-theme border border-color p-4 rounded-md">
+      <div
+        class="hide absolute top-1/2 -translate-y-1/2 main-theme p-8 flex-column items-center gap-4 z-10 w-full h-full"
+        id="confirmation_container"
+      >
+        <div
+          class="text-center flex-column gap-4 secondary-theme border border-color p-4 rounded-md"
+        >
           <h3 class="text-[1.5rem] font-semibold uppercase">Your order is</h3>
-          <h2 class="text-[4rem] font-bold uppercase tracking-widest">On the way</h2>
+          <h2 class="text-[4rem] font-bold uppercase tracking-widest">
+            On the way
+          </h2>
         </div>
-  
-        <p class="text-[1.125rem] text-center">You will recieve an email confirmation shortly</p>
-        <h3>Will be delivering in: <span id="deliver_time">0</span></h3>
+
+        <p class="text-[1.125rem] text-center">
+          You will recieve an email confirmation shortly
+        </p>
+        <h3 id="delivery_time"></h3>
         <div class="flex justify-between border-t border-color pt-4 w-full">
           <div class="w-[33%] flex-column gap-2 px-4">
             <h4>Date</h4>
@@ -178,22 +187,29 @@
           <h4 class="text-[1.125rem] font-semibold">Grand Total</h4>
           <p class="text-[1.125rem] font-semibold" id="grand_total">0</p>
         </div>
-        <div class="flex items-center justify-center gap-4 border-b border-color pb-4 pt-6 w-full">
+        <div
+          class="flex items-center justify-center gap-4 border-b border-color pb-4 pt-6 w-full"
+        >
           <div class="w-[150px] h-[225px]">
-            <img src="./src/assets/images/fox-confirmation.png" width="408" height="612" alt="fox sitting on a yellow chair" class="w-full h-auto object-cover">
+            <img
+              src="./src/assets/images/fox-confirmation.png"
+              width="408"
+              height="612"
+              alt="fox sitting on a yellow chair"
+              class="w-full h-auto object-cover"
+            />
           </div>
           <div class="flex-column text-center gap-2">
             <h3 class="text-[1.125rem]">We at</h3>
-            <h2 class="font-garamond text-[1.75rem] font-semibold">Fluff & Stuff</h2>
+            <h2 class="font-garamond text-[1.75rem] font-semibold">
+              Fluff & Stuff
+            </h2>
             <p class="text-[1.125rem]">Wish you a pleasant day!</p>
           </div>
-
         </div>
-   
-       
       </div>
       <div
-        class=" flex-column gap-4 main-theme h-full absolute top-20 z-5 -translate-y-[-100%] w-full px-2 pt-4"
+        class="hide flex-column gap-4 main-theme h-full absolute top-20 z-5 -translate-y-[-100%] w-full px-2 pt-4"
         id="checkout_container"
       >
         <form
@@ -233,16 +249,16 @@
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="lastname"
-                id="lastname"
-                type="text"
-                placeholder="e.g. Last name"
-                class="input text"
-                required
-                aria-required
-              />
-              <p
+                <input
+                  name="lastname"
+                  id="lastname"
+                  type="text"
+                  placeholder="e.g. Last name"
+                  class="input text"
+                  required
+                  aria-required
+                />
+                <p
                   class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
                 >
                   *
@@ -256,21 +272,21 @@
               <p class="text-red-500 hide" aria-live="polite">Can´t be empty</p>
             </div>
             <div class="w-full relative">
-            <input
-              name="address"
-              id="address"
-              type="text"
-              placeholder="e.g. Address"
-              class="input address"
-              required
-              aria-required
-            />
-            <p
-                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-                >
-                  *
-                </p>
-              </div>
+              <input
+                name="address"
+                id="address"
+                type="text"
+                placeholder="e.g. Address"
+                class="input address"
+                required
+                aria-required
+              />
+              <p
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+              >
+                *
+              </p>
+            </div>
           </div>
 
           <div class="flex gap-4 w-full">
@@ -282,21 +298,21 @@
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="postal"
-                id="postal"
-                type="text"
-                placeholder="e.g. Postal Code"
-                class="input number"
-                required
-                aria-required
-              />
-              <p
-              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-            >
-              *
-            </p>
-          </div>
+                <input
+                  name="postal"
+                  id="postal"
+                  type="text"
+                  placeholder="e.g. Postal Code"
+                  class="input number"
+                  required
+                  aria-required
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
             <div class="flex-column gap-2 w-[40%]">
               <div class="flex-between h-7">
@@ -306,21 +322,21 @@
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="city"
-                id="city"
-                type="text"
-                placeholder="e.g. City"
-                class="input text"
-                required
-                aria-required
-              />
-              <p
-              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-            >
-              *
-            </p>
-          </div>
+                <input
+                  name="city"
+                  id="city"
+                  type="text"
+                  placeholder="e.g. City"
+                  class="input text"
+                  required
+                  aria-required
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
           </div>
           <div class="flex gap-4 w-full">
@@ -332,21 +348,21 @@
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="tel"
-                id="tel"
-                type="tel"
-                placeholder="e.g. Telephone"
-                class="input tel"
-                required
-                aria-required
-              />
-              <p
-              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-            >
-              *
-            </p>
-          </div>
+                <input
+                  name="tel"
+                  id="tel"
+                  type="tel"
+                  placeholder="e.g. Telephone"
+                  class="input tel"
+                  required
+                  aria-required
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
             <div class="flex-column gap-1 w-full">
               <div class="flex-between h-7">
@@ -356,22 +372,22 @@
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="mail"
-                id="mail"
-                type="email"
-                placeholder="e.g. Email"
-                class="input mail w-full"
-                required
-                aria-required
-              />
-              <p
-              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-            >
-              *
-            </p>
+                <input
+                  name="mail"
+                  id="mail"
+                  type="email"
+                  placeholder="e.g. Email"
+                  class="input mail w-full"
+                  required
+                  aria-required
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
-          </div>
           </div>
           <div id="payment" class="flex-column gap-6 h-[200px] relative">
             <div class="flex justify-between w-full">
@@ -387,9 +403,12 @@
                   <div
                     class="w-6 h-6 flex justify-center items-center border border-color rounded-full"
                   >
-                    <button class="w-2 h-2 rounded-full input-button"></button>
+                    <button
+                      class="w-2 h-2 rounded-full input-button"
+                      aria-labelledby="invoice_text"
+                    ></button>
                   </div>
-                  <p>Invoice</p>
+                  <p id="invoice_text">Invoice</p>
                 </div>
                 <div
                   class="flex items-center gap-4 input w-[70%] h-12 rounded-md payment_input"
@@ -400,9 +419,10 @@
                   >
                     <button
                       class="w-2 h-2 input-button rounded-full main-button"
+                      aria-labelledby="card_text"
                     ></button>
                   </div>
-                  <p>Card</p>
+                  <p id="card_text">Card</p>
                 </div>
               </div>
             </div>
@@ -412,34 +432,34 @@
               id="social_container"
             >
               <div class="flex-between h-7">
-                <label for="social" class="font-medium number"
-                  >Social Security Number</label
-                >
+                <label for="social" class="font-medium number">
+                  Social Security Number
+                </label>
                 <p class="text-red-500 hide" aria-live="polite">
                   Can´t be empty
                 </p>
               </div>
               <div class="w-full relative">
-              <input
-                name="social"
-                id="social"
-                type="text"
-                placeholder="YYMMDD-1234"
-                aria-required
-                class="input social"
-              />
-              <p
-              class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
-            >
-              *
-            </p>
-            </div>
+                <input
+                  name="social"
+                  id="social"
+                  type="text"
+                  placeholder="YYMMDD-1234"
+                  aria-required
+                  class="input social"
+                />
+                <p
+                  class="absolute right-2 top-1/2 -translate-y-1/2 text-light-border dark:text-dark-text"
+                >
+                  *
+                </p>
+              </div>
             </div>
             <div class="flex gap-2 absolute bottom-0" id="card_container">
               <div class="flex-column gap-2">
-                <label for="card_number" class="font-medium h-7"
-                  >Card Number</label
-                >
+                <label for="card_number" class="font-medium h-7">
+                  Card Number
+                </label>
                 <input
                   type="text"
                   name="card_number"
@@ -450,9 +470,9 @@
                 />
               </div>
               <div class="flex-column gap-2">
-                <label for="expiration" class="font-medium h-7"
-                  >Expiration Date</label
-                >
+                <label for="expiration" class="font-medium h-7">
+                  Expiration Date
+                </label>
                 <input
                   type="text"
                   name="expiration"
@@ -480,18 +500,29 @@
         <div class="flex-column gap-8 px-4" id="lower_checkout">
           <div class="flex-column gap-4">
             <div class="flex gap-4 items-center">
-              <input type="checkbox" class="checkbox main-button" id="personal">
-              <p>Approves the processing of personal data *</p>
+              <input
+                type="checkbox"
+                class="checkbox main-button"
+                id="personal"
+              />
+              <label for="personal">
+                Approves the processing of personal data *
+              </label>
             </div>
             <div class="flex gap-4 items-center">
-              <input type="checkbox" class="checkbox main-button" id="newsletter" checked>
-              <p>I want newsletter</p>
+              <input
+                type="checkbox"
+                class="checkbox main-button"
+                id="newsletter"
+                checked
+              />
+              <label for="newsletter">I want newsletter</label>
             </div>
           </div>
           <div id="discount_container" class="flex gap-4 items-center">
-            <label for="discount_input" class="font-medium"
-              >Discount Code</label
-            >
+            <label for="discount_input" class="font-medium">
+              Discount Code
+            </label>
             <input
               name="discount_input"
               id="discount_input"
@@ -515,13 +546,13 @@
           </div>
         </div>
       </div>
-      <div
-        class="h-20 flex justify-between px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
+      <button
+        class="h-20 text-[1.5rem] flex justify-between px-4 items-center main-button cursor-pointer absolute bottom-0 w-full"
         id="checkout_button"
       >
-        <h2 class="text-[1.5rem]">Checkout</h2>
-        <p id="total_price">$ 0</p>
-      </div>
+        Checkout
+        <span id="total_price">$ 0</span>
+      </button>
       <input
         type="submit"
         class="hide h-20 flex text-[1.5rem] justify-center px-4 items-center lowest cursor-pointer absolute bottom-0 w-full"
@@ -539,14 +570,16 @@
         </h2>
         <div class="flex gap-4 items-center">
           <div
-            class="relative w-[30px] h-[30px] cursor-pointer"
+            class="relative w-[30px] h-[30px] cursor-pointer gotocart-button"
+            role="button"
+            aria-labelledby="cart_title cart_desc"
+            tabindex="0"
             id="cart_button"
           >
             <svg
               viewBox="0 0 576 512"
               xmlns="http://www.w3.org/2000/svg"
               class="cursor-pointer w-[30px] h-[30px] absolute icon-hover"
-              aria-labelledby="cart_title cart_desc"
             >
               <title id="cart_title">Cart Button</title>
               <desc id="cart_desc">Button to open the cart</desc>
@@ -571,8 +604,10 @@
             xml:space="preserve"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-            class="cursor-pointer w-[30px] h-[30px] icon-hover"
+            class="cursor-pointer w-[30px] h-[30px] icon-hover user-button"
             aria-labelledby="user_title user_desc"
+            role="button"
+            tabindex="0"
           >
             <title id="user_title">User Button</title>
             <desc id="user_desc">Button resembling the user</desc>
@@ -588,10 +623,12 @@
           </svg>
           <svg
             fill="none"
-            class="cursor-pointer transition-transform duration-300 hover:rotate-180 icon-hover"
+            class="cursor-pointer transition-transform duration-300 hover:rotate-180 icon-hover darkmode-button"
             id="darkmode"
+            tabindex="0"
             height="35"
             viewBox="0 0 24 24"
+            role="button"
             width="35"
             xmlns="http://www.w3.org/2000/svg"
             aria-labelledby="darkmode_title darkmode_desc"
@@ -661,9 +698,7 @@
       <section
         class="main-theme span-whole-grid landing pt-32 flex justify-center min-h-[80vh] md:min-h-screen border-b border-color"
       >
-        <div
-          class="secondary-theme w-full md:w-[90vw] relative z-0"
-        >
+        <div class="secondary-theme w-full md:w-[90vw] relative z-0">
           <div
             class="flex-column items-center absolute z-10 left-1/2 -translate-x-1/2 top-20 w-full"
           >
@@ -682,7 +717,7 @@
             >
               Fluff & Stuff
             </h1>
-            <h4 class="text-xl uppercase">Taxidermy for sale</h4>
+            <h2 class="text-xl uppercase">Taxidermy for sale</h2>
           </div>
           <div
             class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px]"
@@ -744,8 +779,11 @@
           </h2>
           <div class="flex justify-between relative w-full px-4">
             <div
-              class="flex gap-2 cursor-pointer items-center rounded-[3rem] px-6 main-button"
+              class="flex gap-2 cursor-pointer items-center rounded-[3rem] px-6 main-button filter-button"
               id="filter_button"
+              aria-labelledby="filter_title filter_desc"
+              role="button"
+              tabindex="0"
             >
               <svg
                 enable-background="new 0 0 32 32"
@@ -754,11 +792,9 @@
                 height="20px"
                 version="1.1"
                 viewBox="0 0 32 32"
-                role="button"
                 xml:space="preserve"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                aria-labelledby="filter_title filter_desc"
               >
                 <title id="filter_title">Filter Button</title>
                 <desc id="filter_desc">Filter Button to open filter modal</desc>
@@ -865,8 +901,13 @@
             </div>
             <div class="flex-column items-end">
               <p class="uppercase">Sort by</p>
-              <div class="flex gap-2 cursor-pointer" id="sort_button">
-                <p class="font-bold navtext">Best Rating</p>
+              <div
+                class="flex gap-2 cursor-pointer sort-button"
+                id="sort_button"
+                aria-labelledby="arrow_title arrow_desc"
+                tabindex="0"
+              >
+                <p class="font-bold navtext">Category</p>
                 <svg
                   height="20px"
                   style="enable-background: new 0 0 512 512"
@@ -876,7 +917,6 @@
                   xml:space="preserve"
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
-                  aria-labelledby="arrow_title arrow_desc"
                 >
                   <title id="arrow_title">Arrow Button</title>
                   <desc id="arrow_desc">
@@ -1014,7 +1054,7 @@
                   <div
                     class="flex gap-2 items-center z-10 category_switcher pt-4 cursor-pointer"
                   >
-                    <h3>Category</h3>
+                    <h3 class="text-[1.25rem] font-semibold">Category</h3>
                     <svg
                       height="20px"
                       id="Layer2"
@@ -1043,7 +1083,7 @@
                     id="category_list"
                   >
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="beast-label">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
@@ -1052,11 +1092,11 @@
                           class="hidden"
                         />
                       </button>
-                      <p>Bewildered Beasts</p>
+                      <label id="beast-label">Bewildered Beasts</label>
                       <p>3</p>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="gaping-label">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
@@ -1065,11 +1105,11 @@
                           class="hidden"
                         />
                       </button>
-                      <p>Gaping Gallery</p>
+                      <label id="gaping-label">Gaping Gallery</label>
                       <p>4</p>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="not-natural">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
@@ -1078,11 +1118,11 @@
                           class="hidden"
                         />
                       </button>
-                      <p>not Quite Natural</p>
+                      <label id="not-natural">not Quite Natural</label>
                       <p>6</p>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="happy-accident">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
@@ -1091,11 +1131,14 @@
                           class="hidden"
                         />
                       </button>
-                      <p>Happy Accidents</p>
+                      <label id="happy-accident">Happy Accidents</label>
                       <p>5</p>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button
+                        class="checkbox"
+                        aria-labelledby="peculiar-profiles"
+                      >
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
@@ -1104,7 +1147,7 @@
                           class="hidden"
                         />
                       </button>
-                      <p>Peculiar Profiles</p>
+                      <label id="peculiar-profiles">Peculiar Profiles</label>
                       <p>2</p>
                     </div>
                   </div>
@@ -1114,7 +1157,7 @@
                   <div
                     class="category_switcher flex items-center gap-2 pt-4 cursor-pointer"
                   >
-                    <h3>Price Interval</h3>
+                    <h3 class="text-[1.25rem] font-semibold">Price Interval</h3>
                     <svg
                       height="20px"
                       id="Layer_3"
@@ -1143,64 +1186,64 @@
                     id="price_list"
                   >
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="20-100">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
                           height="20"
-                          alt="check icon"
+                          alt="select dollar range 20-100"
                           class="hidden"
                         />
                       </button>
-                      <p>20-100</p>
+                      <label id="20-100">20-100 $</label>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="100-500">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
                           height="20"
-                          alt="check icon"
+                          alt="select dollar range 100-500"
                           class="hidden"
                         />
                       </button>
-                      <p>100-500</p>
+                      <label id="100-500">100-500 $</label>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="500-2000">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
                           height="20"
-                          alt="check icon"
+                          alt="select dollar range 500-2000"
                           class="hidden"
                         />
                       </button>
-                      <p>500-2000</p>
+                      <label id="500-2000">500-2000 $</label>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="10000-100000">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
                           height="20"
-                          alt="check icon"
+                          alt="select dollar range 2000-10000"
                           class="hidden"
                         />
                       </button>
-                      <p>2000-10000</p>
+                      <label id="2000-10000">2000-10000 $</label>
                     </div>
                     <div class="flex-between">
-                      <button class="checkbox">
+                      <button class="checkbox" aria-labelledby="10000-100000">
                         <img
                           src="./src/assets/icons/check.svg"
                           width="20"
                           height="20"
-                          alt="check icon"
+                          alt="select dollar range 10000-100000"
                           class="hidden"
                         />
                       </button>
-                      <p>10000-100000</p>
+                      <label id="10000-100000">10000-100000 $</label>
                     </div>
                   </div>
                 </div>
@@ -1212,17 +1255,29 @@
                 </button>
               </div>
               <div
-                class="sort_modal hidden absolute z-10 border bg-light-Secondary border-light-border dark:bg-dark-Secondary dark:border-light-border top-[50px] rounded-lg py-6 px-6 right-0"
+                class="sort_modal hidden absolute z-10 border secondary-theme border-color bg-light-Secondary top-[50px] rounded-lg py-6 px-6 right-0"
                 id="sort_modal"
               >
                 <ul class="sort_list flex-column items-end gap-2">
-                  <li class="sort-item">Alphabet (High To Low)</li>
-                  <li class="sort-item">Alphabet (Low To High)</li>
-                  <li class="sort-item">Rating (High To Low)</li>
-                  <li class="sort-item">Rating (Low To High)</li>
-                  <li class="sort-item">Category</li>
-                  <li class="sort-item">Price (High To Low)</li>
-                  <li class="sort-item">Price (Low To High)</li>
+                  <li class="sort-item">
+                    <button>Alphabet (High To Low)</button>
+                  </li>
+                  <li class="sort-item">
+                    <button>Alphabet (Low To High)</button>
+                  </li>
+                  <li class="sort-item">
+                    <button>Rating (High To Low)</button>
+                  </li>
+                  <li class="sort-item">
+                    <button>Rating (Low To High)</button>
+                  </li>
+                  <li class="sort-item"><button>Category</button></li>
+                  <li class="sort-item">
+                    <button>Price (High To Low)</button>
+                  </li>
+                  <li class="sort-item">
+                    <button>Price (Low To High)</button>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -1239,7 +1294,7 @@
     </main>
 
     <footer
-      class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer dark:bg-dark-Footer w-full"
+      class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer dark:bg-dark-Footer border-t border-color w-full"
       id="Footer"
     >
       <div

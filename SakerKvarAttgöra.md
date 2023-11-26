@@ -1,9 +1,8 @@
-JS: 
+JS:
 
-1. validera checkout
-2. remove all eventuellt
-3. Fixa andra färger och text vid discount code
-4. Checkout grå innan formulär klart
+1. remove all eventuellt
+2. Fixa andra färger och text vid discount code
+3. Refaktorera filter och sort
 
 HTML:
 
@@ -13,16 +12,10 @@ HTML:
 CSS:
 
 1. Styla filtermodalen bättre
-2. Se över styling på produkterna, lägga till border
-3. Border på footer
-4. Validering
+2. Se över styling på produkterna
+3. Validering
 
 Övrigt:
 
-1. måndagsrabatter
-2. helgpåslag
-3. fraktkostnader
-4. Kod
-
-
-
+Allt ska vara tillgängligt med tangentbord
+Om kunden inte har lagt beställningen inom 15 minuter så ska beställningsformuläret tömmas/rensas och kunden ska meddelas att denne är för långsam.

@@ -19,7 +19,14 @@ import {
   displayMondayDiscountText,
   getRandomOrderNumberAsString,
   getCurrentDateAsString,
-  getMilitaryTimeAsStringWithAddedMinutes
+  getDeliveryTimeAsString,
+  toggleClassOnClick,
+  toggleClassOnEnter,
+  isItLucia,
+  isItChristmasEve,
+  getObjectPropertyByText,
+  openOrCloseSidebarOnKeyDown,
+  toggleCheckboxVisibility
 } from './assets/utils/helperfunctions';
 import {
   emailRegex,
@@ -86,13 +93,22 @@ const arrayOfInputTests = [
   { type: 'social', regEx: socialSecurityRegex, text: 'Must be a valid SSN' }
 ];
 
+const currentThemes = [
+  'main-theme',
+  'secondary-theme',
+  'main-button',
+  'secondary-button',
+  'border-color',
+  'input',
+  'navtext',
+  'icon-hover',
+  'main-text',
+  'main-Heading'
+];
+
 let productArrayOfObjects = productData;
 let cartArrayOfObjects: CartObjectType[] = [];
 let isCheckoutOpen = false;
-
-const handleClickOnSortPanel = (sortModal: Element | null) => {
-  sortModal?.classList.toggle('hidden');
-};
 
 const createListItemAsHTML = (
   product: ProductType,
@@ -174,12 +190,12 @@ const createListItemAsHTML = (
         </div>
       </div>
     </div>
-    <div
-    class="h-16 flex-center main-button cursor-pointer absolute bottom-0 w-full add_cart_button"
+    <button
+    class="text-[1.75rem] h-16 flex-center main-button cursor-pointer absolute bottom-0 w-full add_cart_button"
     id="add_cart_button-${id}"
   >
-    <p class="text-[2rem]">Add to cart</p>
-  </div>
+    Add to cart
+  </button>
   </div>
   <div class="flex-column gap-2 px-3 py-6">
     <div class="flex items-center gap-2">
@@ -255,7 +271,7 @@ const generateProductsInCartAsHTML = (
       const cartPanel = document.createElement('div');
       // Making the tailwind classes into an array so i can add these to the product container
       const tailwindClasses: string[] =
-        'flex-center w-full border-y border-color gap-2 px-3 py-2 grid grid-cols-8 main-theme'.split(
+        'flex-between w-full border-y border-color gap-2 px-3 py-2 grid grid-cols-8 main-theme'.split(
           ' '
         );
       tailwindClasses.forEach((className) => {
@@ -265,7 +281,10 @@ const generateProductsInCartAsHTML = (
       const { id, name, price, cart, count, alt } = product;
       cartPanel.innerHTML = `
       <div class="flex items-center gap-4 col-span-5 ">
-        <img src=${cart} width="100" height="100" alt=${alt} class="rounded-md h-[100px] w-[100px] object-cover">
+        <div class="relative bg-gray-200 h-[100px] w-[100px] rounded-md">
+          <img src=${cart} width="100" height="100" alt=${alt} class="absolute rounded-md h-full w-full object-cover">
+        </div>
+
         <div class="flex-column gap-2">
           <h3 class="text-[1.25rem] font-bold">${name}</h3>
           <p>$${price}</p>
@@ -277,7 +296,7 @@ const generateProductsInCartAsHTML = (
           <p class="font-bold">${count}</p>
           <button class="text-[1.25rem] cursor-pointer hover:text-light-Main hover:dark:text-dark-Main w-[30px]" id="plus_button">+</button>
         </div>
-          <p class="hover:font-bold cursor-pointer">Remove</p>
+          <button class="font-semibold hover:font-bold cursor-pointer">Remove</button>
       </div>
       `;
       cartContainer?.append(cartPanel);
@@ -326,13 +345,19 @@ const changeColorOfCheckoutButtonDependingOnTotalPrice = (
   }
 };
 
-const handleClickOnAddToCartButton = (e: Event) => {
-  // if the checkout is open exit the function so the user cant add more products
-  if (isCheckoutOpen) {
-    return;
+const handleKeyPressOnAddToCartButton = (e: Event) => {
+  const keyboardEvent = e as KeyboardEvent;
+  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
+    const target = keyboardEvent.target as HTMLElement;
+    if (target === null) {
+      return;
+    }
+    addToCartProcess(target);
   }
-  const target = e.target as HTMLElement;
-  if (target === null) {
+};
+
+const addToCartProcess = (target: HTMLElement) => {
+  if (isCheckoutOpen) {
     return;
   }
   const cartButton = target.closest('.add_cart_button');
@@ -341,6 +366,19 @@ const handleClickOnAddToCartButton = (e: Event) => {
   }
   const id = Number(cartButton.id.replace('add_cart_button-', ''));
   const product = productData.find((product) => product.id === id);
+  addProductToCart(product);
+};
+
+const handleClickOnAddToCartButton = (e: Event) => {
+  // if the checkout is open exit the function so the user cant add more products
+  const target = e.target as HTMLElement;
+  if (target === null) {
+    return;
+  }
+  addToCartProcess(target);
+};
+
+const addProductToCart = (product: ProductType | undefined) => {
   if (product === undefined) {
     return;
   }
@@ -452,9 +490,9 @@ const handleClickableItemsOnProducts = (e: Event) => {
       handleclickOnPlusSign(product);
     } else if (target.id === 'minus_button') {
       handleClickOnMinusSign(product);
+    } else {
+      handleclickOnRemove(clickedId);
     }
-  } else if (target.tagName === 'P' && target.textContent === 'Remove') {
-    handleclickOnRemove(clickedId);
   }
 };
 
@@ -480,6 +518,7 @@ const changeThemeAndDisplayCheckout = (
   const cartIcon = cartModal?.firstElementChild?.children[1];
   if (cartHeading !== undefined && checkoutButton !== null) {
     checkoutContainer?.classList.add('open-checkout');
+    checkoutContainer?.classList.remove('hide');
     // change from main to secondary theme
     cartModal?.classList.add('main-theme');
     cartModal?.classList.remove('secondary-theme');
@@ -539,16 +578,6 @@ const handleClickOnValidateButton = (e: Event) => {
 // CONTINUE HERE STILL NOT DONE!!!
 
 // Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
-
-const toggleCheckboxVisibility = (checkbox: Element) => {
-  const image = checkbox.firstElementChild;
-  if (image === null) {
-    return;
-  }
-  image.classList.toggle('hidden');
-  checkbox.classList.toggle('checked');
-  checkbox.classList.toggle('main-button');
-};
 
 const isAnyCategoriesSelected = (
   categoryButtons: NodeListOf<Element>,
@@ -647,8 +676,6 @@ const changeTextOnPersonalData = (checkbox: Element) => {
   }
 };
 
-// Might be unneccesary, maybe have to use custom styling for checkboxes
-
 const clickingOnCheckBoxes = (e: Event) => {
   const target = e.target as HTMLElement;
   const checkbox = target.closest('.checkbox');
@@ -663,8 +690,6 @@ const clickingOnCheckBoxes = (e: Event) => {
     changeTextOnPersonalData(checkbox);
   }
 };
-
-checkoutContainer?.addEventListener('click', clickingOnCheckBoxes);
 
 const displayErrorTextIfTestFails = (
   input: HTMLInputElement,
@@ -686,7 +711,28 @@ const displayErrorTextIfTestFails = (
   }
 };
 
-const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
+const proceedAndSetupConfirmation = (cartContainer: Element | null) => {
+  const dateContainer = document.querySelector('#date');
+  const orderContainer = document.querySelector('#order_number');
+  const deliverContainer = document.querySelector('#delivery_time');
+  const confirmationContainer = document.querySelector(
+    '#confirmation_container'
+  );
+  if (
+    dateContainer === null ||
+    orderContainer === null ||
+    deliverContainer === null
+  ) {
+    return;
+  }
+  deliverContainer.textContent = getDeliveryTimeAsString();
+  orderContainer.textContent = getRandomOrderNumberAsString();
+  dateContainer.textContent = getCurrentDateAsString();
+  confirmationContainer?.classList.remove('hide');
+  cartContainer?.classList.add('hide');
+};
+
+const handleSubmit = (form: HTMLFormElement | null) => {
   const allRequiredInputs = form?.querySelectorAll(
     'input[required]'
   ) as NodeListOf<HTMLInputElement>;
@@ -712,18 +758,7 @@ const handleSubmit = (e: Event, form: HTMLFormElement | null) => {
     }
   });
   if (isTheFormValid() === true) {
-    const dateContainer = document.querySelector('#date');
-    const orderContainer = document.querySelector('#order_number');
-    if (dateContainer === null || orderContainer === null) {
-      return;
-    }
-    orderContainer.textContent = getRandomOrderNumberAsString();
-    dateContainer.textContent = getCurrentDateAsString();
-    const confirmationContainer = document.querySelector(
-      '#confirmation_container'
-    );
-    confirmationContainer?.classList.remove('hide');
-    cartContainer?.classList.add('hide');
+    proceedAndSetupConfirmation(cartContainer);
   }
 };
 
@@ -790,27 +825,6 @@ const handleChangeOnCheckoutInputs = (e: Event) => {
   }
 };
 
-
-const getDeliveryTimeAsString = () => {
-  let deliveryTime = '';
-  const currentDate = new Date();
-  const currentDay = currentDate.getDay();
-  const currentTime = currentDate.getHours();
-  const isFriday = currentDay === 5;
-  const isTimeBetweenElevenAndOnePm = currentTime >= 11 && currentTime < 13;
-  const isTimeInTheMiddleOfTheNight = currentTime >= 0 && currentTime < 4;
-  if (isFriday && isTimeBetweenElevenAndOnePm) {
-    deliveryTime = '15:00 PM';
-  } else if (isTimeInTheMiddleOfTheNight) {
-    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 45);
-  } else {
-    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 30);
-  }
-  return `You will get your order at ${deliveryTime}`;
-};
-
-getDeliveryTimeAsString();
-
 // Borde nog refaktorera
 
 const filterByCategories = (e: Event) => {
@@ -841,7 +855,10 @@ const filterByCategories = (e: Event) => {
   const categoryText =
     selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
   const priceText =
-    selectedCheckboxInPriceInterval?.nextElementSibling?.textContent ?? '';
+    selectedCheckboxInPriceInterval?.nextElementSibling?.textContent?.replace(
+      ' $',
+      ''
+    ) ?? '';
   // eslint wanted to explicitly check for not empty string
   const category: string | null =
     categoryText !== '' ? categoryText.toLowerCase() : null;
@@ -859,12 +876,10 @@ const filterByCategories = (e: Event) => {
   generateList(productArrayOfObjects);
 };
 
-// EJ klar än
-
 const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   const target = e.target as HTMLElement;
   const clickedText = target.textContent?.toLowerCase();
-  if (target.tagName !== 'LI') {
+  if (target.tagName !== 'BUTTON') {
     return;
   }
   if (clickedText === undefined) {
@@ -874,60 +889,122 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   let value: keyof ProductType = 'name';
   if (clickedText.includes('high to low')) {
     isDescending = true;
-    if (clickedText.includes('alphabet')) {
-      value = 'name';
-    } else if (clickedText.includes('rating')) {
-      value = 'rating';
-    } else if (clickedText.includes('price')) {
-      value = 'price';
-    }
-  } else {
-    value = 'category';
+  } else if (clickedText.includes('low to high')) {
+    isDescending = false;
   }
+  value = getObjectPropertyByText(value, clickedText);
   const sortedArray = sortByProperty(value, isDescending, [...arrayOfObjects]);
   generateList(sortedArray);
+};
+
+const addMouseToCartIfItIsLucia = () => {
+  if (isItLucia()) {
+    const mouseObject = {
+      id: 19,
+      name: 'Lucia Mouse',
+      price: 0,
+      count: 0,
+      cart: './src/assets/images/mouse.webp',
+      alt: 'A funny little mouse that likes to celebrate Lucia and Christmas'
+    };
+    cartArrayOfObjects.push(mouseObject);
+    generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+  }
+};
+
+const changeThemesOnChristmasEve = (currentThemes: string[]) => {
+  if (isItChristmasEve()) {
+    currentThemes.forEach((themeClass) => {
+      const themes = document.querySelectorAll(`.${themeClass}`);
+      themes.forEach((theme) => {
+        theme.classList.remove(`${themeClass}`);
+        theme.classList.add(`christmas-${themeClass}`);
+      });
+    });
+  }
 };
 
 /* Initial Function Calls */
 
 const initialFunctionCalls = () => {
+  addMouseToCartIfItIsLucia();
   displayMondayDiscountText();
   initialTheme(doesUserPreferDark, root, storedTheme);
   generateList(productData);
+  changeThemesOnChristmasEve(currentThemes);
 };
 
 /* Event Listeners */
 
+// INTIAL
+
 document.addEventListener('DOMContentLoaded', initialFunctionCalls);
 
-// Event Delegations
-
-listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mouse over cart button
-listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
-checkoutForm.addEventListener('input', handleChangeOnCheckoutInputs); // handle changes when user types in form inputs
-listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
-cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pressing remove, plus and minus buttons
-filterModal?.addEventListener('click', toggleCategoryContainer);
-filterModal?.addEventListener('click', filterByCategories);
+// SORTING
 
 sortModal?.addEventListener('click', (e) => {
   handleClickOnSortButtons(e, productArrayOfObjects);
 });
+sortButton?.addEventListener('click', () => {
+  toggleClassOnClick(sortModal, 'hidden');
+});
+sortButton?.addEventListener('keydown', (e) => {
+  toggleClassOnEnter(e, sortModal, 'hidden');
+});
+
+// MENU
+
 menu?.addEventListener('click', (e) => {
   handleClickOnMenuLinks(e, menuButton, menu);
 });
-
-// Direct Events
-
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
+
+// FILTER
+
+filterModal?.addEventListener('click', toggleCategoryContainer);
+filterModal?.addEventListener('click', filterByCategories);
 filterButtonOpen?.addEventListener('click', () => {
   openOrCloseSidebar('open-sidebar', filterModal, cartContainer, true);
+});
+filterButtonOpen?.addEventListener('keydown', (e) => {
+  openOrCloseSidebarOnKeyDown(
+    e,
+    'open-sidebar',
+    filterModal,
+    cartContainer,
+    true
+  );
 });
 filterButtonClose?.addEventListener('click', () => {
   openOrCloseSidebar('open-sidebar', filterModal, cartContainer, false);
 });
+filterButtonClose?.addEventListener('keydown', (e) => {
+  openOrCloseSidebarOnKeyDown(
+    e,
+    'open-sidebar',
+    filterModal,
+    cartContainer,
+    false
+  );
+});
+
+// THEME
+
+darkmodeButton?.addEventListener('click', () => {
+  switchTheme(root);
+});
+
+// PRODUCT
+
+listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mouse over cart button
+listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
+listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
+listContainer?.addEventListener('keydown', handleKeyPressOnAddToCartButton); // pressing Enter on cart button
+
+// CART
+
 addToCartButton?.addEventListener('click', () => {
   openOrCloseSidebar('open-sidebar', cartModal, cartContainer, true);
   toggleCartClassesBasedOnNumberOfProducts(
@@ -940,12 +1017,21 @@ addToCartButton?.addEventListener('click', () => {
 closeCartButton?.addEventListener('click', () => {
   openOrCloseSidebar('open-sidebar', cartModal, cartContainer, false);
 });
-darkmodeButton?.addEventListener('click', () => {
-  switchTheme(root);
+closeCartButton?.addEventListener('keydown', (e) => {
+  openOrCloseSidebarOnKeyDown(
+    e,
+    'open-sidebar',
+    cartModal,
+    cartContainer,
+    false
+  );
 });
-sortButton?.addEventListener('click', () => {
-  handleClickOnSortPanel(sortModal);
-});
+cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pressing remove, plus and minus buttons
+
+// CHECKOUT
+
+checkoutForm.addEventListener('input', handleChangeOnCheckoutInputs); // handle changes when user types in form inputs
+checkoutContainer?.addEventListener('click', clickingOnCheckBoxes);
 checkoutButton?.addEventListener('click', (e) => {
   handleClickOnCheckoutButton(
     e,
@@ -959,8 +1045,8 @@ validateButton?.addEventListener('click', handleClickOnValidateButton);
 resetButton?.addEventListener('click', () => {
   handleReset(checkoutForm);
 });
-submitButton?.addEventListener('click', (e) => {
-  handleSubmit(e, checkoutForm);
+submitButton?.addEventListener('click', () => {
+  handleSubmit(checkoutForm);
 });
 paymentInputsContainer?.addEventListener('click', (e) => {
   togglePaymentMethod(e, invoiceInput, cardInput);

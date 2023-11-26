@@ -5,15 +5,27 @@ export const hideAllCheckmarks = (
   checkbox: Element | null
 ) => {
   buttons.forEach((button) => {
-    console.log(button);
     if (button !== checkbox) {
-      button.classList.remove('checked');
+      button.classList.remove('checked', 'main-button');
       button.firstElementChild?.classList.add('hidden');
     }
   });
 };
 
-export const getMilitaryTimeAsStringWithAddedMinutes = (currentDate: Date, addedMinutes: number) => {
+export const toggleCheckboxVisibility = (checkbox: Element) => {
+  const image = checkbox.firstElementChild;
+  if (image === null) {
+    return;
+  }
+  image.classList.toggle('hidden');
+  checkbox.classList.toggle('checked');
+  checkbox.classList.toggle('main-button');
+};
+
+export const getMilitaryTimeAsStringWithAddedMinutes = (
+  currentDate: Date,
+  addedMinutes: number
+) => {
   currentDate.setMinutes(currentDate.getMinutes() + addedMinutes);
   const hours = currentDate.getHours();
   const minutes = currentDate.getMinutes();
@@ -21,6 +33,23 @@ export const getMilitaryTimeAsStringWithAddedMinutes = (currentDate: Date, added
   return `${hours}:${formattedMinutes}`;
 };
 
+export const toggleClassOnClick = (
+  element: Element | null,
+  classToToggle: string
+) => {
+  element?.classList.toggle(classToToggle);
+};
+
+export const toggleClassOnEnter = (
+  e: Event,
+  element: Element | null,
+  classToToggle: string
+) => {
+  const keyboardEvent = e as KeyboardEvent;
+  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
+    element?.classList.toggle(classToToggle);
+  }
+};
 
 export const handleClickOnMenuLinks = (
   e: Event,
@@ -64,14 +93,14 @@ export const toggleCartClassesBasedOnNumberOfProducts = (
 export const getRandomOrderNumberAsString = () => {
   let firstFour = '';
   for (let i = 0; i < 4; i++) {
-    const randomNumber = Math.floor(Math.random() * 9)
+    const randomNumber = Math.floor(Math.random() * 9);
     firstFour += randomNumber;
-  };
+  }
   let lastEight = '';
   for (let i = 0; i < 8; i++) {
-    const randomNumber = Math.floor(Math.random() * 9)
+    const randomNumber = Math.floor(Math.random() * 9);
     lastEight += randomNumber;
-  };
+  }
   return `${firstFour}-${lastEight}`;
 };
 
@@ -92,6 +121,33 @@ export const getTotalPriceWithMondayDiscount = (totalPrice: number) => {
   return isThereMondayDiscount ? totalPrice * (90 / 100) : totalPrice;
 };
 
+export const isItLucia = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  return currentDay === 13 && currentMonth === 11;
+};
+
+export const isItChristmasEve = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  return currentDay === 24 && currentMonth === 11;
+};
+
+export const isItTuesdayAndTheCurrentWeekIsEven = () => {
+  const currentDate = new Date();
+  const startDate = new Date(currentDate.getFullYear(), 0, 1);
+  const millisecondsInDay = 24 * 60 * 60 * 1000;
+  const days =
+    (currentDate.getTime() - startDate.getTime()) / millisecondsInDay;
+  const weekNumber = Math.ceil(days / 7);
+  const isTheWeekEven = weekNumber % 2 === 0;
+  const currentDay = currentDate.getDay();
+  const isItTuesday = currentDay === 2;
+  return isItTuesday && isTheWeekEven;
+};
+
 export const getProductPriceDependingOnIfItIsWeekendOrNot = (
   productTotalPrice: number
 ) => {
@@ -107,7 +163,13 @@ export const getProductPriceDependingOnIfItIsWeekendOrNot = (
   return isThereWeekendSurcharge ? productTotalPrice * 1.15 : productTotalPrice;
 };
 
-const displayPrices = (totalPriceContainer: Element | null, shippingContainer: Element | null, shipping: number, totalPrice: number, grandTotalNumber: number) => {
+const displayPrices = (
+  totalPriceContainer: Element | null,
+  shippingContainer: Element | null,
+  shipping: number,
+  totalPrice: number,
+  grandTotalNumber: number
+) => {
   const totalPriceInConfirmation = document.querySelector('#total_confirm');
   const grandTotal = document.querySelector('#grand_total');
   if (
@@ -141,6 +203,7 @@ export const calculateAndDisplayTotalPrice = (
     let productTotal: number = getProductPriceDependingOnIfItIsWeekendOrNot(
       object.price * object.count
     );
+    // if the product count is over 10 the user gets a 10% discount
     if (object.count >= 10) {
       productTotal *= 90 / 100;
     }
@@ -149,9 +212,18 @@ export const calculateAndDisplayTotalPrice = (
       ? (shipping = 0)
       : (shipping += productTotal / 10);
     totalPrice += productTotal;
+    if (totalPrice > 25 && isItTuesdayAndTheCurrentWeekIsEven()) {
+      totalPrice = totalPrice - 25;
+    }
   });
   const grandTotal = Number((shipping + totalPrice).toFixed(0));
-  displayPrices(totalPriceContainer, shippingContainer, shipping, totalPrice, grandTotal)
+  displayPrices(
+    totalPriceContainer,
+    shippingContainer,
+    shipping,
+    totalPrice,
+    grandTotal
+  );
 };
 
 export const toggleCategoryContainer = (e: Event) => {
@@ -212,6 +284,22 @@ export const displayNumberOfProductsOnCartLogo = (
     button.classList.add('hidden');
     button.classList.remove('flex');
   }
+};
+
+export const getObjectPropertyByText = (
+  property: keyof ProductType,
+  clickedText: string
+) => {
+  if (clickedText.includes('alphabet')) {
+    property = 'name';
+  } else if (clickedText.includes('rating')) {
+    property = 'rating';
+  } else if (clickedText.includes('price')) {
+    property = 'price';
+  } else {
+    property = 'category';
+  }
+  return property;
 };
 
 // maybe should refactor
@@ -297,6 +385,19 @@ export const initialTheme = (
     : root.classList.remove('dark');
 };
 
+export const openOrCloseSidebarOnKeyDown = (
+  e: Event,
+  animationClass: string,
+  modal: Element | null,
+  cartContainer: Element | null,
+  isOpen: boolean
+) => {
+  const keyboardEvent = e as KeyboardEvent;
+  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
+    openOrCloseSidebar(animationClass, modal, cartContainer, isOpen);
+  }
+};
+
 export const openOrCloseSidebar = (
   animationClass: string,
   modal: Element | null,
@@ -318,6 +419,27 @@ export const openOrCloseSidebar = (
     modal?.classList.remove('flex');
     lightbox?.classList.add('hidden');
   }
+};
+
+export const getDeliveryTimeAsString = () => {
+  let deliveryTime = '';
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentTime = currentDate.getHours();
+  const isFriday = currentDay === 5;
+  const isTimeBetweenElevenAndOnePm = currentTime >= 11 && currentTime < 13;
+  const isTimeInTheMiddleOfTheNight = currentTime >= 0 && currentTime < 4;
+  const isItWeekend = currentDay === 6 || currentDay === 0;
+  if (isFriday && isTimeBetweenElevenAndOnePm) {
+    deliveryTime = '15:00 PM';
+  } else if (isItWeekend) {
+    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 90);
+  } else if (isTimeInTheMiddleOfTheNight) {
+    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 45);
+  } else {
+    deliveryTime = getMilitaryTimeAsStringWithAddedMinutes(currentDate, 30);
+  }
+  return `You will get your order at ${deliveryTime}`;
 };
 
 export const changeVisibilityOfCheckboxes = (checkbox: Element) => {
