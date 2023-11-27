@@ -53,6 +53,7 @@ const root = document.documentElement;
 const checkoutForm = document.querySelector(
   '#checkout_form'
 ) as HTMLFormElement;
+const discountContainer = document.querySelector('#discount_container');
 const listContainer = document.querySelector('#list_container'); // products container for holding the list of products
 const cartContainer = document.querySelector('#cart_container'); // cart container for holding the list of products
 const totalPriceContainer = document.querySelector('#total_price');
@@ -62,6 +63,7 @@ const paymentInputsContainer = document.querySelector('#payment_inputs');
 const invoiceInput = document.querySelector('#invoice_input');
 const cardInput = document.querySelector('#card_input');
 const shippingContainer = document.querySelector('#shipping_confirm');
+
 // Buttons / ListItems
 const validateButton = document.querySelector('#validate_button');
 const resetButton = document.querySelector('#reset_button');
@@ -139,7 +141,7 @@ const createListItemAsHTML = (
   const starsHtml = Array.from({ length: 5 }, (_, index) => {
     return `
         <img
-          src="/assets/icons/${index < rating ? 'star-checked' : 'star'}.svg"
+          src="assets/icons/${index < rating ? 'star-checked' : 'star'}.svg"
           width="20"
           height="20"
           alt="star icon"
@@ -565,11 +567,25 @@ const handleClickOnValidateButton = (e: Event) => {
     '#discount_text'
   ) as HTMLElement;
   if (discountInput !== undefined && totalPriceContainer !== null) {
+    discountText.classList.remove('hide');
     if (discountInput.value === 'a_damn_fine-cup_of-coffee') {
-      discountText.classList.remove('hide');
       discountText.textContent = 'Congratulations!';
+      discountText.style.color = 'green';
       totalPriceContainer.textContent = '$ 0';
+    } else {
+      discountText.textContent = 'Wrong, try again!';
+      discountText.style.color = '#EF4444';
     }
+  }
+};
+
+const handleChangeOnDiscountInput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  const discountText = discountContainer?.querySelector(
+    '#discount_text'
+  ) as HTMLElement;
+  if (target.tagName === 'INPUT') {
+    discountText.classList.add('hide');
   }
 };
 
@@ -1043,3 +1059,4 @@ submitButton?.addEventListener('click', () => {
 paymentInputsContainer?.addEventListener('click', (e) => {
   togglePaymentMethod(e, invoiceInput, cardInput);
 });
+discountContainer?.addEventListener('input', handleChangeOnDiscountInput);

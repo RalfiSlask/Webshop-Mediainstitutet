@@ -519,21 +519,23 @@
               <label for="newsletter">I want newsletter</label>
             </div>
           </div>
-          <div id="discount_container" class="flex gap-4 items-center">
-            <label for="discount_input" class="font-medium">
-              Discount Code
-            </label>
-            <input
-              name="discount_input"
-              id="discount_input"
-              type="text"
-              spellcheck="false"
-              placeholder="e.g. Espresso"
-              class="input max-w-[250px]"
-            />
-            <button class="secondary-button px-4 h-full" id="validate_button">
-              Validate
-            </button>
+          <div id="discount_container" class="flex-column gap-4 h-20">
+            <div class="flex gap-4 items-center">
+              <label for="discount_input" class="font-medium">
+                Discount Code
+              </label>
+              <input
+                name="discount_input"
+                id="discount_input"
+                type="text"
+                spellcheck="false"
+                placeholder="e.g. Espresso"
+                class="input max-w-[250px]"
+              />
+              <button class="secondary-button px-4 h-full" id="validate_button">
+                Validate
+              </button>
+            </div>
             <p class="hide" id="discount_text">This is not a valid code</p>
           </div>
           <div class="flex gap-4">
@@ -590,7 +592,7 @@
               />
             </svg>
             <div
-              class="hidden bg-light-primary-button-bg border border-light-primary-button-border dark:bg-dark-primary-button-bg dark:border-dark-primary-button-border h-[20px] w-[20px] rounded-full absolute z-5 bottom-[-4px] right-[-4px] justify-center items-center"
+              class="hide main-button h-[20px] w-[20px] rounded-full absolute z-5 bottom-[-4px] right-[-4px] flex-center"
               id="cart_display_button"
             >
               0
@@ -931,10 +933,10 @@
                 </svg>
               </div>
               <div
-                class="fixed border-r border-color secondary-theme min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] px-4 py-4 z-50"
+                class="fixed border-r border-color secondary-theme min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] py-4 z-50"
                 id="filter_modal"
               >
-                <div class="flex gap-2 items-center mb-16">
+                <div class="flex gap-2 items-center mb-10 pl-4">
                   <svg
                     enable-background="new 0 0 32 32"
                     id="filter2_icon"
@@ -1052,9 +1054,12 @@
                   <h2 class="uppercase text-[1.5rem]">Filter</h2>
                 </div>
 
-                <div class="categoryPanel border-t" id="category_container">
+                <div
+                  class="categoryPanel border-t relative"
+                  id="category_container"
+                >
                   <div
-                    class="flex gap-2 items-center z-10 category_switcher pt-4 cursor-pointer"
+                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 main-theme"
                   >
                     <h3 class="text-[1.25rem] font-semibold">Category</h3>
                     <svg
@@ -1081,7 +1086,7 @@
                     </svg>
                   </div>
                   <div
-                    class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    class="flex-column justify-between h-[200px] transform transition-transform duration-300 ease-in absolute top-[80px] w-full px-4"
                     id="category_list"
                   >
                     <div class="flex-between">
@@ -1155,9 +1160,9 @@
                   </div>
                 </div>
 
-                <div class="categoryPanel" id="price_container">
+                <div class="categoryPanel relative" id="price_container">
                   <div
-                    class="category_switcher flex items-center gap-2 pt-4 cursor-pointer"
+                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 main-theme"
                   >
                     <h3 class="text-[1.25rem] font-semibold">Price Interval</h3>
                     <svg
@@ -1184,7 +1189,7 @@
                     </svg>
                   </div>
                   <div
-                    class="flex-column overflow-hidden justify-between h-[200px] transform transition-transform duration-300 ease-in"
+                    class="flex-column overflow-hidden px-4 justify-between h-[200px] transform transition-transform duration-300 ease-in absolute top-[80px] z-0 w-full"
                     id="price_list"
                   >
                     <div class="flex-between">

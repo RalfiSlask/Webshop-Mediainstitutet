@@ -18,8 +18,6 @@ export const handleReset = (form: HTMLFormElement | null) => {
   }
 };
 
-// maybe should refactor
-
 export const sortByProperty = (
   property: keyof ProductType,
   isDescending: boolean,
@@ -296,12 +294,10 @@ export const displayNumberOfProductsOnCartLogo = (
     return;
   }
   if (numberOfProducts > 0) {
-    button.classList.remove('hidden');
-    button.classList.add('flex');
+    button.classList.remove('hide');
     button.textContent = numberOfProducts.toString();
   } else {
-    button.classList.add('hidden');
-    button.classList.remove('flex');
+    button.classList.add('hide');
   }
 };
 
