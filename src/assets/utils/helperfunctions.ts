@@ -1,6 +1,6 @@
 import type { ProductType, CartObjectType } from './types';
 
-export const hideAllCheckmarks = (
+export const removeCheckmarksFromButtons = (
   buttons: NodeListOf<Element>,
   checkbox: Element | null
 ) => {
@@ -12,6 +12,56 @@ export const hideAllCheckmarks = (
   });
 };
 
+export const handleReset = (form: HTMLFormElement | null) => {
+  if (form !== null) {
+    form.reset();
+  }
+};
+
+// maybe should refactor
+
+export const sortByProperty = (
+  property: keyof ProductType,
+  isDescending: boolean,
+  items: ProductType[]
+) => {
+  return items.sort((a, b) => {
+    // had to set these as any to be able to bypass the strict type checking, did not know this.
+    const valueA = a[property] as any;
+    const valueB = b[property] as any;
+    if (typeof valueA === 'number' && typeof valueB === 'number') {
+      return isDescending ? valueB - valueA : valueA - valueB;
+    } else if (typeof valueA === 'string' && typeof valueB === 'string') {
+      const stringA = valueA.toLowerCase();
+      const stringB = valueB.toLowerCase();
+      if (isDescending) {
+        return stringA > stringB ? -1 : 1;
+      } else {
+        return stringA < stringB ? -1 : 1;
+      }
+    }
+    return 0;
+  });
+};
+
+export const initialTheme = (
+  doesUserPreferDark: boolean,
+  root: HTMLElement,
+  storedTheme: string | null
+) => {
+  doesUserPreferDark
+    ? root.classList.add('dark')
+    : root.classList.remove('dark');
+  if (storedTheme === null) {
+    return;
+  }
+  storedTheme === 'dark'
+    ? root.classList.add('dark')
+    : root.classList.remove('dark');
+};
+
+// TOGGLE FUNCTIONS //
+
 export const toggleCheckboxVisibility = (checkbox: Element) => {
   const image = checkbox.firstElementChild;
   if (image === null) {
@@ -20,17 +70,6 @@ export const toggleCheckboxVisibility = (checkbox: Element) => {
   image.classList.toggle('hidden');
   checkbox.classList.toggle('checked');
   checkbox.classList.toggle('main-button');
-};
-
-export const getMilitaryTimeAsStringWithAddedMinutes = (
-  currentDate: Date,
-  addedMinutes: number
-) => {
-  currentDate.setMinutes(currentDate.getMinutes() + addedMinutes);
-  const hours = currentDate.getHours();
-  const minutes = currentDate.getMinutes();
-  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-  return `${hours}:${formattedMinutes}`;
 };
 
 export const toggleClassOnClick = (
@@ -51,7 +90,7 @@ export const toggleClassOnEnter = (
   }
 };
 
-export const handleClickOnMenuLinks = (
+export const toggleMenuStateOnClick = (
   e: Event,
   menuButton: HTMLImageElement,
   menu: Element | null
@@ -90,78 +129,88 @@ export const toggleCartClassesBasedOnNumberOfProducts = (
   }
 };
 
-export const getRandomOrderNumberAsString = () => {
-  let firstFour = '';
-  for (let i = 0; i < 4; i++) {
-    const randomNumber = Math.floor(Math.random() * 9);
-    firstFour += randomNumber;
+export const toggleCategoryContainer = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const categorySwitcher = target.closest('.category_switcher');
+  if (categorySwitcher === null) {
+    return;
   }
-  let lastEight = '';
-  for (let i = 0; i < 8; i++) {
-    const randomNumber = Math.floor(Math.random() * 9);
-    lastEight += randomNumber;
-  }
-  return `${firstFour}-${lastEight}`;
+  categorySwitcher.nextElementSibling?.classList.toggle('close-categories');
+  // toggle rotation on arrow
+  categorySwitcher.children[1].classList.toggle('rotate');
+  if (categorySwitcher.parentElement === null) return;
+  // fix this animation not done
+  categorySwitcher.parentElement.classList.toggle('closed');
 };
 
-export const getCurrentDateAsString = () => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDate();
-  const currentMonth = currentDate.toLocaleString('en-Us', { month: 'long' });
-  const currentYear = currentDate.getFullYear();
-  return `${currentDay} ${currentMonth} ${currentYear}`;
-};
-
-export const getTotalPriceWithMondayDiscount = (totalPrice: number) => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDay();
-  const currentHour = currentDate.getHours();
-  const isThereMondayDiscount = currentDay === 1 && currentHour < 10;
-  // If it is Monday before 10 am return a 10% discount on the total price
-  return isThereMondayDiscount ? totalPrice * (90 / 100) : totalPrice;
-};
-
-export const isItLucia = () => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDate();
-  const currentMonth = currentDate.getMonth();
-  return currentDay === 13 && currentMonth === 11;
-};
-
-export const isItChristmasEve = () => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDate();
-  const currentMonth = currentDate.getMonth();
-  return currentDay === 24 && currentMonth === 11;
-};
-
-export const isItTuesdayAndTheCurrentWeekIsEven = () => {
-  const currentDate = new Date();
-  const startDate = new Date(currentDate.getFullYear(), 0, 1);
-  const millisecondsInDay = 24 * 60 * 60 * 1000;
-  const days =
-    (currentDate.getTime() - startDate.getTime()) / millisecondsInDay;
-  const weekNumber = Math.ceil(days / 7);
-  const isTheWeekEven = weekNumber % 2 === 0;
-  const currentDay = currentDate.getDay();
-  const isItTuesday = currentDay === 2;
-  return isItTuesday && isTheWeekEven;
-};
-
-export const getProductPriceDependingOnIfItIsWeekendOrNot = (
-  productTotalPrice: number
+export const toggleMenu = (
+  e: Event,
+  menuButton: HTMLImageElement,
+  menu: Element | null
 ) => {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDay();
-  const currentHour = currentDate.getHours();
-  const isItFridayAfterThreePM = currentDay >= 5 && currentHour > 15;
-  const isItWeekend = currentDay === 6 || currentDay === 0;
-  const isItBeforeMondayThreeAm = currentDay === 1 && currentHour < 3;
-  const isThereWeekendSurcharge =
-    isItFridayAfterThreePM || isItBeforeMondayThreeAm || isItWeekend;
-  // If it is Friday after 3 pm and before 3 am on Monday return product total price with a 15% surcharge
-  return isThereWeekendSurcharge ? productTotalPrice * 1.15 : productTotalPrice;
+  if (e.target === menuButton) {
+    menu?.classList.toggle('hidden');
+    const isIconHamburger = menuButton.src.includes('hamburger');
+    let source = menuButton.src;
+    source = isIconHamburger
+      ? source.replace('hamburger', 'close')
+      : source.replace('close', 'hamburger');
+    menuButton.src = source;
+  }
 };
+
+export const toggleInputContainersVisibility = (
+  inputContainerToHide: Element | null,
+  inputContainerToShow: Element | null
+) => {
+  inputContainerToHide?.classList.add('hide');
+  inputContainerToShow?.classList.remove('hide');
+};
+
+export const toggleTheme = (root: HTMLElement) => {
+  const isDarkModeOn = document.documentElement.classList.contains('dark');
+  root.classList.toggle('dark', !isDarkModeOn);
+  // setting the theme in the localStorage
+  localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
+};
+
+export const toggleSidebarVisibilityOnKeyDown = (
+  e: Event,
+  animationClass: string,
+  modal: Element | null,
+  cartContainer: Element | null,
+  isOpen: boolean
+) => {
+  const keyboardEvent = e as KeyboardEvent;
+  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
+    toggleSidebarVisibility(animationClass, modal, cartContainer, isOpen);
+  }
+};
+
+export const toggleSidebarVisibility = (
+  animationClass: string,
+  modal: Element | null,
+  cartContainer: Element | null,
+  isOpen: boolean
+) => {
+  const body = document.body;
+  const lightbox = document.querySelector('#lightbox');
+  if (isOpen) {
+    modal?.classList.add(animationClass);
+    cartContainer?.classList.add('scroll');
+    body.classList.add('no-scroll');
+    modal?.classList.add('flex');
+    lightbox?.classList.remove('hidden');
+  } else {
+    modal?.classList.remove(animationClass);
+    body.classList.remove('no-scroll');
+    cartContainer?.classList.remove('scroll');
+    modal?.classList.remove('flex');
+    lightbox?.classList.add('hidden');
+  }
+};
+
+// DISPLAY //
 
 const displayPrices = (
   totalPriceContainer: Element | null,
@@ -226,36 +275,6 @@ export const calculateAndDisplayTotalPrice = (
   );
 };
 
-export const toggleCategoryContainer = (e: Event) => {
-  const target = e.target as HTMLElement;
-  const categorySwitcher = target.closest('.category_switcher');
-  if (categorySwitcher === null) {
-    return;
-  }
-  categorySwitcher.nextElementSibling?.classList.toggle('close-categories');
-  // toggle rotation on arrow
-  categorySwitcher.children[1].classList.toggle('rotate');
-  if (categorySwitcher.parentElement === null) return;
-  // fix this animation not done
-  categorySwitcher.parentElement.classList.toggle('closed');
-};
-
-export const toggleMenu = (
-  e: Event,
-  menuButton: HTMLImageElement,
-  menu: Element | null
-) => {
-  if (e.target === menuButton) {
-    menu?.classList.toggle('hidden');
-    const isIconHamburger = menuButton.src.includes('hamburger');
-    let source = menuButton.src;
-    source = isIconHamburger
-      ? source.replace('hamburger', 'close')
-      : source.replace('close', 'hamburger');
-    menuButton.src = source;
-  }
-};
-
 export const displayMondayDiscountText = () => {
   const currentDate = new Date();
   const currentDay = currentDate.getDay();
@@ -286,6 +305,70 @@ export const displayNumberOfProductsOnCartLogo = (
   }
 };
 
+// BOOLEAN //
+
+export const isItLucia = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  return currentDay === 13 && currentMonth === 11;
+};
+
+export const isItChristmasEve = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.getMonth();
+  return currentDay === 24 && currentMonth === 11;
+};
+
+export const isItTuesdayAndTheCurrentWeekIsEven = () => {
+  const currentDate = new Date();
+  const startDate = new Date(currentDate.getFullYear(), 0, 1);
+  const millisecondsInDay = 24 * 60 * 60 * 1000;
+  const days =
+    (currentDate.getTime() - startDate.getTime()) / millisecondsInDay;
+  const weekNumber = Math.ceil(days / 7);
+  const isTheWeekEven = weekNumber % 2 === 0;
+  const currentDay = currentDate.getDay();
+  const isItTuesday = currentDay === 2;
+  return isItTuesday && isTheWeekEven;
+};
+
+// GETTERS //
+
+export const getCartObject = (product: CartObjectType) => {
+  const { id, name, price, cart, count, alt } = product;
+  const cartObject = {
+    id,
+    name,
+    price,
+    cart,
+    count,
+    alt
+  };
+  return cartObject;
+};
+
+export const getCategoryText = (categoryButtons: NodeListOf<Element>) => {
+  const selectedCheckboxInCategories = Array.from(categoryButtons).find(
+    (button) => button.classList.contains('checked')
+  );
+  return selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
+};
+
+export const getPriceText = (priceButtons: NodeListOf<Element>) => {
+  const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(
+    (button) => button.classList.contains('checked')
+  );
+  return (
+    // removing the $ in the text after the price interval
+    selectedCheckboxInPriceInterval?.nextElementSibling?.textContent?.replace(
+      ' $',
+      ''
+    ) ?? ''
+  );
+};
+
 export const getObjectPropertyByText = (
   property: keyof ProductType,
   clickedText: string
@@ -300,125 +383,6 @@ export const getObjectPropertyByText = (
     property = 'category';
   }
   return property;
-};
-
-// maybe should refactor
-
-export const sortByProperty = (
-  property: keyof ProductType,
-  isDescending: boolean,
-  items: ProductType[]
-) => {
-  return items.sort((a, b) => {
-    // had to set these as any to be able to bypass the strict type checking, did not know this.
-    const valueA = a[property] as any;
-    const valueB = b[property] as any;
-    if (typeof valueA === 'number' && typeof valueB === 'number') {
-      return isDescending ? valueB - valueA : valueA - valueB;
-    } else if (typeof valueA === 'string' && typeof valueB === 'string') {
-      const stringA = valueA.toLowerCase();
-      const stringB = valueB.toLowerCase();
-      if (isDescending) {
-        if (stringA > stringB) {
-          return -1;
-        } else {
-          return 1;
-        }
-      } else {
-        if (stringA < stringB) {
-          return -1;
-        } else {
-          return 1;
-        }
-      }
-    }
-    return 0;
-  });
-};
-
-export const handleReset = (form: HTMLFormElement | null) => {
-  if (form !== null) {
-    form.reset();
-  }
-};
-
-export const switchVisibilityOfInputs = (
-  inputContainerToHide: Element | null,
-  inputContainerToShow: Element | null
-) => {
-  inputContainerToHide?.classList.add('hide');
-  inputContainerToShow?.classList.remove('hide');
-};
-
-export const setInputAttribute = (
-  input: Element | null | undefined,
-  attribute: string,
-  state: boolean
-) => {
-  if (state) {
-    input?.setAttribute(attribute, '');
-  } else {
-    input?.removeAttribute(attribute);
-  }
-};
-
-export const switchTheme = (root: HTMLElement) => {
-  const isDarkModeOn = document.documentElement.classList.contains('dark');
-  root.classList.toggle('dark', !isDarkModeOn);
-  // setting the theme in the localStorage
-  localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
-};
-
-export const initialTheme = (
-  doesUserPreferDark: boolean,
-  root: HTMLElement,
-  storedTheme: string | null
-) => {
-  doesUserPreferDark
-    ? root.classList.add('dark')
-    : root.classList.remove('dark');
-  if (storedTheme === null) {
-    return;
-  }
-  storedTheme === 'dark'
-    ? root.classList.add('dark')
-    : root.classList.remove('dark');
-};
-
-export const openOrCloseSidebarOnKeyDown = (
-  e: Event,
-  animationClass: string,
-  modal: Element | null,
-  cartContainer: Element | null,
-  isOpen: boolean
-) => {
-  const keyboardEvent = e as KeyboardEvent;
-  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
-    openOrCloseSidebar(animationClass, modal, cartContainer, isOpen);
-  }
-};
-
-export const openOrCloseSidebar = (
-  animationClass: string,
-  modal: Element | null,
-  cartContainer: Element | null,
-  isOpen: boolean
-) => {
-  const body = document.body;
-  const lightbox = document.querySelector('#lightbox');
-  if (isOpen) {
-    modal?.classList.add(animationClass);
-    cartContainer?.classList.add('scroll');
-    body.classList.add('no-scroll');
-    modal?.classList.add('flex');
-    lightbox?.classList.remove('hidden');
-  } else {
-    modal?.classList.remove(animationClass);
-    body.classList.remove('no-scroll');
-    cartContainer?.classList.remove('scroll');
-    modal?.classList.remove('flex');
-    lightbox?.classList.add('hidden');
-  }
 };
 
 export const getDeliveryTimeAsString = () => {
@@ -442,10 +406,81 @@ export const getDeliveryTimeAsString = () => {
   return `You will get your order at ${deliveryTime}`;
 };
 
-export const changeVisibilityOfCheckboxes = (checkbox: Element) => {
+export const toggleVisibilityOfCheckboxes = (checkbox: Element) => {
   if (checkbox.classList.contains('main-button')) {
     checkbox.classList.remove('main-button');
   } else {
     checkbox.classList.add('main-button');
+  }
+};
+
+export const getMilitaryTimeAsStringWithAddedMinutes = (
+  currentDate: Date,
+  addedMinutes: number
+) => {
+  currentDate.setMinutes(currentDate.getMinutes() + addedMinutes);
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${formattedMinutes}`;
+};
+
+export const getRandomOrderNumberAsString = () => {
+  let firstFour = '';
+  for (let i = 0; i < 4; i++) {
+    const randomNumber = Math.floor(Math.random() * 9);
+    firstFour += randomNumber;
+  }
+  let lastEight = '';
+  for (let i = 0; i < 8; i++) {
+    const randomNumber = Math.floor(Math.random() * 9);
+    lastEight += randomNumber;
+  }
+  return `${firstFour}-${lastEight}`;
+};
+
+export const getProductPriceDependingOnIfItIsWeekendOrNot = (
+  productTotalPrice: number
+) => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentHour = currentDate.getHours();
+  const isItFridayAfterThreePM = currentDay >= 5 && currentHour > 15;
+  const isItWeekend = currentDay === 6 || currentDay === 0;
+  const isItBeforeMondayThreeAm = currentDay === 1 && currentHour < 3;
+  const isThereWeekendSurcharge =
+    isItFridayAfterThreePM || isItBeforeMondayThreeAm || isItWeekend;
+  // If it is Friday after 3 pm and before 3 am on Monday return product total price with a 15% surcharge
+  return isThereWeekendSurcharge ? productTotalPrice * 1.15 : productTotalPrice;
+};
+
+export const getCurrentDateAsString = () => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const currentMonth = currentDate.toLocaleString('en-Us', { month: 'long' });
+  const currentYear = currentDate.getFullYear();
+  return `${currentDay} ${currentMonth} ${currentYear}`;
+};
+
+export const getTotalPriceWithMondayDiscount = (totalPrice: number) => {
+  const currentDate = new Date();
+  const currentDay = currentDate.getDay();
+  const currentHour = currentDate.getHours();
+  const isThereMondayDiscount = currentDay === 1 && currentHour < 10;
+  // If it is Monday before 10 am return a 10% discount on the total price
+  return isThereMondayDiscount ? totalPrice * (90 / 100) : totalPrice;
+};
+
+// SETTERS //
+
+export const setInputAttribute = (
+  input: Element | null | undefined,
+  attribute: string,
+  state: boolean
+) => {
+  if (state) {
+    input?.setAttribute(attribute, '');
+  } else {
+    input?.removeAttribute(attribute);
   }
 };

@@ -1,32 +1,40 @@
 import productData from './json/data.json';
 import type { ProductType, CartObjectType } from './assets/utils/types';
 import {
-  hideAllCheckmarks,
-  toggleMenu,
+  removeCheckmarksFromButtons,
   sortByProperty,
-  handleClickOnMenuLinks,
-  calculateAndDisplayTotalPrice,
   handleReset,
-  toggleCartClassesBasedOnNumberOfProducts,
-  switchVisibilityOfInputs,
-  setInputAttribute,
   initialTheme,
-  switchTheme,
-  openOrCloseSidebar,
-  changeVisibilityOfCheckboxes,
-  toggleCategoryContainer,
+  // display
+  calculateAndDisplayTotalPrice,
   displayNumberOfProductsOnCartLogo,
   displayMondayDiscountText,
+  // toggle
+  toggleMenuStateOnClick,
+  toggleInputContainersVisibility,
+  toggleVisibilityOfCheckboxes,
+  toggleSidebarVisibility,
+  toggleSidebarVisibilityOnKeyDown,
+  toggleCategoryContainer,
+  toggleCheckboxVisibility,
+  toggleMenu,
+  toggleClassOnClick,
+  toggleClassOnEnter,
+  toggleCartClassesBasedOnNumberOfProducts,
+  toggleTheme,
+  // booleans
+  isItLucia,
+  isItChristmasEve,
+  // getters
   getRandomOrderNumberAsString,
   getCurrentDateAsString,
   getDeliveryTimeAsString,
-  toggleClassOnClick,
-  toggleClassOnEnter,
-  isItLucia,
-  isItChristmasEve,
+  getCategoryText,
+  getPriceText,
   getObjectPropertyByText,
-  openOrCloseSidebarOnKeyDown,
-  toggleCheckboxVisibility
+  getCartObject,
+  // setters
+  setInputAttribute
 } from './assets/utils/helperfunctions';
 import {
   emailRegex,
@@ -307,19 +315,6 @@ const generateProductsInCartAsHTML = (
   }
 };
 
-const getCartObject = (product: CartObjectType) => {
-  const { id, name, price, cart, count, alt } = product;
-  const cartObject = {
-    id,
-    name,
-    price,
-    cart,
-    count,
-    alt
-  };
-  return cartObject;
-};
-
 const changeColorOfCheckoutButtonDependingOnTotalPrice = (
   priceContainer: Element | null,
   checkoutButton: Element | null
@@ -345,17 +340,6 @@ const changeColorOfCheckoutButtonDependingOnTotalPrice = (
   }
 };
 
-const handleKeyPressOnAddToCartButton = (e: Event) => {
-  const keyboardEvent = e as KeyboardEvent;
-  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
-    const target = keyboardEvent.target as HTMLElement;
-    if (target === null) {
-      return;
-    }
-    addToCartProcess(target);
-  }
-};
-
 const addToCartProcess = (target: HTMLElement) => {
   if (isCheckoutOpen) {
     return;
@@ -367,6 +351,17 @@ const addToCartProcess = (target: HTMLElement) => {
   const id = Number(cartButton.id.replace('add_cart_button-', ''));
   const product = productData.find((product) => product.id === id);
   addProductToCart(product);
+};
+
+const handleKeyPressOnAddToCartButton = (e: Event) => {
+  const keyboardEvent = e as KeyboardEvent;
+  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
+    const target = keyboardEvent.target as HTMLElement;
+    if (target === null) {
+      return;
+    }
+    addToCartProcess(target);
+  }
 };
 
 const handleClickOnAddToCartButton = (e: Event) => {
@@ -516,7 +511,9 @@ const changeThemeAndDisplayCheckout = (
   const orderButton = checkoutButton.nextElementSibling;
   const cartHeading = cartModal?.firstElementChild?.children[0];
   const cartIcon = cartModal?.firstElementChild?.children[1];
+  const mondayDiscountContainer = document.querySelector('#monday_discount');
   if (cartHeading !== undefined && checkoutButton !== null) {
+    mondayDiscountContainer?.classList.add('hide');
     checkoutContainer?.classList.add('open-checkout');
     checkoutContainer?.classList.remove('hide');
     // change from main to secondary theme
@@ -575,9 +572,6 @@ const handleClickOnValidateButton = (e: Event) => {
     }
   }
 };
-// CONTINUE HERE STILL NOT DONE!!!
-
-// Måste se till så att båda filtren gäller / förenkla funktioner för att förhindra upprepningar
 
 const isAnyCategoriesSelected = (
   categoryButtons: NodeListOf<Element>,
@@ -640,7 +634,10 @@ const togglePaymentMethod = (
     socialSecurityInputContainer?.querySelector('#social');
   if (invoiceInputClosest !== null) {
     togglePaymentInputButtons(invoiceInputClosest, cardInput);
-    switchVisibilityOfInputs(cardInputContainer, socialSecurityInputContainer);
+    toggleInputContainersVisibility(
+      cardInputContainer,
+      socialSecurityInputContainer
+    );
     setInputAttribute(socialSecurityInput, 'required', true);
     changeSubmitButtonColorDependingOnFormValidity(
       isTheFormValid(),
@@ -648,7 +645,10 @@ const togglePaymentMethod = (
     );
   } else if (cardInputClosest !== null) {
     togglePaymentInputButtons(cardInputClosest, invoiceInput);
-    switchVisibilityOfInputs(socialSecurityInputContainer, cardInputContainer);
+    toggleInputContainersVisibility(
+      socialSecurityInputContainer,
+      cardInputContainer
+    );
     setInputAttribute(socialSecurityInput, 'required', false);
     changeSubmitButtonColorDependingOnFormValidity(
       isTheFormValid(),
@@ -657,7 +657,7 @@ const togglePaymentMethod = (
   }
 };
 
-const changeTextOnPersonalData = (checkbox: Element) => {
+const togglePersonalDataText = (checkbox: Element) => {
   if (checkbox.id === 'personal') {
     const personal = checkbox.nextElementSibling;
     if (personal !== null) {
@@ -686,8 +686,8 @@ const clickingOnCheckBoxes = (e: Event) => {
         submitButton
       );
     }
-    changeVisibilityOfCheckboxes(checkbox);
-    changeTextOnPersonalData(checkbox);
+    toggleVisibilityOfCheckboxes(checkbox);
+    togglePersonalDataText(checkbox);
   }
 };
 
@@ -827,38 +827,9 @@ const handleChangeOnCheckoutInputs = (e: Event) => {
 
 // Borde nog refaktorera
 
-const filterByCategories = (e: Event) => {
-  const target = e.target as HTMLElement;
-  const checkbox = target.closest('.checkbox');
-  if (checkbox === null) {
-    return;
-  }
-  // which of the filter list is the clicked checkbox in
-  const doesCategoryContainCheckbox =
-    Array.from(categoryButtons).includes(checkbox);
-  // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
-  const buttons = doesCategoryContainCheckbox ? categoryButtons : priceButtons;
-  hideAllCheckmarks(buttons, checkbox);
-
-  // toggling the visiblity of the checkbox and adding check class to the box clicked
-  toggleCheckboxVisibility(checkbox);
-  // if an any category is selected exit the function
-  if (isAnyCategoriesSelected(categoryButtons, priceButtons)) {
-    return;
-  }
-  const selectedCheckboxInCategories = Array.from(categoryButtons).find(
-    (button) => button.classList.contains('checked')
-  );
-  const selectedCheckboxInPriceInterval = Array.from(priceButtons).find(
-    (button) => button.classList.contains('checked')
-  );
-  const categoryText =
-    selectedCheckboxInCategories?.nextElementSibling?.textContent ?? '';
-  const priceText =
-    selectedCheckboxInPriceInterval?.nextElementSibling?.textContent?.replace(
-      ' $',
-      ''
-    ) ?? '';
+const getFilteredProductsDependingOnSelectedCategories = () => {
+  const categoryText = getCategoryText(categoryButtons);
+  const priceText = getPriceText(priceButtons);
   // eslint wanted to explicitly check for not empty string
   const category: string | null =
     categoryText !== '' ? categoryText.toLowerCase() : null;
@@ -872,7 +843,28 @@ const filterByCategories = (e: Event) => {
       !price || (product.price >= price[0] && product.price <= price[1]);
     return doesProductMatchCategory && doesProductMatchPriceInterval;
   });
+  return productArrayOfObjects;
+};
 
+const filterByCategories = (e: Event) => {
+  const target = e.target as HTMLElement;
+  const checkbox = target.closest('.checkbox');
+  if (checkbox === null) {
+    return;
+  }
+  // which of the filter list is the clicked checkbox in
+  const doesCategoryContainCheckbox =
+    Array.from(categoryButtons).includes(checkbox);
+  // looping through and removing all checkboxes before adding a checkbox so that only one can be checked at a time
+  const buttons = doesCategoryContainCheckbox ? categoryButtons : priceButtons;
+  removeCheckmarksFromButtons(buttons, checkbox);
+  // toggling the visiblity of the checkbox and adding check class to the box clicked
+  toggleCheckboxVisibility(checkbox);
+  // if an any category is selected exit the function
+  if (isAnyCategoriesSelected(categoryButtons, priceButtons)) {
+    return;
+  }
+  productArrayOfObjects = getFilteredProductsDependingOnSelectedCategories();
   generateList(productArrayOfObjects);
 };
 
@@ -955,7 +947,7 @@ sortButton?.addEventListener('keydown', (e) => {
 // MENU
 
 menu?.addEventListener('click', (e) => {
-  handleClickOnMenuLinks(e, menuButton, menu);
+  toggleMenuStateOnClick(e, menuButton, menu);
 });
 menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
@@ -966,10 +958,10 @@ menuButton?.addEventListener('click', (e) => {
 filterModal?.addEventListener('click', toggleCategoryContainer);
 filterModal?.addEventListener('click', filterByCategories);
 filterButtonOpen?.addEventListener('click', () => {
-  openOrCloseSidebar('open-sidebar', filterModal, cartContainer, true);
+  toggleSidebarVisibility('open-sidebar', filterModal, cartContainer, true);
 });
 filterButtonOpen?.addEventListener('keydown', (e) => {
-  openOrCloseSidebarOnKeyDown(
+  toggleSidebarVisibilityOnKeyDown(
     e,
     'open-sidebar',
     filterModal,
@@ -978,10 +970,10 @@ filterButtonOpen?.addEventListener('keydown', (e) => {
   );
 });
 filterButtonClose?.addEventListener('click', () => {
-  openOrCloseSidebar('open-sidebar', filterModal, cartContainer, false);
+  toggleSidebarVisibility('open-sidebar', filterModal, cartContainer, false);
 });
 filterButtonClose?.addEventListener('keydown', (e) => {
-  openOrCloseSidebarOnKeyDown(
+  toggleSidebarVisibilityOnKeyDown(
     e,
     'open-sidebar',
     filterModal,
@@ -993,7 +985,7 @@ filterButtonClose?.addEventListener('keydown', (e) => {
 // THEME
 
 darkmodeButton?.addEventListener('click', () => {
-  switchTheme(root);
+  toggleTheme(root);
 });
 
 // PRODUCT
@@ -1006,7 +998,7 @@ listContainer?.addEventListener('keydown', handleKeyPressOnAddToCartButton); // 
 // CART
 
 addToCartButton?.addEventListener('click', () => {
-  openOrCloseSidebar('open-sidebar', cartModal, cartContainer, true);
+  toggleSidebarVisibility('open-sidebar', cartModal, cartContainer, true);
   toggleCartClassesBasedOnNumberOfProducts(
     cartArrayOfObjects,
     emptyCartContainer,
@@ -1015,10 +1007,10 @@ addToCartButton?.addEventListener('click', () => {
   );
 });
 closeCartButton?.addEventListener('click', () => {
-  openOrCloseSidebar('open-sidebar', cartModal, cartContainer, false);
+  toggleSidebarVisibility('open-sidebar', cartModal, cartContainer, false);
 });
 closeCartButton?.addEventListener('keydown', (e) => {
-  openOrCloseSidebarOnKeyDown(
+  toggleSidebarVisibilityOnKeyDown(
     e,
     'open-sidebar',
     cartModal,
