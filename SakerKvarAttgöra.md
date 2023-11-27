@@ -11,5 +11,4 @@ CSS:
 
 Övrigt:
 
-Allt ska vara tillgängligt med tangentbord
 Om kunden inte har lagt beställningen inom 15 minuter så ska beställningsformuläret tömmas/rensas och kunden ska meddelas att denne är för långsam.
