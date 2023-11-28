@@ -1,4 +1,4 @@
-![Fluff & Stuff](./preview.PNG)
+![Fluff & Stuff](./preview.png)
 
 Built with
 
