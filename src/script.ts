@@ -118,6 +118,7 @@ const currentThemes = [
 let productArrayOfObjects = productData;
 let cartArrayOfObjects: CartObjectType[] = [];
 let isCheckoutOpen = false;
+let resizeTimer: number; // interval ID
 
 const createListItemAsHTML = (
   product: ProductType,
@@ -950,17 +951,21 @@ const changeThemesOnChristmasEve = (currentThemes: string[]) => {
   }
 };
 
-let resizeTimer;
-
-window.addEventListener('resize', () => {
+const delaySidebarTransitionOnResize = (
+  cartModal: HTMLElement,
+  resizeTimer: number
+) => {
   if (cartModal !== null) {
     cartModal.style.transition = 'none';
   }
-
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
     cartModal.style.transition = 'transform 500ms ease-out';
   }, 250);
+};
+
+window.addEventListener('resize', () => {
+  delaySidebarTransitionOnResize(cartModal, resizeTimer);
 });
 
 /* Initial Function Calls */
