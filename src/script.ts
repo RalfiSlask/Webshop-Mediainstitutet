@@ -548,7 +548,8 @@ const handleClickOnCheckoutButton = (
   // Interval to reset form and make the user know they are lazy
   const fifteenMinutesInSeconds = 15 * 60;
   const updateTimer = initializeFormTimer(fifteenMinutesInSeconds);
-  const countdownInterval = setInterval(updateTimer, 1000);
+  setInterval(updateTimer, 1000);
+
   const checkoutButton = e.target as HTMLElement;
   changeThemeAndDisplayCheckout(checkoutContainer, cartModal, checkoutButton);
 };
