@@ -1,0 +1,9 @@
+.cart_modal {
+  width: 600px;
+  transform: translate(600px);
+  transition: transform 500ms ease-out;
+}
+
+.open-sidebar {
+  transform: translateX(0);
+}

@@ -13,7 +13,6 @@ import {
   toggleInputContainersVisibility,
   toggleVisibilityOfCheckboxes,
   toggleSidebarVisibility,
-  toggleSidebarVisibilityOnKeyDown,
   toggleCategoryContainer,
   toggleCheckboxVisibility,
   toggleMenu,
@@ -21,6 +20,7 @@ import {
   toggleClassOnEnter,
   toggleCartClassesBasedOnNumberOfProducts,
   toggleTheme,
+  toggleSidebarAndLightboxVisibilityBodyNoScroll,
   // booleans
   isItLucia,
   isItChristmasEve,
@@ -84,7 +84,7 @@ const checkoutButton = document.querySelector('#checkout_button');
 const filterModal = document.querySelector('#filter_modal');
 const sortModal = document.querySelector('#sort_modal');
 const menu = document.querySelector('#menu');
-const cartModal = document.querySelector('#cart_modal');
+const cartModal = document.querySelector('#cart_modal') as HTMLElement;
 // Local Storage
 const storedTheme = localStorage.getItem('theme');
 // Other
@@ -232,7 +232,7 @@ const generateList = (productData: ProductType[]) => {
     productContainer.id = 'product';
     // Making the tailwind classes into an array so i can add these to the product container
     const tailwindClasses: string[] =
-      'col-span-4 md:col-span-3 xl:col-span-3 flex-column w-full h-[900px] md:h-[700px] xl:h-[600px] secondary-theme border border-color rounded-md'.split(
+      'col-span-4 md:col-span-3 xl:col-span-3 flex-column w-full h-[600px] md:h-[700px] xl:h-[600px] secondary-theme border border-color rounded-md'.split(
         ' '
       );
     tailwindClasses.forEach((className) => {
@@ -950,6 +950,19 @@ const changeThemesOnChristmasEve = (currentThemes: string[]) => {
   }
 };
 
+let resizeTimer;
+
+window.addEventListener('resize', () => {
+  if (cartModal !== null) {
+    cartModal.style.transition = 'none';
+  }
+
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    cartModal.style.transition = 'transform 500ms ease-out';
+  }, 250);
+});
+
 /* Initial Function Calls */
 
 const initialFunctionCalls = () => {
@@ -987,33 +1000,15 @@ menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
 
-// FILTER
+// FILTERs
 
 filterModal?.addEventListener('click', toggleCategoryContainer);
 filterModal?.addEventListener('click', filterByCategories);
 filterButtonOpen?.addEventListener('click', () => {
-  toggleSidebarVisibility('open-sidebar', filterModal, cartContainer, true);
-});
-filterButtonOpen?.addEventListener('keydown', (e) => {
-  toggleSidebarVisibilityOnKeyDown(
-    e,
-    'open-sidebar',
-    filterModal,
-    cartContainer,
-    true
-  );
+  toggleSidebarVisibility('open-sidebar', filterModal, true);
 });
 filterButtonClose?.addEventListener('click', () => {
-  toggleSidebarVisibility('open-sidebar', filterModal, cartContainer, false);
-});
-filterButtonClose?.addEventListener('keydown', (e) => {
-  toggleSidebarVisibilityOnKeyDown(
-    e,
-    'open-sidebar',
-    filterModal,
-    cartContainer,
-    false
-  );
+  toggleSidebarVisibility('open-sidebar', filterModal, false);
 });
 
 // THEME
@@ -1032,7 +1027,11 @@ listContainer?.addEventListener('keydown', handleKeyPressOnAddToCartButton); // 
 // CART
 
 addToCartButton?.addEventListener('click', () => {
-  toggleSidebarVisibility('open-sidebar', cartModal, cartContainer, true);
+  toggleSidebarAndLightboxVisibilityBodyNoScroll(
+    'open-sidebar',
+    cartModal,
+    true
+  );
   toggleCartClassesBasedOnNumberOfProducts(
     cartArrayOfObjects,
     emptyCartContainer,
@@ -1041,14 +1040,9 @@ addToCartButton?.addEventListener('click', () => {
   );
 });
 closeCartButton?.addEventListener('click', () => {
-  toggleSidebarVisibility('open-sidebar', cartModal, cartContainer, false);
-});
-closeCartButton?.addEventListener('keydown', (e) => {
-  toggleSidebarVisibilityOnKeyDown(
-    e,
+  toggleSidebarAndLightboxVisibilityBodyNoScroll(
     'open-sidebar',
     cartModal,
-    cartContainer,
     false
   );
 });

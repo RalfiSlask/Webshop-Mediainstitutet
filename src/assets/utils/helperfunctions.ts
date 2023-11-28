@@ -166,37 +166,35 @@ export const toggleTheme = (root: HTMLElement) => {
   localStorage.setItem('theme', isDarkModeOn ? 'light' : 'dark');
 };
 
-export const toggleSidebarVisibilityOnKeyDown = (
-  e: Event,
-  animationClass: string,
-  modal: Element | null,
-  cartContainer: Element | null,
-  isOpen: boolean
-) => {
-  const keyboardEvent = e as KeyboardEvent;
-  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
-    toggleSidebarVisibility(animationClass, modal, cartContainer, isOpen);
-  }
-};
-
 export const toggleSidebarVisibility = (
   animationClass: string,
   modal: Element | null,
-  cartContainer: Element | null,
+  isOpen: boolean
+) => {
+  if (isOpen) {
+    modal?.classList.add(animationClass);
+    modal?.classList.add('flex');
+  } else {
+    modal?.classList.remove(animationClass);
+    modal?.classList.remove('flex');
+  }
+};
+
+export const toggleSidebarAndLightboxVisibilityBodyNoScroll = (
+  animationClass: string,
+  modal: Element | null,
   isOpen: boolean
 ) => {
   const body = document.body;
   const lightbox = document.querySelector('#lightbox');
   if (isOpen) {
     modal?.classList.add(animationClass);
-    cartContainer?.classList.add('scroll');
     body.classList.add('no-scroll');
     modal?.classList.add('flex');
     lightbox?.classList.remove('hidden');
   } else {
     modal?.classList.remove(animationClass);
     body.classList.remove('no-scroll');
-    cartContainer?.classList.remove('scroll');
     modal?.classList.remove('flex');
     lightbox?.classList.add('hidden');
   }
