@@ -8,6 +8,13 @@ html {
   box-sizing: border-box;
 }
 
+.product {
+  background-image: url('/src/assets/images/product-background.webp');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .header_navigation {
   ul {
     li {
@@ -49,8 +56,14 @@ html {
   padding-bottom: 12px;
 }
 
+.latest-products {
+  position: relative;
+  padding-bottom: 14px;
+}
+
 .est::before,
-.about-us::before {
+.about-us::before,
+.latest-products::before {
   content: '';
   position: absolute;
   width: 50%;
@@ -97,7 +110,7 @@ html {
 
 .close-categories {
   transform: translateY(-150%);
-  transition: transform 0.1s ease-out;
+  transition: transform 0.3s ease-out;
 }
 
 .open-checkout {
@@ -212,11 +225,11 @@ html {
 }
 
 .icon-hover {
-  @apply hover:text-light-icon-hover hover:dark:text-dark-icon-hover;
+  @apply hover:text-light-icon-hover hover:dark:text-dark-icon-hover transition-all duration-300;
 }
 
 .input {
-  @apply bg-light-input dark:text-white w-full border dark:bg-dark-input px-3 focus:border-light-primary-button-hover-border focus:border-[2px] hover:bg-light-input-hover dark:hover:bg-dark-input-hover outline-none cursor-pointer border-light-border dark:border-dark-border rounded-md h-10;
+  @apply bg-light-input dark:text-white w-full border dark:bg-dark-input px-3 focus:border-pink-400 hover:bg-light-input-hover dark:hover:bg-dark-input-hover outline-none cursor-pointer border-light-border dark:border-dark-border rounded-md h-10;
 }
 
 .custom-grid {
@@ -279,8 +292,16 @@ html {
   @apply bg-light-highest dark:bg-dark-highest hover:bg-light-highest-hover hover:dark:bg-dark-highest-hover;
 }
 
+.categoryPanel {
+  transition: height 0.3s ease-out;
+}
+
 .closed {
   height: 60px;
   padding: 0;
+  transition: height 0.3s ease-out;
+}
+
+.price-list {
   transition: height 0.3s ease-out;
 }

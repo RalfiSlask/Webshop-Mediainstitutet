@@ -12,12 +12,6 @@ export const removeCheckmarksFromButtons = (
   });
 };
 
-export const handleReset = (form: HTMLFormElement | null) => {
-  if (form !== null) {
-    form.reset();
-  }
-};
-
 export const sortByProperty = (
   property: keyof ProductType,
   isDescending: boolean,

@@ -778,7 +778,9 @@
         class="products py-7 flex-column gap-6 main-theme items-center z-0"
       >
         <div class="w-full max-w-[1430px] flex-column items-center gap-8">
-          <h2 class="uppercase text-[2rem] text-center theme-heading">
+          <h2
+            class="latest-products uppercase text-[2rem] mb-[50px] mt-[50px] text-center theme-heading"
+          >
             Latest Products For Sale
           </h2>
           <div class="flex justify-between relative w-full px-4">
@@ -933,10 +935,10 @@
                 </svg>
               </div>
               <div
-                class="fixed border-r border-color secondary-theme min-h-screen left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] py-4 z-50"
+                class="fixed border-r border-color main-theme min-h-screen items-center left-0 flex-column top-[0] w-[400px] transition-transform duration-300 ease-in -translate-x-[400px] py-4 z-50"
                 id="filter_modal"
               >
-                <div class="flex gap-2 items-center mb-10 pl-4">
+                <div class="flex gap-2 items-center mb-10 pl-4 w-full">
                   <svg
                     enable-background="new 0 0 32 32"
                     id="filter2_icon"
@@ -1055,11 +1057,11 @@
                 </div>
 
                 <div
-                  class="categoryPanel border-t relative"
+                  class="categoryPanel border-t relative w-full"
                   id="category_container"
                 >
                   <div
-                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 main-theme"
+                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 secondary-theme"
                   >
                     <h3 class="text-[1.25rem] font-semibold">Category</h3>
                     <svg
@@ -1160,9 +1162,9 @@
                   </div>
                 </div>
 
-                <div class="categoryPanel relative" id="price_container">
+                <div class="categoryPanel relative w-full" id="price_container">
                   <div
-                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 main-theme"
+                    class="flex gap-2 items-center z-10 justify-between category_switcher py-6 px-2 border-color border-b cursor-pointer absolute top-0 overflow-hidden w-full h-10 secondary-theme"
                   >
                     <h3 class="text-[1.25rem] font-semibold">Price Interval</h3>
                     <svg
@@ -1255,7 +1257,7 @@
                   </div>
                 </div>
                 <button
-                  class="main-button w-full left-0 px-2 rounded-full py-1 absolute bottom-3"
+                  class="main-button w-[80%] px-2 rounded-full py-1 absolute bottom-3"
                   id="filter_close"
                 >
                   Close

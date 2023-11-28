@@ -3,7 +3,6 @@ import type { ProductType, CartObjectType } from './assets/utils/types';
 import {
   removeCheckmarksFromButtons,
   sortByProperty,
-  handleReset,
   initialTheme,
   // display
   calculateAndDisplayTotalPrice,
@@ -153,7 +152,7 @@ const createListItemAsHTML = (
       <h2 class="text-[1.5rem]">${name}</h2>
       <p class="font-bold">$${price}</p>
     </div>
-  <div class="w-full bg-gray-200 flex-center h-[400px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
+  <div class="product w-full flex-center h-[400px] md:h-[500px] xl:h-[400px] relative overflow-y-hidden">
     <img
       srcset="
       ${image.tablet} 640w,
@@ -208,16 +207,15 @@ const createListItemAsHTML = (
   </button>
   </div>
   <div class="flex-column gap-2 px-3 py-6">
-    <div class="flex items-center gap-2">
-      <div class="flex items-center">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center" aria-description="Rated ${rating} out of 5">
         ${starsHtml}
       </div>
       <p>(${reviews} reviews)</p>
     </div>
-    <div class="flex gap-3">
-      <p class="text-green-700">In store online (${online}+)</p>
-      <p>|</p>
-      <p class="">In store in ${shop} shop(s)</p>
+    <div class="flex-between">
+      <p class="text-green-700 w-[50%]">In store online (${online}+)</p>
+      <p class="max-w-[100px]">In store in ${shop} shop(s)</p>
     </div>
   </div>
     `;
@@ -493,18 +491,6 @@ const handleClickableItemsOnProducts = (e: Event) => {
   }
 };
 
-/* const initializeFormTimer = (maxCount: number) => {
-  let count = 0;
-  return () => {
-    count += 1;
-    console.log(count);
-    if (count > maxCount) {
-      handleReset(checkoutForm);
-      count = 0;
-    }
-  };
-}; */
-
 const changeThemeAndDisplayCheckout = (
   checkoutContainer: Element | null,
   cartModal: Element | null,
@@ -530,6 +516,17 @@ const changeThemeAndDisplayCheckout = (
   }
 };
 
+const initializeFormTimer = (maxCount: number) => {
+  let count = 0;
+  return () => {
+    count += 1;
+    if (count > maxCount) {
+      handleReset(checkoutForm);
+      count = 0;
+    }
+  };
+};
+
 const handleClickOnCheckoutButton = (
   e: Event,
   checkoutContainer: Element | null,
@@ -549,10 +546,9 @@ const handleClickOnCheckoutButton = (
     invoiceInput?.classList.remove('hide');
   }
   // Interval to reset form and make the user know they are lazy
-  /*  const fifteenMinutesInSeconds = 15 * 60;
-  const updateTimer = initializeFormTimer(fifteenMinutesInSeconds)
-  const countdownInterval = setInterval(updateTimer, 1000); */
-
+  const fifteenMinutesInSeconds = 15 * 60;
+  const updateTimer = initializeFormTimer(fifteenMinutesInSeconds);
+  const countdownInterval = setInterval(updateTimer, 1000);
   const checkoutButton = e.target as HTMLElement;
   changeThemeAndDisplayCheckout(checkoutContainer, cartModal, checkoutButton);
 };
@@ -746,6 +742,27 @@ const proceedAndSetupConfirmation = (cartContainer: Element | null) => {
   dateContainer.textContent = getCurrentDateAsString();
   confirmationContainer?.classList.remove('hide');
   cartContainer?.classList.add('hide');
+};
+
+const handleReset = (form: HTMLFormElement | null) => {
+  if (form !== null) {
+    form.reset();
+    const allRequiredInputs = document.querySelectorAll(
+      'input[required]'
+    ) as NodeListOf<HTMLInputElement>;
+    allRequiredInputs.forEach((input) => {
+      const inputTypeObject = arrayOfInputTests.find((test) =>
+        input.classList.contains(test.type)
+      );
+      if (inputTypeObject !== undefined) {
+        handleValidityOfInputsWithRegex(input, inputTypeObject?.regEx);
+      }
+    });
+    changeSubmitButtonColorDependingOnFormValidity(
+      isTheFormValid(),
+      submitButton
+    );
+  }
 };
 
 const handleSubmit = (form: HTMLFormElement | null) => {
