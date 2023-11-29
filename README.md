@@ -7,7 +7,6 @@ Built with
 - Sass
 - Tailwind
 - Typescript
-- Tailwind
 
 Author
 
