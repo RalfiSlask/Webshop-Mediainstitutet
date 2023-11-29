@@ -548,8 +548,6 @@ const handleClickOnSlowModalButtons = (e: Event) => {
   }
 };
 
-slowModal?.addEventListener('click', handleClickOnSlowModalButtons);
-
 const handleClickOnCheckoutButton = (
   e: Event,
   checkoutContainer: Element | null,
@@ -1081,6 +1079,7 @@ cartContainer?.addEventListener('click', handleClickableItemsOnProducts); // pre
 
 checkoutForm.addEventListener('input', handleChangeOnCheckoutInputs); // handle changes when user types in form inputs
 checkoutContainer?.addEventListener('click', clickingOnCheckBoxes);
+slowModal?.addEventListener('click', handleClickOnSlowModalButtons);
 checkoutButton?.addEventListener('click', (e) => {
   handleClickOnCheckoutButton(
     e,
