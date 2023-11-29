@@ -60,7 +60,7 @@
     id="Home"
   >
     <div
-      class="w-full left-0 hidden min-h-screen md:hidden fixed z-[30] pt-[300px] secondary-theme"
+      class="w-full left-0 hidden min-h-screen md:hidden fixed z-[30] pt-[300px] secondary-theme menu"
       id="menu"
     >
       <nav class="md:flex absolute left-1/2 -translate-x-1/2">
@@ -70,8 +70,8 @@
         >
           <li class="navtext"><a href="#Home">Home</a></li>
           <li class="navtext"><a href="#About">About</a></li>
-          <li class="navtext">Services</li>
-          <li class="navtext">FAQs</li>
+          <li class="navtext"><a href="#Home">Services</a></li>
+          <li class="navtext"><a href="#Home">FAQs</a></li>
           <li class="navtext"><a href="#Footer">Contact</a></li>
         </ul>
       </nav>
@@ -80,6 +80,21 @@
       class="fixed min-h-screen z-40 w-full bg-black opacity-50 hidden"
       id="lightbox"
     ></div>
+    <div
+      class="fixed min-h-screen w-full bg-white opacity-70 z-[60] hidden"
+      id="lightbox-slow"
+    ></div>
+    <div
+      class="hide w-[300px] h-[150px] z-[70] fixed top-1/2 -translate-y-1/2 main-theme p-4 flex-column items-center justify-between rounded-md border border-color"
+      id="slow_modal"
+    >
+      <h2 class="font-semibold text-[1.5rem]">You were to slow</h2>
+      <div class="flex items-center gap-4">
+        <button class="main-button px-4 py-1 rounded-3xl" id="button_continue">
+          Continue
+        </button>
+      </div>
+    </div>
 
     <div
       class="cart_modal fixed border-l border-color secondary-theme h-screen right-0 flex-column items-center top-0 z-50"
@@ -686,8 +701,8 @@
           <ul class="flex gap-4 cursor-pointer">
             <li class="navtext"><a href="#Home">Home</a></li>
             <li class="navtext"><a href="#About">About</a></li>
-            <li class="navtext">Services</li>
-            <li class="navtext">FAQs</li>
+            <li class="navtext"><a href="#Home">Services</a></li>
+            <li class="navtext"><a href="#Home">FAQs</a></li>
             <li class="navtext"><a href="#Footer">Contact</a></li>
           </ul>
         </nav>
@@ -1299,7 +1314,7 @@
     </main>
 
     <footer
-      class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer dark:bg-dark-Footer border-t border-color w-full"
+      class="span-whole-grid py-8 custom-grid gap-y-8 bg-light-Footer dark:bg-dark-Footer border-t border-color w-full mt-16"
       id="Footer"
     >
       <div
@@ -1333,7 +1348,7 @@
         </div>
       </div>
       <div
-        class="flex flex-col col-span-4 xl:flex-row xl:gap-8 md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
+        class="flex flex-col gap-4 col-span-4 xl:flex-row xl:gap-8 md:col-span-4 xl:col-span-3 justify-between px-4 items-center"
       >
         <nav class="flex gap-4">
           <svg

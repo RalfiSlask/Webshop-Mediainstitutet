@@ -53,7 +53,7 @@ const checkoutForm = document.querySelector(
   '#checkout_form'
 ) as HTMLFormElement;
 const discountContainer = document.querySelector('#discount_container');
-const listContainer = document.querySelector('#list_container'); // products container for holding the list of products
+const productListContainer = document.querySelector('#list_container'); // products container for holding the list of products
 const cartContainer = document.querySelector('#cart_container'); // cart container for holding the list of products
 const totalPriceContainer = document.querySelector('#total_price');
 const emptyCartContainer = document.querySelector('#empty_cart');
@@ -62,6 +62,7 @@ const paymentInputsContainer = document.querySelector('#payment_inputs');
 const invoiceInput = document.querySelector('#invoice_input');
 const cardInput = document.querySelector('#card_input');
 const shippingContainer = document.querySelector('#shipping_confirm');
+const slowModal = document.querySelector('#slow_modal');
 
 // Buttons / ListItems
 const validateButton = document.querySelector('#validate_button');
@@ -115,12 +116,13 @@ const currentThemes = [
   'main-Heading'
 ];
 
-let productArrayOfObjects = productData;
+let productArrayOfObjects = productData; // original array of products
 let cartArrayOfObjects: CartObjectType[] = [];
 let isCheckoutOpen = false;
 let resizeTimer: number; // interval ID
+let checkoutTimer: number; // ID for the setTimeout checkout timer
 
-const createListItemAsHTML = (
+const createProductAsHTML = (
   product: ProductType,
   productContainer: HTMLElement
 ) => {
@@ -220,14 +222,15 @@ const createListItemAsHTML = (
     </div>
   </div>
     `;
-  listContainer?.append(productContainer);
+  productListContainer?.append(productContainer);
 };
 
-const generateList = (productData: ProductType[]) => {
-  if (listContainer === null) {
+const generateListOfProducts = (productData: ProductType[]) => {
+  if (productListContainer === null) {
     return;
   }
-  listContainer.innerHTML = '';
+  // Makes sure the container is empty before adding products
+  productListContainer.innerHTML = '';
   productData.forEach((product) => {
     const productContainer = document.createElement('div');
     productContainer.id = 'product';
@@ -239,7 +242,7 @@ const generateList = (productData: ProductType[]) => {
     tailwindClasses.forEach((className) => {
       productContainer.classList.add(className);
     });
-    createListItemAsHTML(product, productContainer);
+    createProductAsHTML(product, productContainer);
   });
 };
 
@@ -275,6 +278,7 @@ const generateProductsInCartAsHTML = (
   cartContainer: Element | null
 ) => {
   if (arrayOfObjects.length > 0 && cartContainer !== null) {
+    // Make sure the container is empty before adding new cart products
     cartContainer.innerHTML = '';
     arrayOfObjects.forEach((product) => {
       const cartPanel = document.createElement('div');
@@ -321,6 +325,7 @@ const changeColorOfCheckoutButtonDependingOnTotalPrice = (
   checkoutButton: Element | null
 ) => {
   const price = Number(priceContainer?.textContent?.replace('$ ', ''));
+  // remove all initial color classes on the checkoutbutton so it does not stack;
   checkoutButton?.classList.remove(
     'lowest',
     'low',
@@ -352,17 +357,6 @@ const addToCartProcess = (target: HTMLElement) => {
   const id = Number(cartButton.id.replace('add_cart_button-', ''));
   const product = productData.find((product) => product.id === id);
   addProductToCart(product);
-};
-
-const handleKeyPressOnAddToCartButton = (e: Event) => {
-  const keyboardEvent = e as KeyboardEvent;
-  if (keyboardEvent.key === 'Enter' || keyboardEvent.key === '') {
-    const target = keyboardEvent.target as HTMLElement;
-    if (target === null) {
-      return;
-    }
-    addToCartProcess(target);
-  }
 };
 
 const handleClickOnAddToCartButton = (e: Event) => {
@@ -505,28 +499,56 @@ const changeThemeAndDisplayCheckout = (
     mondayDiscountContainer?.classList.add('hide');
     checkoutContainer?.classList.add('open-checkout');
     checkoutContainer?.classList.remove('hide');
-    // change from main to secondary theme
     cartModal?.classList.add('main-theme');
     cartModal?.classList.remove('secondary-theme');
     cartContainer?.classList.add('hide');
     orderButton?.classList.remove('hide');
     // remove ability to close the checkout
     cartIcon?.classList.add('hide');
-    // change text in heading to checkout
     cartHeading.textContent = 'Checkout';
   }
 };
 
-const initializeFormTimer = (maxCount: number) => {
-  let count = 0;
-  return () => {
-    count += 1;
-    if (count > maxCount) {
-      handleReset(checkoutForm);
-      count = 0;
-    }
-  };
+const openOrCloseSlowModal = (modal: Element | null, isOpen: boolean) => {
+  const whiteLightBox = document.querySelector('#lightbox-slow');
+  if (isOpen) {
+    modal?.classList.add('hide');
+    whiteLightBox?.classList.add('hidden');
+  } else {
+    modal?.classList.remove('hide');
+    whiteLightBox?.classList.remove('hidden');
+  }
 };
+
+const startCheckoutTimer = () => {
+  checkoutTimer = setTimeout(() => {
+    handleReset(checkoutForm);
+    openOrCloseSlowModal(slowModal, false);
+  }, 90000);
+};
+
+const onCheckoutComplete = () => {
+  clearTimeout(checkoutTimer);
+};
+
+const resetTimeout = () => {
+  clearTimeout(checkoutTimer);
+  startCheckoutTimer();
+};
+
+const handleClickOnContinue = () => {
+  openOrCloseSlowModal(slowModal, true);
+  resetTimeout();
+};
+
+const handleClickOnSlowModalButtons = (e: Event) => {
+  const target = e.target as HTMLElement;
+  if (target.id === 'button_continue') {
+    handleClickOnContinue();
+  }
+};
+
+slowModal?.addEventListener('click', handleClickOnSlowModalButtons);
 
 const handleClickOnCheckoutButton = (
   e: Event,
@@ -535,7 +557,7 @@ const handleClickOnCheckoutButton = (
   totalPriceContainer: Element | null,
   invoiceInput: Element | null
 ) => {
-  // change isCheckoutOpen to ture to make sure the user cant add more items
+  // change isCheckoutOpen to true to make sure the user cant add more items
   isCheckoutOpen = true;
   const currentPrice = Number(
     totalPriceContainer?.textContent?.replace('$ ', '')
@@ -546,11 +568,8 @@ const handleClickOnCheckoutButton = (
   } else {
     invoiceInput?.classList.remove('hide');
   }
-  // Interval to reset form and make the user know they are lazy
-  const fifteenMinutesInSeconds = 15 * 60;
-  const updateTimer = initializeFormTimer(fifteenMinutesInSeconds);
-  setInterval(updateTimer, 1000);
-
+  // timer to reset form and make the user know they are lazy
+  startCheckoutTimer();
   const checkoutButton = e.target as HTMLElement;
   changeThemeAndDisplayCheckout(checkoutContainer, cartModal, checkoutButton);
 };
@@ -566,6 +585,7 @@ const handleClickOnValidateButton = (e: Event) => {
   ) as HTMLElement;
   if (discountInput !== undefined && totalPriceContainer !== null) {
     discountText.classList.remove('hide');
+
     if (discountInput.value === 'a_damn_fine-cup_of-coffee') {
       discountText.textContent = 'Congratulations!';
       discountText.style.color = 'green';
@@ -600,7 +620,7 @@ const isAnyCategoriesSelected = (
   const noneChecked = !isAnyCategoryChecked && !isAnyPriceChecked; // if both are empty
   if (noneChecked) {
     productArrayOfObjects = productData;
-    generateList(productData);
+    generateListOfProducts(productData);
     // exiting the function with the original list of products when both lists are empty
     return true;
   }
@@ -749,15 +769,16 @@ const proceedAndSetupConfirmation = (cartContainer: Element | null) => {
 const handleReset = (form: HTMLFormElement | null) => {
   if (form !== null) {
     form.reset();
-    const allRequiredInputs = document.querySelectorAll(
-      'input[required]'
-    ) as NodeListOf<HTMLInputElement>;
-    allRequiredInputs.forEach((input) => {
-      const inputTypeObject = arrayOfInputTests.find((test) =>
-        input.classList.contains(test.type)
-      );
-      if (inputTypeObject !== undefined) {
-        handleValidityOfInputsWithRegex(input, inputTypeObject?.regEx);
+    const allRequiredInputs = document.querySelectorAll('input[required]');
+    allRequiredInputs.forEach((element) => {
+      if (element instanceof HTMLInputElement) {
+        const input = element;
+        const inputTypeObject = arrayOfInputTests.find((test) =>
+          input.classList.contains(test.type)
+        );
+        if (inputTypeObject !== undefined) {
+          handleValidityOfInputsWithRegex(input, inputTypeObject?.regEx);
+        }
       }
     });
     changeSubmitButtonColorDependingOnFormValidity(
@@ -794,6 +815,8 @@ const handleSubmit = (form: HTMLFormElement | null) => {
   });
   if (isTheFormValid() === true) {
     proceedAndSetupConfirmation(cartContainer);
+    // removes the checkoutTimer
+    onCheckoutComplete();
   }
 };
 
@@ -900,7 +923,7 @@ const filterByCategories = (e: Event) => {
     return;
   }
   productArrayOfObjects = getFilteredProductsDependingOnSelectedCategories();
-  generateList(productArrayOfObjects);
+  generateListOfProducts(productArrayOfObjects);
 };
 
 const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
@@ -921,7 +944,7 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   }
   value = getObjectPropertyByText(value, clickedText);
   const sortedArray = sortByProperty(value, isDescending, [...arrayOfObjects]);
-  generateList(sortedArray);
+  generateListOfProducts(sortedArray);
 };
 
 const addMouseToCartIfItIsLucia = () => {
@@ -964,17 +987,13 @@ const delaySidebarTransitionOnResize = (
   }, 250);
 };
 
-window.addEventListener('resize', () => {
-  delaySidebarTransitionOnResize(cartModal, resizeTimer);
-});
-
 /* Initial Function Calls */
 
 const initialFunctionCalls = () => {
   addMouseToCartIfItIsLucia();
   displayMondayDiscountText();
   initialTheme(doesUserPreferDark, root, storedTheme);
-  generateList(productData);
+  generateListOfProducts(productData);
   changeThemesOnChristmasEve(currentThemes);
 };
 
@@ -1005,7 +1024,7 @@ menuButton?.addEventListener('click', (e) => {
   toggleMenu(e, menuButton, menu);
 });
 
-// FILTERs
+// FILTER
 
 filterModal?.addEventListener('click', toggleCategoryContainer);
 filterModal?.addEventListener('click', filterByCategories);
@@ -1024,10 +1043,15 @@ darkmodeButton?.addEventListener('click', () => {
 
 // PRODUCT
 
-listContainer?.addEventListener('mouseover', handleMouseEnterOnAddToCart); // mouse over cart button
-listContainer?.addEventListener('mouseout', handleMouseLeaveOnProductContainer); // mouse leaving product container
-listContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
-listContainer?.addEventListener('keydown', handleKeyPressOnAddToCartButton); // pressing Enter on cart button
+productListContainer?.addEventListener(
+  'mouseover',
+  handleMouseEnterOnAddToCart
+); // mouse over cart button
+productListContainer?.addEventListener(
+  'mouseout',
+  handleMouseLeaveOnProductContainer
+); // mouse leaving product container
+productListContainer?.addEventListener('click', handleClickOnAddToCartButton); // clicking on cart button
 
 // CART
 
@@ -1077,3 +1101,9 @@ paymentInputsContainer?.addEventListener('click', (e) => {
   togglePaymentMethod(e, invoiceInput, cardInput);
 });
 discountContainer?.addEventListener('input', handleChangeOnDiscountInput);
+
+// RESIZE OF SCREEN SIZE
+
+window.addEventListener('resize', () => {
+  delaySidebarTransitionOnResize(cartModal, resizeTimer);
+});

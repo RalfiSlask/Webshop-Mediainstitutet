@@ -36,12 +36,12 @@ export default {
           lowest: '#E2E2E2',
           low: '#D0E8D0',
           medium: '#4DA8B0',
-          high: '#FAD2E1',
+          high: '#90ee90',
           highest: '#CCAE7B',
           'lowest-hover': '#FEFEFE',
           'low-hover': '#B9D3BA',
           'medium-hover': '#62BEC9',
-          'high-hover': '#FBC4D4',
+          'high-hover': '#90eea4',
           'highest-hover': '#F3ECE0'
         },
         dark: {
