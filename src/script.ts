@@ -346,6 +346,11 @@ const changeColorOfCheckoutButtonDependingOnTotalPrice = (
   }
 };
 
+/**
+ * Finds product that matches id on html product and adds to addProductToCart function
+ * @param target HTMLElement
+ * @returns exits if the checkout is open
+ */
 const addToCartProcess = (target: HTMLElement) => {
   if (isCheckoutOpen) {
     return;
@@ -368,6 +373,40 @@ const handleClickOnAddToCartButton = (e: Event) => {
   addToCartProcess(target);
 };
 
+/**
+ * Utility function for updating the UI of the cart
+ * @param updateDisplayOnCartLogo boolean
+ */
+const updateCartUI = (updateDisplayOnCartLogo: boolean) => {
+  calculateAndDisplayTotalPrice(
+    cartArrayOfObjects,
+    totalPriceContainer,
+    shippingContainer
+  );
+  if (updateDisplayOnCartLogo) {
+    displayNumberOfProductsOnCartLogo(
+      cartDisplayButton,
+      cartArrayOfObjects.length
+    );
+  }
+  toggleCartClassesBasedOnNumberOfProducts(
+    cartArrayOfObjects,
+    emptyCartContainer,
+    cartContainer,
+    checkoutButton
+  );
+  generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
+  changeColorOfCheckoutButtonDependingOnTotalPrice(
+    totalPriceContainer,
+    checkoutButton
+  );
+};
+
+/**
+ * Adds product to cart
+ * @param product object of ProductType
+ * @returns exits if product is undefined
+ */
 const addProductToCart = (product: ProductType | undefined) => {
   if (product === undefined) {
     return;
@@ -381,83 +420,31 @@ const addProductToCart = (product: ProductType | undefined) => {
   if (!doesObjectExistInArray) {
     cartArrayOfObjects.push(cartProduct);
   }
-  calculateAndDisplayTotalPrice(
-    cartArrayOfObjects,
-    totalPriceContainer,
-    shippingContainer
-  );
-  displayNumberOfProductsOnCartLogo(
-    cartDisplayButton,
-    cartArrayOfObjects.length
-  );
-  toggleCartClassesBasedOnNumberOfProducts(
-    cartArrayOfObjects,
-    emptyCartContainer,
-    cartContainer,
-    checkoutButton
-  );
-  generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
-  changeColorOfCheckoutButtonDependingOnTotalPrice(
-    totalPriceContainer,
-    checkoutButton
-  );
+  updateCartUI(true);
 };
 
+/**
+ * Removes product in the cart based on its id
+ * @param clickedId number
+ */
 const handleclickOnRemove = (clickedId: number) => {
   cartArrayOfObjects = cartArrayOfObjects.filter(
     (product) => product.id !== clickedId
   );
-  toggleCartClassesBasedOnNumberOfProducts(
-    cartArrayOfObjects,
-    emptyCartContainer,
-    cartContainer,
-    checkoutButton
-  );
-  calculateAndDisplayTotalPrice(
-    cartArrayOfObjects,
-    totalPriceContainer,
-    shippingContainer
-  );
-  displayNumberOfProductsOnCartLogo(
-    cartDisplayButton,
-    cartArrayOfObjects.length
-  );
-  generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
-  changeColorOfCheckoutButtonDependingOnTotalPrice(
-    totalPriceContainer,
-    checkoutButton
-  );
+  updateCartUI(true);
 };
 
 const handleclickOnPlusSign = (product: CartObjectType) => {
   if (product.count > 0) {
     product.count += 1;
-    calculateAndDisplayTotalPrice(
-      cartArrayOfObjects,
-      totalPriceContainer,
-      shippingContainer
-    );
-    generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
-    changeColorOfCheckoutButtonDependingOnTotalPrice(
-      totalPriceContainer,
-      checkoutButton
-    );
+    updateCartUI(false);
   }
 };
 
 const handleClickOnMinusSign = (product: CartObjectType) => {
   if (product.count > 1) {
     product.count -= 1;
-    calculateAndDisplayTotalPrice(
-      cartArrayOfObjects,
-      totalPriceContainer,
-      shippingContainer
-    );
-    generateProductsInCartAsHTML(cartArrayOfObjects, cartContainer);
-    changeColorOfCheckoutButtonDependingOnTotalPrice(
-      totalPriceContainer,
-      checkoutButton
-    );
+    updateCartUI(false);
   }
 };
 
@@ -791,6 +778,7 @@ const handleSubmit = (form: HTMLFormElement | null) => {
     'input[required]'
   ) as NodeListOf<HTMLInputElement>;
   allRequiredInputs?.forEach((input) => {
+    // if an input is empty, a message is revealed that says cant be empty
     if (input.value.trim() === '') {
       const errorText =
         input.parentElement?.parentElement?.querySelector('p[aria-live]');
@@ -799,6 +787,7 @@ const handleSubmit = (form: HTMLFormElement | null) => {
         errorText.classList.remove('hide');
       }
     } else {
+      // if the input is filled test with regExp according to the input type and regExp
       const inputTypeObject = arrayOfInputTests.find((test) =>
         input.classList.contains(test.type)
       );
@@ -933,6 +922,7 @@ const handleClickOnSortButtons = (e: Event, arrayOfObjects: ProductType[]) => {
   if (clickedText === undefined) {
     return;
   }
+  // changing if the array should be sorted in ascending or descending order depending on the text
   let isDescending: boolean = false;
   let value: keyof ProductType = 'name';
   if (clickedText.includes('high to low')) {
@@ -972,6 +962,12 @@ const changeThemesOnChristmasEve = (currentThemes: string[]) => {
   }
 };
 
+/**
+ * Delays the sidebar translate effect when the user is resizing between tablet
+ * and mobile due to changes in its width so it is no visible during the resizing
+ * @param cartModal HTMLElement
+ * @param resizeTimer number
+ */
 const delaySidebarTransitionOnResize = (
   cartModal: HTMLElement,
   resizeTimer: number
